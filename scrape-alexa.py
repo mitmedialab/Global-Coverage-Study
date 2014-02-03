@@ -1,5 +1,7 @@
 import requests, md5, math, csv, logging
 from bs4 import BeautifulSoup
+import tldextract
+
 import cache
 
 URLS_PER_PAGE = 25
@@ -20,8 +22,13 @@ def extract_ranked_urls(content):
 	ranks = []
 	for li in soup.find_all('li', class_="site-listing"):
 		rank = li.div.string
-		url = li.h2.string.split("/")[0]
-		ranks.append([rank,url])
+		url = li.h2.string
+		domain_parts = tldextract.extract(url)
+		if domain_parts[0]=='':
+			domain = '.'.join( domain_parts[1:] )
+		else:
+			domain = '.'.join( domain_parts )
+		ranks.append([rank,domain,url])
 	return ranks
 
 def scrape_page(url):
@@ -42,7 +49,7 @@ def scrape_top(category, count):
 def write_ranks_csv(name, data):
 	with open(name, 'wb') as csvfile:
 		writer = csv.writer(csvfile)
-		writer.writerow(['rank', 'url', 'type', 'country'])
+		writer.writerow(['rank', 'domain', 'url', 'type', 'country'])
 		for row in data:
 			writer.writerow(row)
 
@@ -50,7 +57,7 @@ logging.basicConfig(level=logging.DEBUG)
 logging.info("Starting scraper:")
 
 news_ranks = scrape_top( NEWS_CATEGORY, 200 )
-write_ranks_csv('alexa-new-ranks.csv', news_ranks)
+write_ranks_csv('alexa-news-ranks.csv', news_ranks)
 
 arts_ranks = scrape_top( ARTS_CATEGORY, 100 )
 write_ranks_csv('alexa-arts-ranks.csv', arts_ranks)
