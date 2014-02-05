@@ -1,0 +1,101 @@
+rank,domain,url,CD type,CD country,LL type,LL country,RB type,RB country,type,country,global rank,us rank,bounce rate,daily pageview,daily time on site
+1,facebook.com,facebook.com/#!/pages/Bill-Farmer/104106626293973,mismatch,US,mismatch,US,mismatch,US,mismatch,us,2,2,20.60%,15.80,30:29
+2,youtube.com,youtube.com,mismatch,US,mismatch,US,mismatch,US,mismatch,us,3,3,31.30%,11.94,18:15
+3,twitter.com,twitter.com/#!/nbctheevent,mismatch,US,mismatch,US,mismatch,US,mismatch,us,11,9,32.10%,5.64,9:15
+4,imdb.com,imdb.com,mismatch,US,mismatch,US,mismatch,US,mismatch,us,45,28,31.30%,6.29,4:18
+5,bbc.co.uk,bbc.co.uk,Broadcast,GB,broadcast,GB,broadcast,GB,broadcast,gb,55,5,38.00%,4.31,6:02
+6,cnn.com,cnn.com,Broadcast,US,broadcast,US,broadcast,US,broadcast,us,63,16,50.50%,3.18,5:05
+7,espn.go.com,espn.go.com,Broadcast,US,online,US,broadcast,US,broadcast,us,84,22,31.40%,5.82,7:57
+8,weather.com,weather.com,Weather,US,weather,GB,weather,US,weather,us,114,23,24.50%,3.73,3:46
+9,bbc.co.uk,bbc.co.uk/news/,Broadcast,GB,broadcast,GB,broadcast,GB,broadcast,gb,55,5,38.00%,4.31,6:02
+10,livejournal.com,livejournal.com,Online,US,mismatch,US,mismatch,RU,mismatch,us,137,11,47.60%,5.16,7:11
+11,deviantart.com,deviantart.com,Mismatch,,mismatch,US,mismatch,US,mismatch,us,130,101,40.60%,10.40,6:03
+12,foxnews.com,foxnews.com,Broadcast,US,broadcast,US,broadcast,US,broadcast,us,170,39,46.70%,2.94,5:55
+13,www.facebook.com,https://www.facebook.com/,mismatch,US,mismatch,US,mismatch,US,mismatch,us,2,2,20.60%,15.80,30:29
+14,pandora.com,pandora.com,Mismatch ,US,mismatch,US,mismatch,US,mismatch,us,230,52,52.30%,2.94,4:17
+15,movies.yahoo.com,movies.yahoo.com,Online,US,mismatch,US,mismatch,US,mismatch,us,4,4,31.40%,5.77,7:46
+16,nbcnews.com,nbcnews.com,Broadcast,US,broadcast,US,broadcast,US,broadcast,us,253,66,57.90%,1.93,3:37
+17,ndtv.com,ndtv.com,broadcast,IN,broadcast,IN,broadcast,US,broadcast,in,279,24,50.40%,3.60,4:44
+18,hulu.com,hulu.com,Broadcast,US,mismatch,US,mismatch,US,mismatch,us,302,71,34.50%,5.02,5:27
+19,scribd.com,scribd.com,Mismatch,,mismatch,US,mismatch,US,mismatch,us,306,151,53.40%,2.74,3:12
+20,tmz.com,tmz.com,Online,US,aggregator,US,online,US,online,us,341,92,62.00%,2.77,4:05
+21,tv.yahoo.com,tv.yahoo.com,Broadcast,US,mismatch,US,mismatch,US,mismatch,us,4,4,31.40%,5.77,7:46
+22,abcnews.go.com,abcnews.go.com,Broadcast,US,broadcast,US,broadcast,US,broadcast,us,482,129,66.30%,1.71,2:39
+23,money.cnn.com,money.cnn.com,Broadcast,US,aggregator,US,broadcast,US,broadcast,us,63,16,50.50%,3.18,5:05
+24,eonline.com,eonline.com,Broadcast,US,online,US,broadcast,US,broadcast,us,583,202,58.20%,3.43,3:08
+25,msn.foxsports.com,msn.foxsports.com,Broadcast,US,broadcast,US,broadcast,US,broadcast,us,580,124,57.40%,2.41,3:39
+26,rottentomatoes.com,rottentomatoes.com,Online,US,mismatch,US,mismatch,US,mismatch,us,679,313,39.10%,3.58,3:15
+27,azlyrics.com,azlyrics.com,Mismatch,,mismatch,US,mismatch,US,mismatch,us,644,390,72.00%,1.74,2:54
+28,npr.org,npr.org,Broadcast,US,broadcast,US,broadcast,US,broadcast,us,656,179,68.00%,1.88,2:40
+29,foodnetwork.com,foodnetwork.com,Mismatch,US,mismatch,US,mismatch,US,mismatch,us,623,201,51.20%,2.98,3:02
+30,urbandictionary.com,urbandictionary.com,mismatch,US,mismatch,US,mismatch,US,mismatch,us,609,285,68.40%,1.90,2:01
+31,cnbc.com,cnbc.com,Broadcast,US,broadcast,US,broadcast,US,broadcast,us,632,189,50.50%,2.47,3:32
+32,wired.com,wired.com,Magazine,US,magazine,US,magazine,US,magazine,us,646,339,60.50%,1.85,2:52
+33,gawker.com,gawker.com,Online,US,online,GB,online,US,online,us,625,191,61.70%,2.28,3:57
+34,deezer.com,deezer.com,Mismatch ,,magazine,FR,mismatch,US,mismatch,ERROR,745,58,40.10%,4.30,5:18
+35,sky.com,sky.com,Broadcast ,Gb,mismatch,GB,broadcast,US,broadcast,gb,924,33,43.10%,3.42,3:57
+36,comcast.com,comcast.com,Mismatch,US,mismatch,US,mismatch,US,mismatch,us,947,207,26.00%,4.32,4:11
+37,fandango.com,fandango.com,Mismatch,US,mismatch,US,mismatch,US,mismatch,us,1096,300,28.50%,3.88,3:43
+38,cbsnews.com,cbsnews.com,Broadcast,US,broadcast,US,broadcast,US,broadcast,us,890,278,63.50%,2.25,2:39
+39,spotify.com,spotify.com,online,US,mismatch,US,mismatch,US,mismatch,us,1074,704,34.90%,3.97,4:02
+40,ultimate-guitar.com,ultimate-guitar.com,Mismatch,,mismatch,US,mismatch,US,mismatch,us,1057,641,41.70%,4.54,5:50
+41,last.fm,last.fm,Mismatch,US,mismatch,GB,mismatch,US,mismatch,us,1044,747,44.90%,4.06,3:43
+42,cbc.ca,cbc.ca,Broadcast,CA,broadcast,CA,broadcast,CA,broadcast,ca,1026,32,59.10%,2.21,3:33
+43,cbs.com,cbs.com,Broadcast,US,broadcast,US,broadcast,US,broadcast,us,1028,295,39.40%,3.30,3:06
+44,foxnews.com,foxnews.com/entertainment/,Broadcast,US,broadcast,US,broadcast,US,broadcast,us,170,39,46.70%,2.94,5:55
+45,sportsillustrated.cnn.com,sportsillustrated.cnn.com,Magazine,US,magazine,US,broadcast,US,magazine,us,63,16,50.50%,3.18,5:05
+46,ksl.com,ksl.com, Broadcast,Us,broadcast,US,broadcast,US,broadcast,us,1268,291,26.80%,9.26,8:40
+47,salon.com,salon.com,Online,US,online,US,online,US,online,us,1336,411,63.30%,2.15,3:24
+48,pbs.org,pbs.org,Broadcast,US,broadcast,US,broadcast,US,broadcast,us,1380,316,53.00%,2.43,2:41
+49,hgtv.com,hgtv.com,Mismatch,US,mismatch,US,mismatch,US,mismatch,us,1830,249,30.20%,3.13,2:53
+50,theatlantic.com,theatlantic.com,Magazine,US,magazine,US,magazine,US,magazine,us,1406,509,70.60%,1.46,2:30
+51,tvguide.com,tvguide.com,Magazine,US,magazine,US,mismatch,US,magazine,us,1321,355,45.30%,2.63,2:52
+52,ew.com,ew.com,Broadcast,US,magazine,US,magazine,US,magazine,us,1253,384,60.20%,2.11,2:49
+53,home.disney.go.com,home.disney.go.com,Mismatch,US,mismatch,US,mismatch,US,mismatch,us,907,258,38.00%,4.71,5:26
+54,dw.de,dw.de,broadcast,DE,aggregator,DE,broadcast,DE,broadcast,de,1411,2424,62.60%,2.13,3:14
+55,metrolyrics.com,metrolyrics.com,mismatch,,mismatch,US,mismatch,US,mismatch,us,1343,918,75.70%,1.42,2:14
+56,hollywoodreporter.com,hollywoodreporter.com,magazine,US,magazine,US,mismatch,US,magazine,us,1402,402,72.30%,1.58,2:37
+57,discogs.com,discogs.com,mismatch,,mismatch,US,mismatch,US,mismatch,us,1496,1580,31.40%,11.73,7:39
+58,rollingstone.com,rollingstone.com,Magazine,US,magazine,US,magazine,US,magazine,us,1458,490,61.00%,3.98,3:26
+59,mtv.com,mtv.com,Broadcast ,US,mismatch,US,mismatch,US,mismatch,us,1420,433,60.20%,2.33,2:32
+60,discovery.com,discovery.com,Broadcast,US,mismatch,US,mismatch,US,mismatch,us,1570,602,64.10%,1.92,2:33
+61,abc.net.au,abc.net.au,Broadcast,AU,broadcast,AU,broadcast,US,broadcast,au,1445,26,55.30%,2.49,3:41
+62,fanfiction.net,fanfiction.net,mismatch,,mismatch,US,broadcast,US,mismatch,us,1807,661,26.90%,12.66,20:18
+63,egotastic.com,egotastic.com,mismatch,,mismatch,US,mismatch,US,mismatch,us,1729,811,31.70%,14.90,4:04
+64,skyscrapercity.com,skyscrapercity.com,mismatch,,mismatch,NL,mismatch,US,mismatch,ERROR,1759,2148,30.80%,6.87,7:49
+65,billboard.com,billboard.com/#/news/phair-play-liz-indulges-in-the-major-label-1933414.story,Mismatch,,mismatch,US,mismatch,US,mismatch,us,1896,848,50.40%,3.21,2:53
+66,filmaffinity.com,filmaffinity.com,Mismatch,,mismatch,US,mismatch,US,mismatch,us,1956,69,35.80%,6.02,4:42
+67,abc.go.com,abc.go.com,broadcast,US,broadcast,US,broadcast,US,broadcast,us,1731,393,43.20%,2.75,2:37
+68,metacritic.com,metacritic.com,mismatch,,mismatch,US,aggregator,US,mismatch,us,1861,1424,38.90%,3.86,2:55
+69,cbc.ca,cbc.ca/news/,broadcast,CA,broadcast,CA,broadcast,CA,broadcast,ca,1026,32,59.10%,2.21,3:33
+70,rapgenius.com,rapgenius.com,mismatch,,mismatch,US,mismatch,US,mismatch,us,1654,835,"1,197,706","2,468,257","21,122,771"
+71,directv.com,directv.com,mismatch,US,mismatch,US,mismatch,US,mismatch,us,1981,459,21.20%,5.36,5:14
+72,tv.com,tv.com,mismatch,,mismatch,US,mismatch,US,mismatch,us,1932,1122,43.60%,2.87,2:29
+73,tv.msn.com,tv.msn.com,mismatch,US,mismatch,US,mismatch,US,mismatch,us,33,24,51.90%,2.15,3:34
+74,nbc.com,nbc.com,Broadcast,US,broadcast,US,broadcast,US,broadcast,us,1799,491,38.30%,2.93,3:18
+75,on.aol.com,on.aol.com,online,US,aggregator,US,mismatch,US,ERROR,us,107,30,30.80%,5.26,6:42
+76,boxofficemojo.com,boxofficemojo.com,mismatch,,mismatch,US,mismatch,US,mismatch,us,2347,1251,28.50%,6.26,3:41
+77,xkcd.com,xkcd.com,Mismatch,US,mismatch,US,mismatch,US,mismatch,us,2088,833,63.40%,3.46,2:33
+78,pbskids.org,pbskids.org,Mismatch,US,mismatch,US,mismatch,US,mismatch,us,2319,593,16.90%,8.68,13:46
+79,allmusic.com,allmusic.com,Mismatch,,mismatch,US,mismatch,US,mismatch,us,2391,1230,39.10%,5.05,3:60
+80,moviefone.com,moviefone.com,Mismatch,US,mismatch,US,mismatch,US,mismatch,us,2705,829,46.10%,3.53,3:26
+81,tsn.ca,tsn.ca,Mismatch,CA,aggregator,CA,broadcast,CA,ERROR,ca,2741,68,40.20%,4.51,5:51
+82,newyorker.com,newyorker.com,Magazine ,US,magazine,US,magazine,US,magazine,us,2603,741,67.20%,1.65,2:40
+83,cox.com,cox.com,Mismatch,,mismatch,US,mismatch,US,mismatch,us,1870,415,27.40%,5.01,5:42
+84,voanews.com,voanews.com,Broadcast,US,broadcast,US,broadcast,US,broadcast,us,2665,2009,57.80%,2.14,3:08
+85,variety.com,variety.com,Magazine ,US,magazine,US,magazine,US,magazine,us,2791,677,58.80%,1.65,2:08
+86,nick.com,nick.com,mismatch,US,mismatch,US,mismatch,US,mismatch,us,2720,716,26.00%,5.09,6:25
+87,b92.net,b92.net,broadcast,RS,aggregator,RS,broadcast,RS,broadcast,rs,2780,7,27.90%,6.43,8:52
+88,abc.net.au,abc.net.au/news/,broadcast,AU,broadcast,AU,broadcast,AU,broadcast,au,1445,26,55.30%,2.49,3:41
+89,oprah.com,oprah.com,mismatch,US,mismatch,US,mismatch,US,mismatch,us,2850,888,47.90%,3.51,3:12
+90,cartoonnetwork.com,cartoonnetwork.com,Mismatch,,mismatch,US,mismatch,US,mismatch,us,3023,1419,19.40%,7.80,10:38
+91,canon.com,canon.com,Mismatch ,,mismatch,US,mismatch,US,mismatch,us,3069,1195,39.70%,3.05,3:16
+92,bbc.co.uk,bbc.co.uk/radio/,broadcast,GB,broadcast,GB,broadcast,GB,broadcast,gb,55,5,38.00%,4.31,6:02
+93,boingboing.net,boingboing.net,online,US,aggregator,US,online,US,online,us,3194,1459,66.50%,1.71,2:16
+94,irib.ir,irib.ir,broadcast,IR,unknown,IR,broadcast,IR,broadcast,ir,3290,102,33.20%,3.93,4:57
+95,heavy.com,heavy.com,mismatch,,mismatch,US,online,US,mismatch,us,3017,1505,64.40%,2.92,2:20
+96,nickjr.com,nickjr.com,Mismatch,US,mismatch,US,mismatch,US,mismatch,us,3648,993,19.10%,8.95,13:37
+97,lyricsfreak.com,lyricsfreak.com,Mismatch,,mismatch,US,mismatch,US,mismatch,us,3325,2577,83.30%,1.45,2:04
+98,rai.it,rai.it,broadcast,IT,aggregator,IT,broadcast,IT,broadcast,it,3196,91,37.60%,3.33,3:17
+99,rfi.fr,rfi.fr,broadcast,FR,aggregator,FR,broadcast,FR,broadcast,fr,3674,671,49.30%,2.35,3:50
+100,lipsum.com,lipsum.com,mismatch,,mismatch,US,mismatch,US,mismatch,us,3242,3748,49.50%,1.53,2:12
