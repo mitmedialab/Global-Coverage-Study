@@ -16,7 +16,7 @@ logging.info("Starting to create results spreadsheets:")
 def load_and_clean_source_list(file_name):
     cleaned_sources = []
     source_csv = csv.reader( codecs.open(os.path.join(DATA_DIR,file_name), encoding='utf-8', mode='r') )
-    source_csv.next()	# skip header row
+    source_csv.next()   # skip header row
     for row in source_csv:
         cleaned_sources.append( [ row[DOMAIN_COL], row[AGREED_TYPE_COL], row[AGREED_COUNTRY_COL] ] )
     return cleaned_sources
@@ -34,7 +34,7 @@ def load_combined_source_list():
     # combine the lists by interleaving them
     combined_sources = []    
     for row_num in range(0,len(arts_sources)):
-    	if (news_sources[row_num][1] in SOURCE_TYPES) and (not domain_in_sources_already(combined_sources, news_sources[row_num][0])):
+        if (news_sources[row_num][1] in SOURCE_TYPES) and (not domain_in_sources_already(combined_sources, news_sources[row_num][0])):
             combined_sources.append(news_sources[row_num])
         if (arts_sources[row_num][1] in SOURCE_TYPES) and (not domain_in_sources_already(combined_sources, arts_sources[row_num][0])):
             combined_sources.append(arts_sources[row_num])
@@ -62,4 +62,4 @@ def write_top_sources_csv(source_type):
 # load sources, merge, and write out top N list for each
 all_sources = load_combined_source_list()
 for source_type in SOURCE_TYPES:
-	write_top_sources_csv( source_type )
+    write_top_sources_csv( source_type )
