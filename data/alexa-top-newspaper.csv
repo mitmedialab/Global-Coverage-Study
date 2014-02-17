@@ -1,14 +1,11 @@
 domain,type,country,global rank
-economictimes.indiatimes.com,newspaper,in,104
-navbharattimes.indiatimes.com,newspaper,in,104
-timesofindia.indiatimes.com,newspaper,in,104
+"timesofindia.indiatimes.com,economictimes.indiatimes.com,navbharattimes.indiatimes.com",newspaper,in,104
 nytimes.com,newspaper,us,119
 theguardian.com,newspaper,gb,164
 online.wsj.com,newspaper,us,239
 usatoday.com,newspaper,us,271
 washingtonpost.com,newspaper,us,295
 latimes.com,newspaper,us,452
-heraldsun.com.au,newspaper,au,709
 chron.com,newspaper,us,724
 sfgate.com,newspaper,us,796
 nypost.com,newspaper,us,843
@@ -19,3 +16,6 @@ indianexpress.com,newspaper,in,1147
 eenadu.net,newspaper,in,1203
 chicagotribune.com,newspaper,us,1227
 ft.com,newspaper,gb,1245
+hollywoodreporter.com,newspaper,us,1402
+dnaindia.com,newspaper,in,1437
+theglobeandmail.com,newspaper,ca,1779

@@ -1,8 +1,6 @@
 domain,type,country,global rank
 bbc.co.uk,broadcast,gb,55
-cnn.com,broadcast,us,63
-ireport.cnn.com,broadcast,us,63
-money.cnn.com,broadcast,us,63
+"cnn.com,money.cnn.com,ireport.cnn.com,sportsillustrated.cnn.com",broadcast,us,63
 espn.go.com,broadcast,us,84
 foxnews.com,broadcast,us,170
 nbcnews.com,broadcast,us,253
@@ -14,8 +12,10 @@ eonline.com,broadcast,us,583
 cnbc.com,broadcast,us,632
 npr.org,broadcast,us,656
 cbsnews.com,broadcast,us,890
-news.sky.com,broadcast,gb,924
-sky.com,broadcast,gb,924
+"news.sky.com,sky.com",broadcast,gb,924
 alarabiya.net,broadcast,ae,992
 cbc.ca,broadcast,ca,1026
 cbs.com,broadcast,us,1028
+ksl.com,broadcast,us,1268
+pbs.org,broadcast,us,1380
+dw.de,broadcast,de,1411
