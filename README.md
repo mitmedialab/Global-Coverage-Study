@@ -15,5 +15,6 @@ Process
 5. We added in the Alexa "Global Rank" metric by running `scrape-alexa-details.py`.
 6. We ran `make-top-results.py` to produce "Top N" lists for each source type we care about. (Feb 17, 2014)
 7. We hand-edited any entries in the "Top N" lists that didn't make sense - sportsillustrated was the only one (Feb 17, 2014)
+9. We removed any non-english sources - eenadu.net on the newspaper list was the only one (Feb 28, 2014)
 8. We added a MediaCloud source_id to the "Top N" lists, and adding in any missing sites to MediaCloud via their admin UI.
 
