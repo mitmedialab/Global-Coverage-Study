@@ -6,6 +6,7 @@ online.wsj.com,newspaper,us,239,1150
 usatoday.com,newspaper,us,271,39040
 washingtonpost.com,newspaper,us,295,2
 latimes.com,newspaper,us,452,6
+"news.com.au,heraldsun.com.au",newspaper,au,709,41991
 chron.com,newspaper,us,724,10
 sfgate.com,newspaper,us,796,14
 nypost.com,newspaper,us,843,7
@@ -18,4 +19,3 @@ ft.com,newspaper,gb,1245,40401
 hollywoodreporter.com,newspaper,us,1402,18496
 dnaindia.com,newspaper,in,1437,65929
 theglobeandmail.com,newspaper,ca,1779,19477
-theage.com.au,newspaper,au,2153,19197
