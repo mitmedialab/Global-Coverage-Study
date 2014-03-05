@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Sentence Counts</title>
+  <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="/static/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+
+<div class="container-fluid">
+  <div class="row-flud">
+    <div class="col-md-8">
+      <h1>March 2014 Sentence Counts</h1>
+      <table class="table table-striped table-condensed">
+        <tr>
+          <th>Id</th>
+          <th>Url</th>
+          <th>Category</th>
+          <th>Sentences</th>
+          <th>Links</th>
+        </tr>
+        {% for media_source in media_info %}
+          {% if media_source['sentence_count'] <= 0 %}
+            <tr class="danger">
+          {% else %}
+            <tr>
+          {% endif %}
+            <td>{{ media_source['media_id'] }}</td>
+            <td>{{ media_source['url'] }}</td>
+            <td>{{ media_source['category'] }}</td>
+            <td>{{ media_source['sentence_count'] }}</td>
+            <td>
+              <a href="http://www.mediacloud.org/admin/feeds/list/{{media_source['media_id']}}">feeds</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="/static/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/d3.v2.min.js"></script>
+
+<script type="text/javascript">
+
+</script>
+
+</body>
+
+</html>

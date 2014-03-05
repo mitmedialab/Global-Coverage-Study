@@ -1,2 +1,4 @@
 cache
 *.pyc
+dashboard/mc-client.config
+dashboard/*.log
