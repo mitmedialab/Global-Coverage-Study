@@ -1,6 +1,6 @@
 import os, sys, time, logging, ConfigParser
 from flask import Flask, render_template
-import media.source
+import dashboard.source
 
 app = Flask(__name__)
 
@@ -9,7 +9,7 @@ logging.basicConfig(filename='mc-server.log',level=logging.DEBUG)
 log = logging.getLogger('mc-server')
 log.info("---------------------------------------------------------------------------")
 
-stat_engine = media.source.MediaSourceCollection()
+stat_engine = dashboard.source.MediaSourceCollection()
 stat_engine.loadAllMediaIds()
 
 @app.route("/")

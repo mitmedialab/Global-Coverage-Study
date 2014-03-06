@@ -20,7 +20,7 @@ class MediaSourceCollection():
         if (self.cache_time is None) or (now-self.cache_time > 60*60):
             media_list = []
             for media_source in self.media_sources:
-                info = media_source #mediacloud.media.source(media_id)
+                info = media_source #mediacloud.dashboard.source(media_id)
                 info['sentence_count'] = self._mediaSentenceCount(info['media_id'])
                 media_list.append(info)
             self.cache_content = media_list
