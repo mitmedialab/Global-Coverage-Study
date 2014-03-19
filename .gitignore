@@ -1,4 +1,5 @@
 *.pyc
+*.log
 alexa-scraper/cache
 media-source-dashboard/mc-client.config
-media-source-dashboard/*.log
+story-fetcher/mc-client.config
