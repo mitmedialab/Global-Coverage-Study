@@ -7,13 +7,14 @@ class MediaSourceCollection():
     '''
 
     def __init__(self):
-        parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.current_dir = os.path.dirname(os.path.abspath(__file__))
+        self.parent_dir = os.path.dirname(self.currentdir)
         self.media_sources = []
         self.cache_time = None
         self.cache_content = None
         # connect to the media cloud
         config = ConfigParser.ConfigParser()
-        config.read(parentdir+'/mc-client.config')
+        config.read(self.parent_dir+'/mc-client.config')
         self.mediacloud = mediacloud.api.MediaCloud(config.get('api','user'),config.get('api','pass'))
 
     def listWithSentenceCounts(self):
@@ -37,10 +38,10 @@ class MediaSourceCollection():
             return -1
 
     def loadAllMediaIds(self):
-        self.loadFromCsv('data/alexa-top-broadcast.csv')
-        self.loadFromCsv('data/alexa-top-magazine.csv')
-        self.loadFromCsv('data/alexa-top-newspaper.csv')
-        self.loadFromCsv('data/alexa-top-online.csv')
+        self.loadFromCsv(self.current_dir+'/data/alexa-top-broadcast.csv')
+        self.loadFromCsv(self.current_dir+'/data/alexa-top-magazine.csv')
+        self.loadFromCsv(self.current_dir+'/data/alexa-top-newspaper.csv')
+        self.loadFromCsv(self.current_dir+'/data/alexa-top-online.csv')
 
     def mediaSources(self):
         return self.media_sources
