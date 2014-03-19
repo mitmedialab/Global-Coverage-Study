@@ -8,7 +8,7 @@ class MediaSourceCollection():
 
     def __init__(self):
         self.current_dir = os.path.dirname(os.path.abspath(__file__))
-        self.parent_dir = os.path.dirname(self.currentdir)
+        self.parent_dir = os.path.dirname(self.current_dir)
         self.media_sources = []
         self.cache_time = None
         self.cache_content = None
