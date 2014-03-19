@@ -1,4 +1,4 @@
-import math, csv, ConfigParser, time
+import os, math, csv, ConfigParser, time
 import mediacloud, mediacloud.media
 
 class MediaSourceCollection():
@@ -7,12 +7,13 @@ class MediaSourceCollection():
     '''
 
     def __init__(self):
+        parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         self.media_sources = []
         self.cache_time = None
         self.cache_content = None
         # connect to the media cloud
         config = ConfigParser.ConfigParser()
-        config.read('mc-client.config')
+        config.read(parentdir+'/mc-client.config')
         self.mediacloud = mediacloud.api.MediaCloud(config.get('api','user'),config.get('api','pass'))
 
     def listWithSentenceCounts(self):
