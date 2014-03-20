@@ -38,10 +38,10 @@ class MediaSourceCollection():
             return -1
 
     def loadAllMediaIds(self):
-        self.loadFromCsv(self.parent_dir+'/data/alexa-top-broadcast.csv')
-        self.loadFromCsv(self.parent_dir+'/data/alexa-top-magazine.csv')
-        self.loadFromCsv(self.parent_dir+'/data/alexa-top-newspaper.csv')
-        self.loadFromCsv(self.parent_dir+'/data/alexa-top-online.csv')
+        self.loadFromCsv(self.current_dir+'/data/alexa-top-broadcast.csv')
+        self.loadFromCsv(self.current_dir+'/data/alexa-top-magazine.csv')
+        self.loadFromCsv(self.current_dir+'/data/alexa-top-newspaper.csv')
+        self.loadFromCsv(self.current_dir+'/data/alexa-top-online.csv')
 
     def mediaSources(self):
         return self.media_sources
