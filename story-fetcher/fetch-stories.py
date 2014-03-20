@@ -2,6 +2,7 @@ import logging, ConfigParser, sys, json
 import mediacloud
 
 MEDIA_ID = 1094
+TYPE = 'newspaper'
 DB_NAME = 'mc_geostudy'
 SENTENCES_PER_PAGE = 10000
 
@@ -27,5 +28,5 @@ current = 0
 while current < sentence_count:
     stories = mc.sentencesMatchingByStory(query_str, filter_str, current, SENTENCES_PER_PAGE)
     for story_sentences in stories.values():
-        db.addStoryFromSentences(story_sentences)
+        db.addStoryFromSentences(story_sentences,{'type':TYPE})
     current = current + SENTENCES_PER_PAGE
