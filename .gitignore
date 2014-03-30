@@ -3,3 +3,5 @@
 alexa-scraper/cache
 media-source-dashboard/mc-client.config
 story-fetcher/mc-client.config
+
+*.config

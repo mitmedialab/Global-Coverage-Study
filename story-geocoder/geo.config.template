@@ -1,0 +1,9 @@
+[db]
+host: 
+user: 
+pass: 
+name: mc_geostudy
+collection: stories
+
+[geoparser]
+geoserver_url:http://localhost:8080/parse
