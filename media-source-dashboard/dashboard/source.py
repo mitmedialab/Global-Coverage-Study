@@ -1,5 +1,5 @@
 import os, math, csv, ConfigParser, time
-import mediacloud, mediacloud.media
+import mediacloud
 
 class MediaSourceCollection():
     '''
@@ -12,17 +12,17 @@ class MediaSourceCollection():
         self.media_sources = []
         self.cache_time = None
         self.cache_content = None
-        # connect to the media cloud
+        # connect to Media Cloud
         config = ConfigParser.ConfigParser()
         config.read(self.parent_dir+'/mc-client.config')
-        self.mediacloud = mediacloud.api.MediaCloud(config.get('api','user'),config.get('api','pass'))
+        self.mediacloud = mediacloud.api.MediaCloud(config.get('api','key'))
 
     def listWithSentenceCounts(self):
         now = int(time.time())
         if (self.cache_time is None) or (now-self.cache_time > 60*60):
             media_list = []
             for media_source in self.media_sources:
-                info = media_source #mediacloud.dashboard.source(media_id)
+                info = media_source
                 info['sentence_count'] = self._mediaSentenceCount(info['media_id'])
                 media_list.append(info)
             self.cache_content = media_list
@@ -31,8 +31,9 @@ class MediaSourceCollection():
 
     def _mediaSentenceCount(self,media_id):
         try:
-            res = self.mediacloud.sentencesMatching('*', 
-                '+publish_date:[2014-03-01T00:00:00Z TO 2014-03-31T00:00:00Z] AND +media_id:'+str(media_id))
+            res = self.mediacloud.sentenceList('*', 
+                '+publish_date:[2014-03-01T00:00:00Z TO 2014-03-31T23:59:59Z] AND +media_id:'+str(media_id),
+                0,0)
             return res['response']['numFound']
         except ValueError:
             return -1

@@ -3,7 +3,7 @@ import mediacloud
 import dashboard.source
 
 DB_NAME = 'mc_geostudy'
-SENTENCES_PER_PAGE = 10000
+STORIES_PER_PAGE = 1000
 
 logging.basicConfig(filename='scraper.log',level=logging.DEBUG)
 log = logging.getLogger('scaper')
@@ -16,24 +16,21 @@ db = mediacloud.storage.MongoStoryDatabase(DB_NAME)
 
 log.info('Loaded '+str(dashboard.count())+' media sources to pull')
 
-# walk through all the sources, saving the sentences
+# walk through all the sources, grabbing all the stories from each
 for source in dashboard.mediaSources():
     log.info('  Starting with '+source['url']+' ('+source['media_id']+'): '+source['category'])
     
     query_str = '*'
     extra_args = {'category':source['category'], 'media_source_url':source['url']}
     filter_str = '+publish_date:[2014-03-01T00:00:00Z TO 2014-03-31T00:00:00Z] AND +media_id:'+str(source['media_id'])
-    
-    # count the sentences
-    res = mc.sentencesMatching(query_str, filter_str)
-    sentence_count = res['response']['numFound']
-    log.info('    Found '+str(sentence_count)+' sentences')
 
-    # walk all the sentences creating stories in the db
-    current = 0
-    while current < sentence_count:
-        log.info('    loading sentences from '+str(current))
-        stories = mc.sentencesMatchingByStory(query_str, filter_str, current, SENTENCES_PER_PAGE)
-        for story_sentences in stories.values():
-            db.addStoryFromSentences(story_sentences,{'type':source['category']})
-        current = current + SENTENCES_PER_PAGE
+    # page through the stories, saving them in the DB
+    more_stories = True
+    last_processed_stories_id = 0
+    while more_stories:
+        log.info('    loading stories from '+str(last_processed_stories_id))
+        stories = mc.storyList(query_str, filter_str, last_processed_stories_id, STORIES_PER_PAGE)
+        for story in stories:
+            db.addStory(story, {'type':source['category']})
+        last_processed_stories_id = stories[len(stories)-1]['stories_id']
+        more_stories = True if len(stories)>0 else False

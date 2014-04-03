@@ -1,9 +1,6 @@
-import logging
-import os
-import ConfigParser
+import logging, os, json, ConfigParser
 import requests
-import json
-import pymongo
+from operator import itemgetter
 from pymongo import MongoClient
 
 
@@ -22,35 +19,22 @@ db_collection = db[config.get('db','collection')]
 
 geoserver_url = config.get('geoparser','geoserver_url')
 
-
-#pull out geodata for single text from CLIFF_CLAVIN
+# Query CLIFF to pull out entities from one story
 def geoparseSingleText(text):
 	try:
-		params = {'text':text}
-		
+		params = {'q':text}
 		r = requests.get(geoserver_url, params=params)
-		
-		geodata = r.json()
-
-		if "places" in geodata.keys() and any(geodata["places"]):
-			return geodata
-		else: 
-			return {}	
-
+		entities = r.json()
+		return entities
 	except requests.exceptions.RequestException as e:
 		print "ERROR RequestException " + str(e)
 
-# Sorting function for sorting sentences out of MC MongoDB
-def asint(s):
-    try: return int(s), ''
-    except ValueError: return sys.maxint, s
-
-# Find records that don't have geodata
-q = db_collection.find({ 'geodata': {'$exists':False} })
-for doc in q:
-	sortedSentences= [(doc["sentences"][k]) for k in sorted(doc["sentences"], key=asint)]
-	story = ' '.join(sortedSentences)
-	doc["geodata"] = geoparseSingleText(story)
-	db_collection.save(doc)
-	print "Saved " + sortedSentences[0][0:40] + "..."
+# Find records that don't have geodata and geocode them
+stories = db_collection.find({ 'entities': {'$exists':False} })
+for story in stories:
+	sorted_sentences = [s['sentence'] for s in sorted(story['story_sentences'], key=itemgetter('sentence_number'))]
+	story_text = ' '.join(sorted_sentences)
+	story['entities'] = geoparseSingleText(story_text)
+	db_collection.save(story)
+	print "Saved " + sorted_sentences[0][0:40] + "..."
 

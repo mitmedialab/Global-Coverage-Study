@@ -1,3 +1,2 @@
 [api]
-user: username
-pass: password
+key: MY_MEDIA_CLOUD_KEY
