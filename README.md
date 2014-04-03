@@ -17,6 +17,6 @@ Process
 7. We hand-edited any entries in the "Top N" lists that didn't make sense - sportsillustrated was the only one (Feb 17, 2014)
 8. We removed any non-english sources - eenadu.net on the newspaper list was the only one (Feb 28, 2014)
 9. We added a MediaCloud source_id to the "Top N" lists, and adding in any missing sites to MediaCloud via their admin UI.
-10. We used a tiny web app (in `media-source-dashboard/`) to make sure stories were being collected by MediaCloud correctly.
-
-*Next Step*: Run `story-fetcher/fetch-stories.py` to download all the sentences for the sources for the month we care about into a MongoDB.
+10. We used a tiny web app (in `media-source-dashboard/`) to make sure stories were being collected by MediaCloud correctly
+11. We ran `story-fetcher/fetch-stories.py` to download all the sentences for the sources for the month we care about into a MongoDB.
+12. We ran `story-geocoder/geocode_stories.py` to add in a `entities` attribute to all the stories in the DB, containing extracted and geo-located places mentioned in each article (via our CLIFF tool).
