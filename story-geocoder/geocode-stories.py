@@ -1,8 +1,7 @@
-import logging, os, json, ConfigParser
+import logging, os, json, ConfigParser, sys
 import requests
 from operator import itemgetter
 from pymongo import MongoClient
-
 
 logging.basicConfig(filename='geocoder.log',level=logging.DEBUG)
 log = logging.getLogger('geocoder')
@@ -20,7 +19,7 @@ db_collection = db[config.get('db','collection')]
 geoserver_url = config.get('geoparser','geoserver_url')
 
 # Query CLIFF to pull out entities from one story
-def geoparseSingleText(text):
+def fetchEntities(text):
 	try:
 		params = {'q':text}
 		r = requests.get(geoserver_url, params=params)
@@ -34,7 +33,6 @@ stories = db_collection.find({ 'entities': {'$exists':False} })
 for story in stories:
 	sorted_sentences = [s['sentence'] for s in sorted(story['story_sentences'], key=itemgetter('sentence_number'))]
 	story_text = ' '.join(sorted_sentences)
-	story['entities'] = geoparseSingleText(story_text)
+	story['entities'] = fetchEntities(story_text)
 	db_collection.save(story)
-	print "Saved " + sorted_sentences[0][0:40] + "..."
-
+	print "Saved " + str(story['_id']) + " - " + story['title'] + "..."

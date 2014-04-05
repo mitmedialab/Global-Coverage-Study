@@ -1,6 +1,6 @@
 import os, sys, time, logging, ConfigParser
 from flask import Flask, render_template
-import dashboard.source
+import mediameter.source
 
 app = Flask(__name__)
 
@@ -9,12 +9,12 @@ logging.basicConfig(filename='mc-server.log',level=logging.DEBUG)
 log = logging.getLogger('mc-server')
 log.info("---------------------------------------------------------------------------")
 
-stat_engine = dashboard.source.MediaSourceCollection()
-stat_engine.loadAllMediaIds()
+collection = mediameter.source.MediaSourceCollection()
+collection.loadAllMediaIds()
 
 @app.route("/")
 def index():
-    media_info = stat_engine.listWithSentenceCounts()
+    media_info = collection.listWithSentenceCounts()
     return render_template("base.html",
         media_info = media_info
     )

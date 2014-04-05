@@ -1,23 +1,23 @@
 import logging, ConfigParser, sys, json
 import mediacloud
-import dashboard.source
+import mediameter.source
 
 DB_NAME = 'mc_geostudy'
 STORIES_PER_PAGE = 1000
 
-logging.basicConfig(filename='scraper.log',level=logging.DEBUG)
-log = logging.getLogger('scaper')
+logging.basicConfig(filename='fetcher.log',level=logging.DEBUG)
+log = logging.getLogger('fetcher')
 log.info("---------------------------------------------------------------------------")
 
-dashboard = dashboard.source.MediaSourceCollection()
-dashboard.loadAllMediaIds()
-mc = dashboard.mediacloud
+collection = mediameter.source.MediaSourceCollection()
+collection.loadAllMediaIds()
+mc = collection.mediacloud
 db = mediacloud.storage.MongoStoryDatabase(DB_NAME)
 
-log.info('Loaded '+str(dashboard.count())+' media sources to pull')
+log.info('Loaded '+str(collection.count())+' media sources to pull')
 
 # walk through all the sources, grabbing all the stories from each
-for source in dashboard.mediaSources():
+for source in collection.mediaSources():
     log.info('  Starting with '+source['url']+' ('+source['media_id']+'): '+source['category'])
     
     query_str = '*'
