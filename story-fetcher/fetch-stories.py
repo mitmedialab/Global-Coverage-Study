@@ -1,4 +1,4 @@
-import logging, ConfigParser, sys, json
+import logging, ConfigParser, sys, json, time
 import mediacloud
 import mediameter.source
 
@@ -30,16 +30,23 @@ for source in collection.mediaSources():
     last_processed_stories_id = 0
     while more_stories:
         log.info('    loading stories from '+str(last_processed_stories_id))
-        stories = mc.storyList(query_str, filter_str, last_processed_stories_id, STORIES_PER_PAGE)
-        if len(stories)>0:
-            for story in stories:
-                saved = db.addStory(story, {'type':source['category']})
-                if saved:
-                    log.info('  saved '+str(story['processed_stories_id']))
-                else:
-                    log.info('  skipped '+str(story['processed_stories_id']))
-            last_processed_stories_id = stories[len(stories)-1]['processed_stories_id']
-            more_stories = True
-        else:
-            more_stories = False
+        try:
+            stories = mc.storyList(query_str, filter_str, last_processed_stories_id, STORIES_PER_PAGE)
+            if len(stories)>0:
+                for story in stories:
+                    saved = db.addStory(story, {'type':source['category']})
+                    if saved:
+                        log.info('  saved '+str(story['processed_stories_id']))
+                    else:
+                        log.info('  skipped '+str(story['processed_stories_id']))
+                last_processed_stories_id = stories[len(stories)-1]['processed_stories_id']
+                more_stories = True
+            else:
+                more_stories = False
+        except Exception as e:
+            # probably a 404, so sleep and then just try again
+            log.info('  '+str(e))
+            time.sleep(1)
+
+
     log.info('  Done with '+source['url']+' ('+source['media_id']+'): '+source['category'])
