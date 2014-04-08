@@ -33,8 +33,12 @@ for source in collection.mediaSources():
         stories = mc.storyList(query_str, filter_str, last_processed_stories_id, STORIES_PER_PAGE)
         if len(stories)>0:
             for story in stories:
-                db.addStory(story, {'type':source['category']})
-            last_processed_stories_id = stories[len(stories)-1]['stories_id']
+                saved = db.addStory(story, {'type':source['category']})
+                if saved:
+                    log.info('  saved '+str(story['processed_stories_id']))
+                else:
+                    log.info('  skipped '+str(story['processed_stories_id']))
+            last_processed_stories_id = stories[len(stories)-1]['processed_stories_id']
             more_stories = True
         else:
             more_stories = False
