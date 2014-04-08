@@ -32,7 +32,7 @@ class MediaSourceCollection():
     def _mediaSentenceCount(self,media_id):
         try:
             res = self.mediacloud.sentenceList('*', 
-                '+publish_date:[2014-03-01T00:00:00Z TO 2014-03-31T23:59:59Z] AND +media_id:'+str(media_id),
+                '+publish_date:[2014-04-01T00:00:00Z TO 2014-04-30T23:59:59Z] AND +media_id:'+str(media_id),
                 0,0)
             return res['response']['numFound']
         except ValueError:
