@@ -2,7 +2,7 @@ import logging, ConfigParser, sys, json, time, os
 import mediacloud
 import mediameter.source
 
-STORIES_PER_PAGE = 100
+STORIES_PER_PAGE = 1000
 
 logging.basicConfig(filename='fetcher.log',level=logging.DEBUG)
 log = logging.getLogger('fetcher')
