@@ -1,0 +1,10 @@
+[api]
+key: MY_MEDIA_CLOUD_KEY
+
+[db]
+host: localhost
+name: mc_geostudy
+collection: stories
+
+[cliff]
+url:http://MY_CLIFF_SERVER:8080/parseText

@@ -1,4 +1,5 @@
 import os, math, csv, ConfigParser, time
+from operator import itemgetter
 import mediacloud
 
 class MediaSourceCollection():
@@ -6,16 +7,13 @@ class MediaSourceCollection():
     
     '''
 
-    def __init__(self):
+    def __init__(self,mc_api_key):
         self.current_dir = os.path.dirname(os.path.abspath(__file__))
-        self.parent_dir = os.path.dirname(self.current_dir)
         self.media_sources = []
         self.cache_time = None
         self.cache_content = None
         # connect to Media Cloud
-        config = ConfigParser.ConfigParser()
-        config.read(self.parent_dir+'/mc-client.config')
-        self.mediacloud = mediacloud.api.MediaCloud(config.get('api','key'))
+        self.mediacloud = mediacloud.api.MediaCloud(mc_api_key)
 
     def listWithSentenceCounts(self):
         now = int(time.time())
@@ -43,6 +41,10 @@ class MediaSourceCollection():
         self.loadFromCsv(self.current_dir+'/data/alexa-top-magazine.csv')
         self.loadFromCsv(self.current_dir+'/data/alexa-top-newspaper.csv')
         self.loadFromCsv(self.current_dir+'/data/alexa-top-online.csv')
+        self._sortByMediaId()
+
+    def _sortByMediaId(self):
+        self.media_sources.sort(key=itemgetter('category','media_id'))
 
     def mediaSources(self):
         return self.media_sources

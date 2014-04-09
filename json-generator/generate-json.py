@@ -1,4 +1,4 @@
-import sys, time, logging, ConfigParser, json, string, math, operator
+import sys, time, logging, ConfigParser, json, string, math, operator, os
 from nltk.tokenize import word_tokenize, sent_tokenize
 import nltk
 import mediacloud.api
@@ -12,8 +12,11 @@ start_time = time.time()
 
 english_stop_words = stopwords.getStopWords()
 
+# load shared config file
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
 config = ConfigParser.ConfigParser()
-config.read('db.config')
+config.read(parent_dir+'/mc-client.config')
 
 # connect to database
 db = AlreadyGeoLocatedStoryDatabase(config.get('db','name'),

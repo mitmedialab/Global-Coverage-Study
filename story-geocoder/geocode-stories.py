@@ -7,22 +7,24 @@ logging.basicConfig(filename='geocoder.log',level=logging.DEBUG)
 log = logging.getLogger('geocoder')
 log.info("---------------------------------------------------------------------------")
 
-CONFIG_FILENAME = 'geo.config'
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# load shared config file
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
 config = ConfigParser.ConfigParser()
-config.read(os.path.join(BASE_DIR,CONFIG_FILENAME))
+config.read(parent_dir+'/mc-client.config')
 
+# connect to everything
 db_client = MongoClient()
 db = db_client[config.get('db','name')]
 db_collection = db[config.get('db','collection')]
 
-geoserver_url = config.get('geoparser','geoserver_url')
+cliff_url = config.get('cliff','url')
 
 # Query CLIFF to pull out entities from one story
 def fetchEntities(text):
 	try:
 		params = {'q':text}
-		r = requests.get(geoserver_url, params=params)
+		r = requests.get(cliff_url, params=params)
 		entities = r.json()
 		return entities
 	except requests.exceptions.RequestException as e:

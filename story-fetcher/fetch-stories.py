@@ -1,18 +1,24 @@
-import logging, ConfigParser, sys, json, time
+import logging, ConfigParser, sys, json, time, os
 import mediacloud
 import mediameter.source
 
-DB_NAME = 'mc_geostudy'
-STORIES_PER_PAGE = 1000
+STORIES_PER_PAGE = 100
 
 logging.basicConfig(filename='fetcher.log',level=logging.DEBUG)
 log = logging.getLogger('fetcher')
 log.info("======================================================================")
 
-collection = mediameter.source.MediaSourceCollection()
+# load shared config file
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+config = ConfigParser.ConfigParser()
+config.read(parent_dir+'/mc-client.config')
+
+# connect to everything
+collection = mediameter.source.MediaSourceCollection(config.get('api','key'))
 collection.loadAllMediaIds()
 mc = collection.mediacloud
-db = mediacloud.storage.MongoStoryDatabase(DB_NAME)
+db = mediacloud.storage.MongoStoryDatabase(config.get('db','name'))
 
 log.info('Loaded '+str(collection.count())+' media sources to pull')
 
@@ -47,6 +53,4 @@ for source in collection.mediaSources():
             # probably a 404, so sleep and then just try again
             log.info('  '+str(e))
             time.sleep(1)
-
-
     log.info('  Done with '+source['url']+' ('+source['media_id']+'): '+source['category'])

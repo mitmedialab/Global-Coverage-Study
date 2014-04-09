@@ -6,6 +6,23 @@ class AlreadyGeoLocatedStoryDatabase(MongoStoryDatabase):
     '''
     '''
 
+    def storyCount(self):
+        '''
+        Retun total number of stories
+        '''
+        return self._db.stories.count()
+
+    def storyCountByMediaSourceId(self):
+        '''
+        Returns dict of media_id=>story_count
+        '''
+        key = ['media_id']
+        condition = {}
+        initial = {'value':0}
+        reduce = Code("function(doc,prev) { prev.value += 1; }") 
+        raw_results = self._db.stories.group(key, condition, initial, reduce);
+        return self._resultsToDict(raw_results,'media_id')
+
     def storyCountByMediaType(self):
         '''
         Returns dict of media_type=>story_count
@@ -41,7 +58,7 @@ class AlreadyGeoLocatedStoryDatabase(MongoStoryDatabase):
                function () {
                  var countryCode = '"""+country_alpha2+"""';
                  var mediaType = '"""+media_type+"""';
-                 if( (this.type==mediaType) && (this.entities.where.resolvedLocations.length>0) && (this.entities.where.primaryCountries.indexOf(countryCode) > -1) ){
+                 if( (this.type==mediaType) && (this.entities!=null) && (this.entities.where.resolvedLocations.length>0) && (this.entities.where.primaryCountries.indexOf(countryCode) > -1) ){
                    for(var idx in this.entities.who){
                      var name = this.entities.who[idx]['name'];
                      emit(name, 1);
@@ -91,5 +108,9 @@ class AlreadyGeoLocatedStoryDatabase(MongoStoryDatabase):
                     else:
                         key_to_use = key_to_use[0]
                 if key_to_use is not None:
+                    try:
+                        key_to_use = int(key_to_use)
+                    except ValueError, TypeError:
+                        key_to_use = key_to_use
                     results[ key_to_use ] = int(doc['value'])
         return results
