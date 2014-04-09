@@ -1,6 +1,7 @@
 import logging, ConfigParser, sys, json, time, os
 import mediacloud
 import mediameter.source
+from mediameter.db import AlreadyGeoLocatedStoryDatabase
 
 STORIES_PER_PAGE = 1000
 
@@ -18,7 +19,7 @@ config.read(parent_dir+'/mc-client.config')
 collection = mediameter.source.MediaSourceCollection(config.get('api','key'))
 collection.loadAllMediaIds()
 mc = collection.mediacloud
-db = mediacloud.storage.MongoStoryDatabase(config.get('db','name'))
+db = AlreadyGeoLocatedStoryDatabase(config.get('db','name'))
 
 log.info('Loaded '+str(collection.count())+' media sources to pull')
 
@@ -27,13 +28,14 @@ for source in collection.mediaSources():
     log.info("---------------------------------------------------------------------------")
     log.info('  Starting with '+source['url']+' ('+source['media_id']+'): '+source['category'])
     
+    last_processed_stories_id = db.maxStoryProcessedId(source['media_id'])  # pick up where the db left off last run
+
     query_str = '*'
     extra_args = {'category':source['category'], 'media_source_url':source['url']}
     filter_str = '+publish_date:[2014-03-01T00:00:00Z TO 2014-03-31T00:00:00Z] AND +media_id:'+str(source['media_id'])
 
     # page through the stories, saving them in the DB
     more_stories = True
-    last_processed_stories_id = 0
     while more_stories:
         log.info('    loading stories from '+str(last_processed_stories_id))
         try:

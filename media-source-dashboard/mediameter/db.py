@@ -1,4 +1,4 @@
-import math
+import math, sys
 from mediacloud.storage import MongoStoryDatabase
 from bson.code import Code
 
@@ -11,6 +11,16 @@ class AlreadyGeoLocatedStoryDatabase(MongoStoryDatabase):
         Retun total number of stories
         '''
         return self._db.stories.count()
+
+    def maxStoryProcessedId(self,media_id=None):
+        '''
+
+        '''
+        res = self._db.stories.find({'media_id':int(media_id)}).sort('processed_stories_id',-1).limit(1)
+        if res.count()==0:
+            return 0
+        else:
+            return res[0]['processed_stories_id']
 
     def storyCountByMediaSourceId(self):
         '''
@@ -36,9 +46,7 @@ class AlreadyGeoLocatedStoryDatabase(MongoStoryDatabase):
 
     def storyCountByCountry(self, media_type=None):
         key = ['entities.where.primaryCountries']
-        condition = None
-        if media_type is not None:
-            condition = {'type': media_type}
+        condition = {'type': media_type} if media_type is not None else None
         initial = {'value':0}
         reduce = Code("function(doc,prev) { prev.value += 1; }") 
         raw_results = self._db.stories.group(key, condition, initial, reduce);
@@ -46,8 +54,7 @@ class AlreadyGeoLocatedStoryDatabase(MongoStoryDatabase):
 
     def mediaStories(self, media_type, country_alpha2=None):
         criteria = { 'type': media_type }
-        if country_alpha2 is not None:
-            criteria = {'entities.where.primaryCountries': country_alpha2}
+        criteria = {'entities.where.primaryCountries': country_alpha2} if country_alpha2 is not None else None
         docs = []
         for doc in self._db.stories.find(criteria):
             docs.append(doc)
