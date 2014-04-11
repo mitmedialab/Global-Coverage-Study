@@ -30,11 +30,17 @@ def index():
     	m['db_stories'] = local_story_counts[int(m['media_id'])] if int(m['media_id']) in local_story_counts else 0
     total_mc_stories = sum( [m['sentence_count'] for m in media_info] )
     total_db_stories = db.storyCount()
+    total_geocoded_stories = total_db_stories - db.storiesWithoutCliffInfo().count()
     return render_template("base.html",
         media_info = media_info,
         total_mc_stories = total_mc_stories,
-        total_db_stories = total_db_stories
+        total_db_stories = total_db_stories,
+        geocoded_pct = int(round(float(total_geocoded_stories)/float(total_db_stories),2)*100)
     )
+
+def number_format(value):
+    return "{:,}".format(value)
+app.jinja_env.filters['number_format'] = number_format
 
 if __name__ == "__main__":
     app.debug = True

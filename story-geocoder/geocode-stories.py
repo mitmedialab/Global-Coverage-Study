@@ -1,7 +1,7 @@
 import logging, os, json, ConfigParser, sys
-import requests
 from operator import itemgetter
-from pymongo import MongoClient
+import requests
+from mediameter.db import GeoStoryDatabase
 
 logging.basicConfig(filename='geocoder.log',level=logging.DEBUG)
 log = logging.getLogger('geocoder')
@@ -14,14 +14,12 @@ config = ConfigParser.ConfigParser()
 config.read(parent_dir+'/mc-client.config')
 
 # connect to everything
-db_client = MongoClient()
-db = db_client[config.get('db','name')]
-db_collection = db[config.get('db','collection')]
+db = GeoStoryDatabase(config.get('db','name'))
 
 cliff_url = config.get('cliff','url')
 
 # Query CLIFF to pull out entities from one story
-def fetchEntities(text):
+def fetchEntitiesFromCliff(text):
 	try:
 		params = {'q':text}
 		r = requests.get(cliff_url, params=params)
@@ -31,10 +29,9 @@ def fetchEntities(text):
 		print "ERROR RequestException " + str(e)
 
 # Find records that don't have geodata and geocode them
-stories = db_collection.find({ 'entities': {'$exists':False} })
-for story in stories:
+for story in db.storiesWithoutCliffInfo():
 	sorted_sentences = [s['sentence'] for s in sorted(story['story_sentences'], key=itemgetter('sentence_number'))]
 	story_text = ' '.join(sorted_sentences)
-	story['entities'] = fetchEntities(story_text)
-	db_collection.save(story)
+	story['entities'] = fetchEntitiesFromCliff(story_text)
+	db.updateStory(story)
 	print "Saved " + str(story['_id']) + " - " + story['title'] + "..."

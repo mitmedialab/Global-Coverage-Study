@@ -11,10 +11,14 @@
 
 <div class="container-fluid">
   <div class="row-flud">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <h1>April 2014 Sentence Counts</h1>
-      <h3>{{ total_mc_stories }} sentences in Media Cloud</h3>
-      <h3>{{total_db_stories}} stories in the local database</h3>
+      <hr />
+      <h3>{{total_mc_stories|number_format}} sentences in Media Cloud</h3>
+      <h3>{{total_db_stories|number_format}} stories in the local database</h3>
+      <h3>{{geocoded_pct}}% of these stories have been run through CLIFF</h3>
+      <hr />
+      <h3>Details:</h3>
       <table class="table table-striped table-condensed">
         <tr>
           <th>Id</th>
