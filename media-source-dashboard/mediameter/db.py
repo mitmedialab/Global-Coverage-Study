@@ -2,7 +2,7 @@ import math, sys
 from mediacloud.storage import MongoStoryDatabase
 from bson.code import Code
 
-class AlreadyGeoLocatedStoryDatabase(MongoStoryDatabase):
+class GeoStoryDatabase(MongoStoryDatabase):
     '''
     '''
 

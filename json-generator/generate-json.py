@@ -2,7 +2,7 @@ import sys, time, logging, ConfigParser, json, string, math, operator, os
 from nltk.tokenize import word_tokenize, sent_tokenize
 import nltk
 import mediacloud.api
-from mediameter.db import AlreadyGeoLocatedStoryDatabase
+from mediameter.db import GeoStoryDatabase
 from iso3166 import countries
 from mediameter import stopwords 	# Ali's combo module
 
@@ -19,7 +19,7 @@ config = ConfigParser.ConfigParser()
 config.read(parent_dir+'/mc-client.config')
 
 # connect to database
-db = AlreadyGeoLocatedStoryDatabase(config.get('db','name'),
+db = GeoStoryDatabase(config.get('db','name'),
 	config.get('db','host'))
 
 output = []	# the thing to jsonify at the end

@@ -1,7 +1,7 @@
 import logging, ConfigParser, sys, json, time, os
 import mediacloud
 import mediameter.source
-from mediameter.db import AlreadyGeoLocatedStoryDatabase
+from mediameter.db import GeoStoryDatabase
 
 STORIES_PER_PAGE = 1000
 
@@ -19,7 +19,7 @@ config.read(parent_dir+'/mc-client.config')
 collection = mediameter.source.MediaSourceCollection(config.get('api','key'))
 collection.loadAllMediaIds()
 mc = collection.mediacloud
-db = AlreadyGeoLocatedStoryDatabase(config.get('db','name'))
+db = GeoStoryDatabase(config.get('db','name'))
 
 log.info('Loaded '+str(collection.count())+' media sources to pull')
 

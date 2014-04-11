@@ -1,7 +1,7 @@
 import os, sys, time, logging, ConfigParser
 from flask import Flask, render_template
 import mediameter.source
-from mediameter.db import AlreadyGeoLocatedStoryDatabase
+from mediameter.db import GeoStoryDatabase
 
 app = Flask(__name__)
 
@@ -17,7 +17,7 @@ config = ConfigParser.ConfigParser()
 config.read(parent_dir+'/mc-client.config')
 
 # connect to db and media cloud
-db = AlreadyGeoLocatedStoryDatabase(config.get('db','name'), config.get('db','host'))
+db = GeoStoryDatabase(config.get('db','name'), config.get('db','host'))
 collection = mediameter.source.MediaSourceCollection(config.get('api','key'))
 
 collection.loadAllMediaIds()
