@@ -20,18 +20,22 @@ cliff_url = config.get('cliff','url')
 
 # Query CLIFF to pull out entities from one story
 def fetchEntitiesFromCliff(text):
-	try:
-		params = {'q':text}
-		r = requests.get(cliff_url, params=params)
-		entities = r.json()
-		return entities
-	except requests.exceptions.RequestException as e:
-		print "ERROR RequestException " + str(e)
+    try:
+        params = {'q':text}
+        r = requests.get(cliff_url, params=params)
+        entities = r.json()
+        if entities['status'] is not 'ok':
+            return None
+        return entities
+    except requests.exceptions.RequestException as e:
+        print "ERROR RequestException " + str(e)
 
 # Find records that don't have geodata and geocode them
 for story in db.storiesWithoutCliffInfo():
-	sorted_sentences = [s['sentence'] for s in sorted(story['story_sentences'], key=itemgetter('sentence_number'))]
-	story_text = ' '.join(sorted_sentences)
-	story['entities'] = fetchEntitiesFromCliff(story_text)
-	db.updateStory(story)
-	print "Saved " + str(story['_id']) + " - " + story['title'] + "..."
+    sorted_sentences = [s['sentence'] for s in sorted(story['story_sentences'], key=itemgetter('sentence_number'))]
+    story_text = ' '.join(sorted_sentences)
+    entities = fetchEntitiesFromCliff(story_text)
+    if entities is not None:
+        story['entities'] = entities
+        db.updateStory(story)
+    print "Saved " + str(story['_id']) + " - " + story['title'] + "..."
