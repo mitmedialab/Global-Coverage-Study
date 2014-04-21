@@ -89,6 +89,7 @@ for media_type, media_story_count in media_counts.iteritems():
 	count_by_country = []
 	parsed_article_count = 0
 	for country_code, country_story_count in db.storyCountByCountry(media_type).iteritems():
+		print "    "+country_code+": "+str(country_story_count)+" stories"
 
 		# setup country-specific info
 		country_alpha3 = None
@@ -113,10 +114,13 @@ for media_type, media_story_count in media_counts.iteritems():
 
 		# put country-specific info together
 		if country_alpha3 is not None:
+			print "      "+country_code+": fetching people metioned"
 			all_people_counts = db.peopleMentioned(media_type, country_code)
+			print "      "+country_code+": counting people metioned"
 			people_counts = [ { 'name': name, 'count':freq } \
 				for name, freq in sorted(all_people_counts.iteritems(), key=operator.itemgetter(1), reverse=True)]\
 				[:30]
+			print "      "+country_code+": building results"
 			count_by_country.append({
 				'alpha3': country_alpha3, 'count': country_story_count, 'people': people_counts, 'tfidf': tfidf_results
 			})
