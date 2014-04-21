@@ -61,12 +61,11 @@ for media_type, media_story_count in media_counts.iteritems():
                 country_stopwords = []  
             # fetch and put back together the stories
             print "      fetch "+country_code
-            country_stories = db.mediaStories(media_type, country_code)
-            print "        ("+str(len(country_stories))+" stories): "
-            print "        create text",
-            country_stories_text = ' '.join( [ ' '.join( [s['sentence'] for s in story['story_sentences']] )  for story in country_stories] ) # this feels dumb
+            print "        ("+str(db.mediaStories(media_type, country_code).count())+" stories): "
+            print "        create text"
+            country_stories_text = ' '.join( [ ' '.join( [s['sentence'] for s in story['story_sentences']] )  for story in db.mediaStories(media_type, country_code)] ) # this feels dumb
             # nltk-ize it
-            print "        nltk, "
+            print "        nltk "
             doc = nltk.Text([ \
                 word.encode('utf-8') \
                     for sent in sent_tokenize(country_stories_text.lower()) for word in word_tokenize(sent) \
