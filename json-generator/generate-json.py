@@ -49,9 +49,10 @@ for media_type, media_story_count in media_counts.iteritems():
     idf = {}                    # maps term to inverse document frequency
     if DO_IF_IDF:
         print "    Computing TF and IDF"
-        country_counts = db.storyCountByCountry(media_type)
+#storyCountByCountry
         total_countries = len(country_counts)
-        for country_code, count in country_counts.iteritems():
+        for country_code in db.allPrimaryCountries():
+            count = db.storyOfTypeAboutCountry(media_type,country_code)
             country_stopwords = []
             try:
                 country_iso3166 = countries.get(country_code)
@@ -89,7 +90,8 @@ for media_type, media_story_count in media_counts.iteritems():
     print "    Computing info for each country"
     count_by_country = []
     parsed_article_count = 0
-    for country_code, country_story_count in db.storyCountByCountry(media_type).iteritems():
+    for country_code in db.allPrimaryCountries():
+        country_story_count = db.storyOfTypeAboutCountry(media_type,country_code)
         print "    "+country_code+": "+str(country_story_count)+" stories"
 
         # setup country-specific info

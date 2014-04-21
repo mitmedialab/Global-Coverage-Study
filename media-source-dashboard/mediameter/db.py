@@ -56,17 +56,22 @@ class GeoStoryDatabase(MongoStoryDatabase):
         raw_results = self._db.stories.group(key, condition, initial, reduce);
         return self._resultsToDict(raw_results,'type')
 
-    def storyCountByCountry(self, media_type=None):
-        key = ['entities.where.primaryCountries']
-        condition = {'type': media_type} if media_type is not None else None
-        initial = {'value':0}
-        reduce = Code("function(doc,prev) { prev.value += 1; }") 
-        raw_results = self._db.stories.group(key, condition, initial, reduce);
-        return self._resultsToDict(raw_results,'entities.where.primaryCountries')
+    def allPrimaryCountries(self, media_type=None):
+        cursor = self._db.stories
+        if media_type is not None:
+            cursor = cursor.find({'type': media_type})
+        return cursor.distinct('entities.where.primaryCountries')
+
+    def storyOfTypeAboutCountry(self,media_type,country_alpha2):
+        criteria = {'type': media_type,
+                    'entities.where.primaryCountries':country_alpha2
+                   }
+        return self._db.stories.find(criteria).count()
 
     def mediaStories(self, media_type, country_alpha2=None):
         criteria = { 'type': media_type }
-        criteria = {'entities.where.primaryCountries': country_alpha2} if country_alpha2 is not None else None
+        if country_alpha2 is not None:
+            criteria['entities.where.primaryCountries'] = country_alpha2
         docs = []
         for doc in self._db.stories.find(criteria):
             docs.append(doc)
@@ -75,7 +80,8 @@ class GeoStoryDatabase(MongoStoryDatabase):
     def peopleMentioned(self, media_type, country_alpha2=None):
         name_to_count = {}
         criteria = { 'type': media_type }
-        criteria = {'entities.where.primaryCountries': country_alpha2} if country_alpha2 is not None else None
+        if country_alpha2 is not None:
+            criteria['entities.where.primaryCountries'] = country_alpha2
         for doc in self._db.stories.find(criteria):
             for info in doc['entities']['who']:
                 if info['name'] not in name_to_count.keys():
