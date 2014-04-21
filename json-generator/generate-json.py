@@ -60,19 +60,19 @@ for media_type, media_story_count in media_counts.iteritems():
             except KeyError:
                 country_stopwords = []  
             # fetch and put back together the stories
-            print "      fetch "+country_code,
+            print "      fetch "+country_code
             country_stories = db.mediaStories(media_type, country_code)
-            print "("+str(len(country_stories))+"), ",
-            print "create text, ",
+            print "        ("+str(len(country_stories))+" stories): "
+            print "        create text",
             country_stories_text = ' '.join( [ ' '.join( [s['sentence'] for s in story['story_sentences']] )  for story in country_stories] ) # this feels dumb
             # nltk-ize it
-            print "nltk, ",
+            print "        nltk, "
             doc = nltk.Text([ \
                 word.encode('utf-8') \
                     for sent in sent_tokenize(country_stories_text.lower()) for word in word_tokenize(sent) \
                     if word not in english_stop_words and word not in string.punctuation and word not in country_stopwords])
             # compute the document tf 
-            print "doc tf ",
+            print "        doc tf "
             doc_term_count = len(doc.vocab().keys())
             print "        ("+str(doc_term_count)+" terms)"
             doc_by_country[country_code] = doc
