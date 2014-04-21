@@ -1,9 +1,14 @@
-import logging, os, json, ConfigParser, sys
+import logging, os, json, ConfigParser, sys, Queue, threading, time
 from operator import itemgetter
 import requests
 from mediameter.db import GeoStoryDatabase
 
-logging.basicConfig(filename='geocoder.log',level=logging.DEBUG)
+start_time = time.time()
+
+THREADS_TO_RUN = 20
+STORIES_AT_TIME = 5000
+
+logging.basicConfig(filename='geocoder.log',level=logging.INFO)
 log = logging.getLogger('geocoder')
 log.info("---------------------------------------------------------------------------")
 
@@ -18,24 +23,58 @@ db = GeoStoryDatabase(config.get('db','name'))
 
 cliff_url = config.get('cliff','url')
 
+class Engine:
+    def __init__(self, texts):
+        self.queue = Queue.Queue()
+        for text in texts:
+            self.queue.put((text['id'], text['text']))
+            
+    def run(self):
+        num_workers = THREADS_TO_RUN
+        for i in range(num_workers):
+            t = threading.Thread(target=self.worker)
+            t.daemon = True
+            t.start()
+        self.queue.join()
+        
+    def worker(self):
+        while True:
+            story_id, text = self.queue.get()
+            entities = fetchEntitiesFromCliff(text)
+            if entities is not None:
+                story = db.getStory(story_id)
+                story['entities'] = entities
+                db.updateStory(story)
+                log.info("  updated "+str(story_id))
+            self.queue.task_done()
+
 # Query CLIFF to pull out entities from one story
 def fetchEntitiesFromCliff(text):
     try:
         params = {'q':text}
         r = requests.get(cliff_url, params=params)
         entities = r.json()
-        if entities['status'] is not 'ok':
+        if entities['status']!='ok':
             return None
         return entities
     except requests.exceptions.RequestException as e:
-        print "ERROR RequestException " + str(e)
+        log.warn("ERROR RequestException " + str(e))
 
 # Find records that don't have geodata and geocode them
-for story in db.storiesWithoutCliffInfo():
-    sorted_sentences = [s['sentence'] for s in sorted(story['story_sentences'], key=itemgetter('sentence_number'))]
-    story_text = ' '.join(sorted_sentences)
-    entities = fetchEntitiesFromCliff(story_text)
-    if entities is not None:
-        story['entities'] = entities
-        db.updateStory(story)
-    print "Saved " + str(story['_id']) + " - " + story['title'] + "..."
+storiesToDo = db.storiesWithoutCliffInfo().count()
+while storiesToDo>0:
+    storiesToDo = db.storiesWithoutCliffInfo().count()
+    log.info( str(storiesToDo)+" stories left without cliff info" )
+
+    to_process = []
+    for story in db.storiesWithoutCliffInfo(STORIES_AT_TIME):
+        sorted_sentences = [s['sentence'] for s in sorted(story['story_sentences'], key=itemgetter('sentence_number'))]
+        story_text = ' '.join(sorted_sentences)
+        to_process.append({ 'id': story['_id'], 'text': story_text })
+    log.info("Queued "+str(len(to_process))+" stories")
+    engine = Engine(to_process)
+    engine.run()
+    log.info("done with one round")
+
+durationSecs = float(time.time() - start_time)
+log.info( str( round(durationSecs/STORIES_AT_TIME,4) )+" secs per story" )

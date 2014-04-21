@@ -6,8 +6,11 @@ class GeoStoryDatabase(MongoStoryDatabase):
     '''
     '''
 
-    def storiesWithoutCliffInfo(self):
-        return self._db.stories.find({ 'entities': {'$exists':False} })
+    def storiesWithoutCliffInfo(self, limit=None):
+        cursor = self._db.stories.find({ 'entities': {'$exists':False} })
+        if limit is not None:
+            cursor.limit(limit)
+        return cursor
 
     def storiesWithCliffInfo(self):
         return self._db.stories.find({ 'entities': {'$exists':True} })
