@@ -12,6 +12,9 @@ class GeoStoryDatabase(MongoStoryDatabase):
     def storiesWithCliffInfo(self):
         return self._db.stories.find({ 'entities': {'$exists':True} })
 
+    def allStories(self):
+        return self._db.stories.find()
+
     def storyCount(self):
         '''
         Retun total number of stories
