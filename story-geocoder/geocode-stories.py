@@ -3,8 +3,6 @@ from operator import itemgetter
 import requests
 from mediameter.db import GeoStoryDatabase
 
-start_time = time.time()
-
 THREADS_TO_RUN = 20
 STORIES_AT_TIME = 5000
 
@@ -63,18 +61,21 @@ def fetchEntitiesFromCliff(text):
 # Find records that don't have geodata and geocode them
 storiesToDo = db.storiesWithoutCliffInfo().count()
 while storiesToDo>0:
+    start_time = time.time()
+
     storiesToDo = db.storiesWithoutCliffInfo().count()
     log.info( str(storiesToDo)+" stories left without cliff info" )
 
     to_process = []
     for story in db.storiesWithoutCliffInfo(STORIES_AT_TIME):
-        sorted_sentences = [s['sentence'] for s in sorted(story['story_sentences'], key=itemgetter('sentence_number'))]
-        story_text = ' '.join(sorted_sentences)
-        to_process.append({ 'id': story['_id'], 'text': story_text })
+        if 'story_sentences' in story:
+            sorted_sentences = [s['sentence'] for s in sorted(story['story_sentences'], key=itemgetter('sentence_number'))]
+            story_text = ' '.join(sorted_sentences)
+            to_process.append({ 'id': story['_id'], 'text': story_text })
     log.info("Queued "+str(len(to_process))+" stories")
     engine = Engine(to_process)
     engine.run()
     log.info("done with one round")
 
-durationSecs = float(time.time() - start_time)
-log.info( str( round(durationSecs/STORIES_AT_TIME,4) )+" secs per story" )
+    durationSecs = float(time.time() - start_time)
+    log.info( str( round(durationSecs/STORIES_AT_TIME,4) )+" secs per story this round" )
