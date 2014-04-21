@@ -57,17 +57,12 @@ class GeoStoryDatabase(MongoStoryDatabase):
         return self._resultsToDict(raw_results,'type')
 
     def storyCountByCountry(self, media_type=None):
-        name_to_count = {}
-        criteria = {'type': media_type} if media_type is not None else None
-        for doc in self._db.stories.find(criteria):
-            if 'entities' in doc:
-                if 'primaryCountries' in doc['entities']['where']:
-                    for country in doc['entities']['where']['primaryCountries']:
-                        if country not in name_to_count.keys():
-                            name_to_count[country] = 1
-                        else:
-                            name_to_count[country] += 1
-        return name_to_count
+        key = ['entities.where.primaryCountries']
+        condition = {'type': media_type} if media_type is not None else None
+        initial = {'value':0}
+        reduce = Code("function(doc,prev) { prev.value += 1; }") 
+        raw_results = self._db.stories.group(key, condition, initial, reduce);
+        return self._resultsToDict(raw_results,'entities.where.primaryCountries')
 
     def mediaStories(self, media_type, country_alpha2=None):
         criteria = { 'type': media_type }
