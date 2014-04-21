@@ -72,10 +72,7 @@ class GeoStoryDatabase(MongoStoryDatabase):
         criteria = { 'type': media_type }
         if country_alpha2 is not None:
             criteria['entities.where.primaryCountries'] = country_alpha2
-        docs = []
-        for doc in self._db.stories.find(criteria):
-            docs.append(doc)
-        return docs
+        return self._db.stories.find(criteria)
 
     def peopleMentioned(self, media_type, country_alpha2=None):
         name_to_count = {}
