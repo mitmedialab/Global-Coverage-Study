@@ -60,12 +60,13 @@ class GeoStoryDatabase(MongoStoryDatabase):
         name_to_count = {}
         criteria = {'type': media_type} if media_type is not None else None
         for doc in self._db.stories.find(criteria):
-            if 'primaryCountries' in doc['entities']['where']:
-                for country in doc['entities']['where']['primaryCountries']:
-                    if country not in name_to_count.keys():
-                        name_to_count[country] = 1
-                    else:
-                        name_to_count[country] += 1
+            if 'entities' in doc:
+                if 'primaryCountries' in doc['entities']['where']:
+                    for country in doc['entities']['where']['primaryCountries']:
+                        if country not in name_to_count.keys():
+                            name_to_count[country] = 1
+                        else:
+                            name_to_count[country] += 1
         return name_to_count
 
     def mediaStories(self, media_type, country_alpha2=None):
