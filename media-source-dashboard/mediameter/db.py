@@ -73,32 +73,17 @@ class GeoStoryDatabase(MongoStoryDatabase):
         return docs
 
     def peopleMentioned(self, media_type, country_alpha2=None):
-        mapper = Code("""
-               function () {
-                 var countryCode = '"""+country_alpha2+"""';
-                 var mediaType = '"""+media_type+"""';
-                 if( (this.type==mediaType) && (this.entities!=null) && (this.entities.where.resolvedLocations.length>0) && (this.entities.where.primaryCountries.indexOf(countryCode) > -1) ){
-                   for(var idx in this.entities.who){
-                     var name = this.entities.who[idx]['name'];
-                     emit(name, 1);
-                    }
-                 }
-               }
-               """)
-        reducer = Code("""
-                function (key, values) {
-                  var total = 0;
-                  for (var i = 0; i < values.length; i++) {
-                    total += values[i];
-                  }
-                  return total;
-                }
-                """)
-        results = self._db.stories.map_reduce(mapper,reducer, "peopleMentionedInMediaCountry")
+        name_to_count = {}
+        criteria = { 'type': media_type }
+        criteria = {'entities.where.primaryCountries': country_alpha2} if country_alpha2 is not None else None
         docs = []
-        for doc in results.find():
-            docs.append(doc)
-        return self._resultsToDict(docs,'_id')   
+        for doc in self._db.stories.find(criteria):
+            for info in doc['entities']['who']:
+                if info['name'] not in name_to_count.keys():
+                    name_to_count[info['name']] = info['occurrenceCount']
+                else:
+                    name_to_count[info['name']] += info['occurrenceCount']
+        return name_to_count
 
     # assumes key is integer!
     def _resultsToDict(self, raw_results, id_key):
