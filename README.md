@@ -21,3 +21,12 @@ Process
 11. We ran `story-fetcher/fetch-stories.py` to download all the sentences for the sources for the month we care about into a MongoDB.
 12. We ran `story-geocoder/geocode-stories.py` to add in a `entities` attribute to all the stories in the DB, containing extracted and geo-located places mentioned in each article (via our CLIFF tool).
 13. We ran `json-generator/generate-json.py` to aggregate the information into a JSON describing country coverage by type of media source.
+
+DB
+--
+
+Make sure you set up these indices in the database:
+```
+db.people.ensureIndex( { "type": 1 } );
+db.people.ensureIndex( { "entities.where.primaryCountries": 1 } );
+```
