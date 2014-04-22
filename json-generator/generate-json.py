@@ -61,7 +61,7 @@ for media_type, media_story_count in media_counts.iteritems():
                 country_stopwords = []  
             # fetch and put back together the stories
             print "      fetch "+country_code
-            print "        ("+str(db.mediaStories(media_type, country_code).count())+" stories): "
+            print "        ("+str(db.mediaStories(media_type, country_code).count())+" stories) "
             print "        create text"
             country_stories_text = ' '.join( [ ' '.join( [s['sentence'] for s in story['story_sentences']] )  for story in db.mediaStories(media_type, country_code)] ) # this feels dumb
             # nltk-ize it
