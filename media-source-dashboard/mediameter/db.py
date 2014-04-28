@@ -68,6 +68,12 @@ class GeoStoryDatabase(MongoStoryDatabase):
                    }
         return self._db.stories.find(criteria).count()
 
+    def storyFromSourceAboutCountry(self,media_id,country_alpha2):
+        criteria = {'media_id': media_id,
+                    'entities.where.primaryCountries':country_alpha2
+                   }
+        return self._db.stories.find(criteria).count()
+
     def mediaStories(self, media_type, country_alpha2=None):
         criteria = { 'type': media_type }
         if country_alpha2 is not None:
