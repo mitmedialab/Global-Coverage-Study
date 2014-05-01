@@ -6,8 +6,8 @@ from mediameter.db import GeoStoryDatabase
 from iso3166 import countries
 from mediameter import stopwords    # Ali's combo module
 
-DO_IF_IDF = True
-DO_PEOPLE = True
+DO_IF_IDF = False
+DO_PEOPLE = False
 
 start_time = time.time()
 
@@ -47,9 +47,9 @@ for media_type, media_story_count in media_counts.iteritems():
     doc_by_country = {}         # maps alpha2 to document (country nltk.Text)
     term_doc_incidence = {}     # maps term to number of documents (country nltk.Text) it appears in
     idf = {}                    # maps term to inverse document frequency
+    all_countries = db.allPrimaryCountries(media_type)
     if DO_IF_IDF:
         print "    Computing TF and IDF"
-        all_countries = db.allPrimaryCountries(media_type)
         total_countries = len(all_countries)
         for country_code in all_countries:
             count = db.storyOfTypeAboutCountry(media_type,country_code)

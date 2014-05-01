@@ -8,6 +8,8 @@ class Cliff():
 
     PATH_TO_CLIFF = "/CLIFF/parse/text"
 
+    JSON_PATH_TO_ABOUT_COUNTRIES = 'results.places.about.countries';
+
     STATUS_OK = "ok"
 
     def __init__(self,host,port):
