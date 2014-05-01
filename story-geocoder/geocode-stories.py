@@ -1,9 +1,11 @@
 import logging, os, json, ConfigParser, sys, Queue, threading, time
 from operator import itemgetter
 import requests
+
+import mediameter.cliff
 from mediameter.db import GeoStoryDatabase
 
-THREADS_TO_RUN = 20
+THREADS_TO_RUN = 15
 STORIES_AT_TIME = 5000
 
 logging.basicConfig(filename='geocoder.log',level=logging.INFO)
@@ -18,8 +20,7 @@ config.read(parent_dir+'/mc-client.config')
 
 # connect to everything
 db = GeoStoryDatabase(config.get('db','name'))
-
-cliff_url = config.get('cliff','url')
+cliff = mediameter.cliff.Cliff(config.get('cliff','host'),config.get('cliff','port'))
 
 class Engine:
     def __init__(self, texts):
@@ -38,25 +39,16 @@ class Engine:
     def worker(self):
         while True:
             story_id, text = self.queue.get()
-            entities = fetchEntitiesFromCliff(text)
-            if entities is not None:
-                story = db.getStory(story_id)
-                story['entities'] = entities
-                db.updateStory(story)
-                log.info("  updated "+str(story_id))
+            try:
+                entities = cliff.query(text)
+                if entities['status'] == cliff.STATUS_OK:
+                    story = db.getStory(story_id)
+                    story['entities'] = entities
+                    db.updateStory(story)
+                    log.info("  updated "+str(story_id))
+            except requests.exceptions.RequestException as e:
+                log.warn("ERROR RequestException " + str(e))                
             self.queue.task_done()
-
-# Query CLIFF to pull out entities from one story
-def fetchEntitiesFromCliff(text):
-    try:
-        params = {'q':text}
-        r = requests.get(cliff_url, params=params)
-        entities = r.json()
-        if entities['status']!='ok':
-            return None
-        return entities
-    except requests.exceptions.RequestException as e:
-        log.warn("ERROR RequestException " + str(e))
 
 # Find records that don't have geodata and geocode them
 storiesToDo = db.storiesWithoutCliffInfo().count()

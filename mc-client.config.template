@@ -7,4 +7,5 @@ name: mc_geostudy
 collection: stories
 
 [cliff]
-url:http://MY_CLIFF_SERVER:8080/parseText
+host: http://localhost
+port: 8080
