@@ -13,29 +13,17 @@ class GeoStoryDatabase(MongoStoryDatabase):
             cursor.limit(limit)
         return cursor
 
-    def storiesWithCliffInfo(self):
-        return self._db.stories.find({ 'entities': {'$exists':True} })
-
     def allStories(self):
         return self._db.stories.find()
 
-    def storyCount(self):
-        '''
-        Retun total number of stories
-        '''
-        return self._db.stories.count()
-
     def maxStoryProcessedId(self,media_id=None):
-        '''
-
-        '''
         res = self._db.stories.find({'media_id':int(media_id)}).sort('processed_stories_id',-1).limit(1)
         if res.count()==0:
             return 0
         else:
             return res[0]['processed_stories_id']
 
-    def storyCountByMediaSourceId(self):
+    def mediaStoryCounts(self):
         '''
         Returns dict of media_id=>story_count
         '''
@@ -46,7 +34,7 @@ class GeoStoryDatabase(MongoStoryDatabase):
         raw_results = self._db.stories.group(key, condition, initial, reduce);
         return self._resultsToDict(raw_results,'media_id')
 
-    def storyCountByMediaType(self):
+    def mediaTypeStoryCounts(self):
         '''
         Returns dict of media_type=>story_count
         '''
@@ -57,26 +45,20 @@ class GeoStoryDatabase(MongoStoryDatabase):
         raw_results = self._db.stories.group(key, condition, initial, reduce);
         return self._resultsToDict(raw_results,'type')
 
-    def allPrimaryCountries(self, media_type=None):
+    def allAboutCountries(self, media_type=None):
         cursor = self._db.stories
         if media_type is not None:
             cursor = cursor.find({'type': media_type})
         return cursor.distinct('entities.'+Cliff.JSON_PATH_TO_ABOUT_COUNTRIES)
 
-    def storyOfTypeAboutCountry(self,media_type,country_alpha2):
-        criteria = {'type': media_type,
-                    'entities.'+Cliff.JSON_PATH_TO_ABOUT_COUNTRIES:country_alpha2
-                   }
-        return self._db.stories.find(criteria).count()
+    def storiesOfType(self,media_type,country_alpha2=None):
+        criteria = {'type': media_type }
+        if country_alpha2 is not None:
+            criteria['entities.'+Cliff.JSON_PATH_TO_ABOUT_COUNTRIES] = country_alpha2
+        return self._db.stories.find(criteria)
 
-    def storyFromSourceAboutCountry(self,media_id,country_alpha2):
-        criteria = {'media_id': media_id,
-                    'entities.'+Cliff.JSON_PATH_TO_ABOUT_COUNTRIES:country_alpha2
-                   }
-        return self._db.stories.find(criteria).count()
-
-    def mediaStories(self, media_type, country_alpha2=None):
-        criteria = { 'type': media_type }
+    def storiesFromSource(self,media_id,country_alpha2=None):
+        criteria = {'media_id': int(media_id) }
         if country_alpha2 is not None:
             criteria['entities.'+Cliff.JSON_PATH_TO_ABOUT_COUNTRIES] = country_alpha2
         return self._db.stories.find(criteria)

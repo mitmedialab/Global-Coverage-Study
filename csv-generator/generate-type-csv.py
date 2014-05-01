@@ -15,14 +15,14 @@ type_country_count = {}
 
 # get list of all media sources
 print "Starting to generate csv"
-media_counts = db.storyCountByMediaType()
+media_counts = db.mediaTypeStoryCounts()
 for media_type, media_story_count in media_counts.iteritems():
     print "  Working on "+media_type+" type ("+str(media_story_count)+" articles)"
     type_country_count[media_type] = {}
     # setup tfidf computation
-    all_countries = db.allPrimaryCountries(media_type)
+    all_countries = db.allAboutCountries(media_type)
     for country_code in all_countries:
-        count = db.storyOfTypeAboutCountry(media_type,country_code)
+        count = db.storiesOfType(media_type,country_code).count()
         type_country_count[media_type][country_code] = count
 
 print "Writing output CSV"
@@ -30,7 +30,7 @@ print "Writing output CSV"
 with open("output/stories-by-type-and-country.csv", "w") as csvfile:
     writer = csv.writer(csvfile)
     types = sorted( type_country_count.keys() )
-    countries = sorted( db.allPrimaryCountries() )
+    countries = sorted( db.allAboutCountries() )
     writer.writerow( ['country'] + types )
     for country in countries:
         row = [ country ]

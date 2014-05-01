@@ -16,8 +16,8 @@ config.read(parent_dir+'/mc-client.config')
 
 db = GeoStoryDatabase(config.get('db','name'))
 
-storyCount = db.storyCount()
-log.info(str(storyCount)+" stories to process")
+story_count = db.allStories().count()
+log.info(str(story_count)+" stories to process")
 
 done = 0
 last_pct = None
@@ -27,7 +27,7 @@ for story in db.allStories():
         db.updateStory(story)
     done = done + 1
 
-    pct_done = round((float(done)/float(storyCount))*100)
+    pct_done = round((float(done)/float(story_count))*100)
     if (pct_done % 10 == 0) and (pct_done != last_pct):
         print str(pct_done)+'%'
         last_pct = pct_done

@@ -36,7 +36,7 @@ def add_idf(idf, term, count):
 
 # get list of all media sources
 print "Starting to generate json"
-media_counts = db.storyCountByMediaType()
+media_counts = db.mediaTypeStoryCounts()
 for media_type, media_story_count in media_counts.iteritems():
     print "  Working on "+media_type+" type ("+str(media_story_count)+" articles)"
     info = {
@@ -47,12 +47,12 @@ for media_type, media_story_count in media_counts.iteritems():
     doc_by_country = {}         # maps alpha2 to document (country nltk.Text)
     term_doc_incidence = {}     # maps term to number of documents (country nltk.Text) it appears in
     idf = {}                    # maps term to inverse document frequency
-    all_countries = db.allPrimaryCountries(media_type)
+    all_countries = db.allAboutCountries(media_type)
     if DO_IF_IDF:
         print "    Computing TF and IDF"
         total_countries = len(all_countries)
         for country_code in all_countries:
-            count = db.storyOfTypeAboutCountry(media_type,country_code)
+            count = db.storiesOfType(media_type,country_code).count()
             country_stopwords = []
             try:
                 country_iso3166 = countries.get(country_code)
@@ -61,9 +61,9 @@ for media_type, media_story_count in media_counts.iteritems():
                 country_stopwords = []  
             # fetch and put back together the stories
             print "      fetch "+country_code
-            print "        ("+str(db.mediaStories(media_type, country_code).count())+" stories) "
+            print "        ("+str(db.storiesOfType(media_type, country_code).count())+" stories) "
             print "        create text"
-            country_stories_text = ' '.join( [ ' '.join( [s['sentence'] for s in story['story_sentences']] )  for story in db.mediaStories(media_type, country_code)] ) # this feels dumb
+            country_stories_text = ' '.join( [ ' '.join( [s['sentence'] for s in story['story_sentences']] )  for story in db.storiesOfType(media_type, country_code)] ) # this feels dumb
             # nltk-ize it
             print "        nltk "
             doc = nltk.Text([ \
@@ -90,7 +90,7 @@ for media_type, media_story_count in media_counts.iteritems():
     count_by_country = []
     parsed_article_count = 0
     for country_code in all_countries:
-        country_story_count = db.storyOfTypeAboutCountry(media_type,country_code)
+        country_story_count = db.storiesOfType(media_type,country_code).count()
         print "    "+country_code+": "+str(country_story_count)+" stories"
 
         # setup country-specific info

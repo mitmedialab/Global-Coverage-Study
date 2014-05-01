@@ -19,26 +19,29 @@ collection.loadAllMediaIds()
 
 source_country_count = {}
 media_sources = sorted(collection.mediaSources(), key=itemgetter('url'))
-all_countries = sorted(db.allPrimaryCountries())
+all_countries = sorted(db.allAboutCountries())
 
 
 print "Starting to generate csv"
+print "  "+str(db.allStories().count())+" stories"
 
 for source in media_sources:
     media_id = source['media_id']
-    print "  Working on "+source['url']+" ("+str(media_id)+")"
-    source_country_count[media_id] = {}
-    for country_code in all_countries:
-        count = db.storyFromSourceAboutCountry(media_id,country_code)
-        source_country_count[media_id][country_code] = count
+    source_story_count = db.storiesFromSource(media_id).count()
+    print "  Working on "+source['url']+" ("+str(media_id)+") "+str(source_story_count)+" stories"
+    if source_story_count > 0:
+        source_country_count[media_id] = {}
+        for country_code in all_countries:
+            count = db.storiesFromSource(media_id,country_code).count()
+            source_country_count[media_id][country_code] = count
 
 print "Writing output CSV"
 
 with open("output/stories-by-source-and-country.csv", "w") as csvfile:
     writer = csv.writer(csvfile)
-    countries = sorted( db.allPrimaryCountries() )
+    countries = sorted( db.allAboutCountries() )
     media_source_urls = [source['url'] for source in media_sources]
-    writer.writerow( ['country'] + media_sources )
+    writer.writerow( ['country'] + media_source_urls )
     for country in countries:
         row = [ country ]
         for source in media_sources:

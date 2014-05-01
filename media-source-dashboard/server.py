@@ -24,12 +24,12 @@ collection.loadAllMediaIds()
 
 @app.route("/")
 def index():
-    local_story_counts = db.storyCountByMediaSourceId()
+    local_story_counts = db.mediaStoryCounts()
     media_info = collection.listWithSentenceCounts()
     for m in media_info:
     	m['db_stories'] = local_story_counts[int(m['media_id'])] if int(m['media_id']) in local_story_counts else 0
     total_mc_stories = sum( [m['sentence_count'] for m in media_info] )
-    total_db_stories = db.storyCount()
+    total_db_stories = db.allStories().count()
     total_geocoded_stories = total_db_stories - db.storiesWithoutCliffInfo().count()
     return render_template("base.html",
         media_info = media_info,
