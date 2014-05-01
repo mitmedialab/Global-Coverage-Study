@@ -6,8 +6,8 @@ from mediameter.db import GeoStoryDatabase
 from iso3166 import countries
 from mediameter import stopwords    # Ali's combo module
 
-DO_IF_IDF = False
-DO_PEOPLE = False
+DO_IF_IDF = True
+DO_PEOPLE = True
 
 start_time = time.time()
 
