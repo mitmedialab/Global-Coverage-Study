@@ -69,7 +69,7 @@ class GeoStoryDatabase(MongoStoryDatabase):
         if country_alpha2 is not None:
             criteria['entities.'+Cliff.JSON_PATH_TO_ABOUT_COUNTRIES] = country_alpha2
         for doc in self._db.stories.find(criteria):
-            for info in doc['entities']['people']:
+            for info in doc['entities']['results']['people']:
                 if info['name'] not in name_to_count.keys():
                     name_to_count[info['name']] = info['count']
                 else:
