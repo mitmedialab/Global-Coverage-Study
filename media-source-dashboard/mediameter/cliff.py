@@ -9,6 +9,7 @@ class Cliff():
     PATH_TO_CLIFF = "/CLIFF/parse/text"
 
     JSON_PATH_TO_ABOUT_COUNTRIES = 'results.places.about.countries';
+    JSON_PATH_TO_PEOPLE = 'results.people';
 
     STATUS_OK = "ok"
 
