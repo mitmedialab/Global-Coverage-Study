@@ -1,0 +1,646 @@
+@import url(/external/07/hacks.css); /* CSS filters and browser specific CSS */
+#header, #navmain, #footer, #footerESL, #footerFRA {font: 72%/150% Verdana, Helvetica, Arial, sans-serif;}
+#footer li { font-size:11px !important;}
+#footerESL li { font-size:11px !important;}
+#footerFRA li { font-size:11px !important;}
+body {background: #E9E9E9; color: #505050; font-family: Verdana, Helvetica, Arial, sans-serif; text-align: left;}
+h2, h3, h4, h5, h6, p, ul, ol, dl, address, img, blockquote {margin: 0 0px 0 0; padding: 5px 0;}
+ul {margin-left: 2.5em;}
+
+*  {margin: 0; padding: 0;}
+
+#container {width: 800px; background: #fff; overflow: visible; margin: 0 auto; position: relative;padding:0;}
+h1.logo a {background: url(/external/07/images/logo.gif) no-repeat 55px 8px; display: block; height: 66px; text-indent: -1000px;}
+h1.logo {background: url(/external/07/images/seal.gif) no-repeat 0 8px; margin-left: 5px; margin-top: 15px;	 height: 66px;}
+h1.logoESL a {background: url(/external/07/images/SPlogo.gif) no-repeat 55px 8px; display: block; height: 66px; text-indent: -1000px;}
+h1.logoESL {background: url(/external/07/images/SPseal.gif) no-repeat 0 8px; margin-left: 5px; margin-top: 15px;	 height: 66px;}
+h1.logoFRA a {background: url(/external/07/images/FRlogo.gif) no-repeat 55px 8px; display: block; height: 66px; text-indent: -1000px;}
+h1.logoFRA {background: url(/external/07/images/FRseal.gif) no-repeat 0 8px; margin-left: 5px; margin-top: 15px;	 height: 66px;}
+h1.logoJPN a {background: url(/external/07/images/JAlogo.gif) no-repeat 55px 8px; display: block; height: 66px; text-indent: -1000px;}
+h1.logoJPN {background: url(/external/07/images/seal.gif) no-repeat 0 8px; margin-left: 5px; margin-top: 15px;	 height: 66px;}
+h1 img {padding-bottom: 0; margin-top: -2px;}
+
+.home h1.logo a {background: url(/external/07/images/logo_home.gif) no-repeat 97px 3px; display: block; height: 83px; text-indent: -1000px;}
+.home h1.logo {background: url(/external/07/images/seal_home.gif) no-repeat 0 0; margin-left: 5px; margin-top: 15px;	 height: 83px;}
+.home h1.logoESL a {background: url(/external/07/images/SPlogo_home.gif) no-repeat 97px 3px; display: block; height: 83px; text-indent: -1000px;}
+.home h1.logoESL {background: url(/external/07/images/SPseal_home.gif) no-repeat 0 0; margin-left: 5px; margin-top: 15px;	 height: 83px;}
+.home h1.logoFRA a {background: url(/external/07/images/FRlogo_home.gif) no-repeat 97px 3px; display: block; height: 83px; text-indent: -1000px;}
+.home h1.logoFRA {background: url(/external/07/images/FRseal_home.gif) no-repeat 0 0; margin-left: 5px; margin-top: 15px;	 height: 83px;}
+.home #header {overflow: hidden; background: #3A76BC url(/external/07/images/header_bkg.gif) repeat-x left top; text-align: left;height:100px;}
+
+a {text-decoration: none;}
+a:link {color: #333;}
+a:visited {color: #666699;text-decoration: underline;}
+a:hover, a:active, a:focus {color: #CA6900; text-decoration: underline;}
+
+
+a:link.samecolor {color: #D86A22; text-decoration: none;}
+a:visited.samecolor {color: #D86A22; }
+a:hover.samecolor {color: #D86A22;}
+a:focus.samecolor {color: #D86A22;}
+a:active.samecolor {color: #D86A22;}
+
+#header {overflow: hidden; background: #3A76BC url(/external/07/images/header_bkg.gif) repeat-x left top; text-align: left;height:84px;}
+#header a:link, #header a:visited {color: #FFF; text-decoration: none;}
+#header label {margin-bottom: .5em; cursor: pointer;}
+#header input, #header textarea{color:#191919;font-size:100%;font-family: Tahoma, Verdana, "Lucida Sans Unicode", Helvetica, Arial, sans-serif;}
+#header input:hover, #header input:active, #header input:focus, #header textarea:hover, #header textarea:active, #header textarea:focus {border-color: #7f6619;}
+#header input.text, #header select {padding: 2px 0; border: 1px solid #BCBCBC;}
+#header label, #header select {float: left; display: block; padding: 0;}
+#header input.search {width: 14em;}
+#header input.submit {background: url(/external/07/images/search_bg.gif) no-repeat right top; color: #FFF; border: 1px solid #023392;}
+#header fieldset {border: 0px; clear: both;}
+
+#navmain {overflow: hidden;  background: url(/external/07/images/nav_gradient_bottom.gif); font-size: 11px !important; width: 100%;margin-bottom:10px;}
+#navmain ul {margin: 0; padding: 0; list-style: none; float: left;  background: url(/external/07/images/nav_gradient.gif); z-index: 1;}
+#navmain li {float: left;}
+#navmain a {display: block; float: left; padding: 0 20px 0 20px; line-height: 23px; background: url(/external/07/images/navcorner.gif) no-repeat right top; text-decoration: none; color: #FFF;}
+#navmain a:hover, #navmain a:focus {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+
+/* =navmain .none tabbed style for subpages when no tab is selected in category */
+.none #navmain, .siteIndex #navmain, .map #navmain {overflow: hidden;  background: url(/external/07/images/nav_gradient_bottom.gif); font-size: 11px !important; width: 100%;margin-bottom:10px;}
+.none #navmain ul, .siteIndex #navmain ul, .map #navmain ul {margin: 0; padding: 0; list-style: none; float: left;  background: url(/external/07/images/nav_gradient.gif); z-index: 1;}
+.none #navmain li, .siteIndex #navmain li, .map #navmain li {float: left;}
+.none #navmain a, .siteIndex #navmain a, .map #navmain a {display: block; float: left; padding: 0 21px 0 20px; line-height: 23px; background: url(/external/07/images/navcorner.gif) no-repeat right top; text-decoration: none; color: #FFF;}
+.none #navmain a:hover, .none #navmain a:focus, .siteIndex #navmain a:hover, .map #navmain a:hover, .siteIndex #navmain a:focus, .map #navmain a:focus {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 1px;}
+
+.home #navmain a.home {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.whatIMFdoesMain #navmain a.whatIMFdoes {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.whatIMFdoesSub #navmain a.whatIMFdoes {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.datastatsMain #navmain a.datastats {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;} 
+.datastatsSub #navmain a.datastats {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;} 
+.publicationMain #navmain a.pubs {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.publicationSub #navmain a.pubs {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.aboutMain #navmain a.about {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.aboutSub #navmain a.about {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.newsMain #navmain a.news {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.newsSub #navmain a.news {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.videosMain #navmain a.video {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.videosSub #navmain a.video {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.countryinfoMain #navmain a.countryinfo {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.countryinfoSub #navmain a.countryinfo {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+
+/************ BEGIN TO BE DELETED because of IDs ********************/
+.home #navmain a#home {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.whatIMFdoesMain #navmain a#whatIMFdoes {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.whatIMFdoesSub #navmain a#whatIMFdoes {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.datastatsMain #navmain a#datastats {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;} 
+.datastatsSub #navmain a#datastats {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;} 
+.publicationMain #navmain a#pubs {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.publicationSub #navmain a#pubs {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.aboutMain #navmain a#about {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.aboutSub #navmain a#about {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.newsMain #navmain a#news {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.newsSub #navmain a#news {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.countryinfoMain #navmain a#countryinfo {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+.countryinfoSub #navmain a#countryinfo {color: #333333; background: #FFF url(/external/07/images/navcorner.gif) no-repeat right bottom; line-height: 22px; margin-top: 2px;}
+/************ END TO BE DELETED because of IDs ********************/
+
+
+#searchform legend {display:none;}
+
+#navsecond {position: absolute; top: 12px; right: 1em; font-size: 0.9em !important;}
+ul#navsecond  {list-style-type: none; margin: 0; margin-bottom: 1em;}
+ul#navsecond li {display: inline; line-height: 1em;}
+ul#navsecond a {float: left; border-right: 1px solid #fff; padding: 0 .75em; text-decoration: none;}
+ul#navsecond li:last-child a, ul#navsecond li a.last, #footer li a.last, #footerESL li a.last, #footerFRA li a.last {border-right: 0;}
+ul#navsecond li:first-child a {padding-left: 0;}
+
+#searchform {margin: 0; padding: 0; position: absolute; top: 35px; right: 1.5em; width: 320px; z-index:9;height:25px;}
+#searchform label {display: inline; margin: 0; padding: 0 10px 0 0; color: #fff; font-size: 0.8em;}
+#searchform label  {display: none;}
+#searchform input.search {width: 240px; height: 15px; padding: 2px; margin-bottom: 5px; margin-left: 0;font-size:1em}
+#searchform input.submit {width: 47px; padding: 2px; margin-bottom: 5px; margin-left: 0;}
+#searchform #searchoptions {visibility: hidden;height:1px;}
+#searchform #searchoptions label {float: left; display: inline;}
+#searchform #searchoptions .radio {float: left; display: inline; margin-right: 5px;}
+
+#header .clear,
+#footer .clear {clear: both; margin: 0; padding: 0; height: 0;}
+#header .left,
+#footer .left {float: left;}
+#header .right,
+.footer .right {float: right;}
+
+#container > table {margin: 0px auto; border: none;}
+
+/* Back to top link image for footer */
+#toplink {background:url(/external/images/top_back.png) center center no-repeat}
+/*Add top button hack for IE6 */
+*html .topbutton {background:url(/external/images/top.png) right center no-repeat; margin-left:720px;width:15px; height:17px;display:inline-block /*quirks mode*/;overflow:visible;text-align:left;} 
+/*Add top button hack for FF and Safari. Double display:inline-block styling for Safari 3.0 and -moz-inline-box for FF */
+.topbutton {background:url(/external/images/top.png) right center no-repeat; margin-left:720px;width:15px; height:17px;display:-moz-inline-box; /* Gecko proprietary */ vertical-align:top; /* Gecko needs this */overflow:visible;display:inline-block/*quirks mode*/;text-align:left;}
+/* Add top button icon hack for Opera 9.x */
+html:first-child .topbutton {background:url(/external/images/top.png) right center no-repeat; margin-left:720px;width:15px; height:17px;display:inline-table;overflow:visible;text-align:left;}
+/* Add top button hack for IE 7 only */
+*:first-child+html .topbutton {background:url(/external/images/top.png) right center no-repeat; margin-left:720px;width:15px; height:16px;display:inline-block;overflow:visible;text-align:left;}
+
+
+#footBorder {/*border-bottom: 4px solid #023392; no need for this since the toplink image is replacing the border too  not needed for toplink style margin-top:10px;*/}
+#footer {border-top: 0px solid #69A2DE; width: 100%; background: #528ED1 url(/external/07/images/seal_2.gif) no-repeat 10px 15px; float: left;  padding: 1.5em 0;}
+#footerESL {/*border-top: 2px solid #69A2DE;*/ width: 100%; background: #528ED1 url(/external/07/images/SPseal_2.gif) no-repeat 10px 15px; float: left;  padding: 1.5em 0;}
+#footerFRA {/*border-top: 2px solid #69A2DE;*/ width: 100%; background: #528ED1 url(/external/07/images/FRseal_2.gif) no-repeat 10px 15px; float: left;  padding: 1.5em 0;}
+
+#footer ul {list-style-type: none; margin: 0; margin-left: 70px; float: left; display: inline; padding: 3px 0;}
+#footer li {display: inline; line-height: 0.9em; font-size: 1em;}
+#footer a {color: #fff; float: left; border-right: 1px solid #fff; padding: 0.20em .75em; text-decoration: none;}
+#footer ul li:last-child a {border-right: 0;}
+#footer #navlanguage {padding-left: 0px; margin-top: 0; clear: both; width: 80%;}
+
+#footerESL ul {list-style-type: none; margin: 0; margin-left: 70px; float: left; display: inline; padding: 3px 0;}
+#footerESL li {display: inline; line-height: 0.9em; font-size: 1em;}
+#footerESL a {color: #fff; float: left; border-right: 1px solid #fff; padding: 0.20em .75em; text-decoration: none;}
+#footerESL ul li:last-child a {border-right: 0;}
+#footerESL #navlanguage {padding-left: 0px; margin-top: 0; clear: both; width: 80%;}
+
+#footerFRA ul {list-style-type: none; margin: 0; margin-left: 70px; float: left; display: inline; padding: 3px 0;}
+#footerFRA li {display: inline; line-height: 0.9em; font-size: 1em;}
+#footerFRA a {color: #fff; float: left; border-right: 1px solid #fff; padding: 0.20em .75em; text-decoration: none;}
+#footerFRA ul li:last-child a {border-right: 0;}
+#footerFRA #navlanguage {padding-left: 0px; margin-top: 0; clear: both; width: 80%;}
+
+.home #footer a.homeBtm,
+.whatIMFdoesMain #footer a.whatBtm,
+.datastatsMain #footer a.dataStatsBtm,
+.publicationMain #footer a.pubsBtm,
+.aboutMain #footer a.aboutBtm,
+.newsMain #footer a.newsBtm,
+.video #footer a.videosBtm,
+.mapMain #footer a.mapBtm,
+.siteIndexMain #footer a.siteIndexBtm,
+.contactMain #footer a.contactBtm,
+.countryinfoMain #footer a.countryInfoBtm,
+.whatIMFdoesSub #footer a.whatBtm,
+.datastatsSub #footer a.dataStatsBtm,
+.publicationSub #footer a.pubsBtm,
+.aboutSub #footer a.aboutBtm,
+.newsSub #footer a.newsBtm,
+.countryinfoSub #footer a.countryInfoBtm,
+.glossary #footer a.termBtm,
+.privacy #footer a.priBtm,
+.copyright #footer a.crightBtm {color: #393d3e;font-weight: bold;}
+
+/* created class highlights for top navigation in header -- cannot use same ID on same page */
+.whatsnew a.whatsnewHilite,
+.map a.mapHilite,
+.siteIndex a.siteIndexHilite,
+.contact a.contactHilite,
+.glossary a.termHilite {color: #393d3e!important;font-weight: bold;}
+
+/******** BEGIN TO BE DELETED because of IDs ***************/
+.home #footer a#homeBtm,
+.whatIMFdoesMain #footer a#whatBtm,
+.datastatsMain #footer a#dataStatsBtm,
+.publicationMain #footer a#pubsBtm,
+.aboutMain #footer a#aboutBtm,
+.newsMain #footer a#newsBtm,
+.mapMain #footer a#mapBtm,
+.siteIndexMain #footer a#siteIndexBtm,
+.contactMain #footer a#contactBtm,
+.countryinfoMain #footer a#countryInfoBtm {color: #393d3e;font-weight: bold;}
+.whatIMFdoesSub #footer a#whatBtm,
+.datastatsSub #footer a#dataStatsBtm,
+.publicationSub #footer a#pubsBtm,
+.aboutSub #footer a#aboutBtm,
+.newsSub #footer a#newsBtm,
+.countryinfoSub #footer a#countryInfoBtm {color: #393d3e;font-weight: bold;}
+/******** END TO BE DELETED because of IDs ***************/
+
+
+
+
+.Table610 td,
+.Table620 td  {padding:0 0;margin:0 0 0 0;text-align:left;}
+.Table740 {margin-left:10px;padding-right:0px;padding-bottom:0px;}
+.Table620  .Table610 {margin-left:0;padding-left:0;width:100%;}
+.home .content .Table610 {font-size:90%;}
+.Table740 {width:740px;}
+.Table740 .content table td img {margin:0;padding:0;}
+.default .aboutSub .Table740 tbody tr td  .content  .right  .left {text-align:left;}
+img#chrtGif {margin-right:200px;padding:0;}
+
+.tighter .plain,
+.whatIsThis .tighter td p{font-size:12px !important;text-align:center;}
+
+form {margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding:0px;}
+a:link {text-decoration:underline;}
+.hide {display:none;}
+.tiny {font-size:60%;}
+.xsmall {font-size:90%;}
+.tileImage {border:0px;margin:0px 0px;padding:2px 0px 7px 0px;}
+
+#dateline {font-size:75%; color:#004490; text-align:left; margin:0 0 0 0; padding:0 0 0 0;}
+#caption {font-size:65%; text-align:left; margin:0 0 0 0; padding:0 0 0 0;}
+#caption2 {font-size:80%; text-align:left; margin:0 0 0 0; padding:0 0 0 0;}
+#content img {margin-left: 0px !important;}
+#content h1, #content #dateline {margin-left:0px;}
+
+.content {top:0; padding-left:5px; padding-right:5px; margin-right:0px;margin-left:0; text-align:left; font-family:verdana,arial,helvetica,sans-serif;font-size:80%;}
+.content p {top:0; text-align:left; font-family:verdana,arial,helvetica,sans-serif;margin: 4px 4px 3px 0;}
+.content p img {padding-right:20px;}
+.content li {top:0; text-align:left; margin-top:0px; margin-right:0px; margin-bottom:0px; padding-left:10px; font-family:verdana,arial,helvetica,sans-serif;}
+.content li ul li, .content li ol li{top:0; text-align:left; font-family:verdana,arial,helvetica,sans-serif;}
+ol {
+    margin:0 0 0 38px;
+}
+ol li {
+    display:list-item;
+    vertical-align:top;
+}
+
+
+.content li p{top:0; text-align:left; font-family:verdana,arial,helvetica,sans-serif;}
+.content h1 {font-family:verdana,arial,helvetica,sans-serif; font-size:180% !important; font-weight:normal; color:#004490; margin:0 0 0 0;padding:0;}
+.content small {font-size:90%;}
+.content .xxlarge {font-family:verdana,arial,helvetica,sans-serif; font-size:140% !important; font-weight:normal; margin:0 0 0 0;}
+.content .h1Smaller {font-family:verdana,arial,helvetica,sans-serif; font-size:160% !important; font-weight:normal; color:#004490; margin:0 0 0 0;}
+.content .h1Smallest {font-family:verdana,arial,helvetica,sans-serif; font-size:120% !important; font-weight:bold; color:#004490; margin:0 0 0 0;}
+.content h2 {font-family:verdana,arial,helvetica,sans-serif; font-size:110%; color:#004490; margin:6px 0px 3px 0px; padding:0px 0px 0px 0px; text-align:left;}
+.content h2 a {text-decoration:none;}
+.content h2 A:link {text-decoration:underline;}
+.content h3 {font-family:verdana,arial,helvetica,sans-serif; font-size:95%; color:#004490; margin:10px 0px 0px 0px; padding:0px 0px 0px 0px; text-align:left;}
+.content h4 {font-family:verdana,arial,helvetica,sans-serif; font-size:95%; color:#004490; margin:2px 0px 0px 0px; padding:0px 0px 0px 0px; text-align:left;}
+.content .red {color:#FF0000;}
+.content .border {border:1px solid #000000;}
+
+.whatIsThis table {border:1px solid black; margin-top:10px; margin-bottom:10px; background-color:#EEEEDD;width:98%;}
+.whatIsThis table td {padding-right:10px;}
+.whatIsThis p { font-family:arial,sans-serif; margin-top:4px; margin-right:4px; margin-bottom:4px; margin-left:8px;}
+.whatIsThis table h3 {margin-left:13px;}
+
+.introParagraph table {clear:right;border:0px;margin-top:10px; margin-bottom:14px; background-color:#CCDDDD; font-family:inherit;width:100%;clear:both;}
+.introParagraph p {padding-left:10px;}
+
+.disclaimer table {border:1px solid black; padding:0px; margin-top:8px; margin-bottom:8px; font-family:inherit;}
+.disclaimer th {border-bottom:1px solid black; padding:2px !important; background-color:#DDE7D6; font-weight:bold;}
+.disclaimer td {padding:2px !important;}
+.disclaimer p {margin-top:8px; margin-right:8px; margin-bottom:8px; margin-left:8px;}
+
+.menu{width:130px}
+.menu120{width:122px;}
+.menu, .menu120 {text-align:left; margin:0px 6px 0px 0px; list-style:none; padding:0px 0px 8px 0px; float:left;font-size:11px;}
+.menu ul, .menu120 ul {list-style:none; padding:0px 0px 0px 0px; margin:0px 0px 0px 0px;}
+.menu li {list-style:none; width:126px; padding:4px 0px 8px 0px; margin:0px 0px 0px 0px; border-bottom:2px dotted #cccccc;}
+.menu120 li {list-style:none; width:116px; padding:4px 0px 8px 0px; margin:0px 0px 0px 0px; border-bottom:2px dotted #cccccc;}
+.menu small, .menu1120 small {font-family:arial, sans-serif;}
+.menu .noDots, .menu120 .noDots {border:0px;margin-bottom:4px;}
+
+.menu ul.home, .menu120 ul.home {list-style:none; padding:0px 0px 0px 0px; margin:0px 0px 0px 0px;}
+li.doubleDots {list-style:none; width:118px; padding:4px 0px 8px 0px; margin:0px 0px 0px 0px; border-bottom:2px dotted #cccccc;border-top:2px dotted #cccccc;}
+.menu ul.home li p, .menu120 ul.home li p {margin:0;padding:2px 0px 2px 0px;}
+
+
+
+.menu1{width:130px}
+.menu120_1{width:122px;}
+.menu1, .menu120_1 {text-align:left; margin:0px 6px 0px 0px; list-style:none; padding:0px 0px 8px 0px; float:left;font-size:11px;}
+.menu1 ul, .menu120_1 ul {list-style:none; padding:0px 0px 0px 0px; margin:0px 0px 0px 0px;}
+.menu1 li {list-style:none; width:126px; padding:4px 0px 8px 0px; margin:0px 0px 0px 0px; border-bottom:2px dotted #cccccc;}
+.menu120_1 li {list-style:none; width:116px; padding:4px 0px 8px 0px; margin:0px 0px 0px 0px; border-bottom:2px dotted #cccccc;}
+.menu1 small, .menu1120_1 small {font-family:arial, sans-serif;}
+.menu1 .noDots, .menu120_1 .noDots {border:0px;margin-bottom:4px;}
+
+.menu1 ul.home, .menu120_1 ul.home {list-style:none; padding:0px 0px 0px 0px; margin:0px 0px 0px 0px;}
+li.doubleDots {list-style:none; width:118px; padding:4px 0px 8px 0px; margin:0px 0px 0px 0px; border-bottom:2px dotted #cccccc;border-top:2px dotted #cccccc;}
+.menu1 ul.home li p, .menu120_1 ul.home li p {margin:0;padding:2px 0px 2px 0px;}
+
+
+
+.notify {border: 1px solid #023392; border-top-width: 4px; margin: 1em 0;font-size:11px;font-family: Verdana, sans-serif;width:120px;clear:both;}
+#content-nav .notify {margin-top: 1em; margin-bottom: 1em;}
+.notify .icon {background: #3B7BC2 url(/external/07/images/mail_icon.gif) no-repeat 8px 6px; margin: 0; padding: .5em .5em .5em 3em; border-top: 2px solid #69A2DE; font-family: Georgia, "Times New Roman", Times, serif; font-weight:bold;font-size:100%;}
+.notify .noicon {background: #3B7BC2; margin: 0; padding: .5em 0 .5em 1em; border-top: 2px solid #69A2DE; font-family: Georgia, "Times New Roman", Times, serif;}
+.notify .icon, .notify .noicon {color: #fff;}
+.notify p {line-height: 105%; padding-top: 1em; padding-bottom: 1em; margin: 0 .5em;}
+.notify p a {color: #cc6600;}
+.notify p a:visited {color: #666699;}
+
+#sdr {margin:9px 0px 9px 0px;}
+#sdr table {margin:0px;font-size:95%;}
+#sdr th {font-weight:bold;padding: 3px 0px 0px 0px;background-color:#A4D898; height:33px;text-align:left;}
+#sdr th img {float:left;margin:0;padding:0;}
+#sdr td {padding: 6px;background-color:#BBEFAF;}
+
+div.plain form {margin-left:0 !important;}
+div.plain form table {margin-right:0px !important;}
+div.plain form table select {font-size:inherit !important;}
+
+div#langBox {border:1px solid #000000; vertical-align:top;text-align:left; background-color:#b0ffb0; padding:2px 10px 6px 10px; margin-top:0px; margin-right:0px; margin-bottom:6px; margin-left:0px;float:right;position:relative;font-size:85%;}
+div#langBoxLeft {border:1px solid #000000; vertical-align:top;text-align:left; background-color:#b0ffb0; padding:2px 3px 6px 3px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px;}
+#langBoxLeft P {font-size:inherit; margin:0px; padding-top:3px; padding-right:0px; padding-bottom:2px; padding-left:2px;}
+div#langBox .arabic {font-family:"Times New Roman", serif; font-size:150%; padding:0px; margin:0px;}
+
+/** Language bar for individual pages **/
+#langbar {margin-top:0em!important; margin-bottom:.5em!important;text-align:right!important;font-size:.80em}
+#langbar ul {margin-left: 0;padding-left: 0;border: none;}
+#langbar ul li {margin-left: 0;	padding-left: 0em;border: none;list-style: none;display: inline;}
+#langbar ul li:before {content: "\0020 \0020 \0020 \25a0 \0020";color:#FF962D;}
+*html #langbar ul li{ background:url(/external/images/orsqbullet.png) no-repeat 0 center; padding-left:10px;padding-right: 2px;}
+*html #langbar ul li.first {background:none;}
+#langbar ul li.first:before {content: " ";}
+/* IE 7 Hack */
+*:first-child+html #langbar ul li {background:url(/external/images/orsqbullet.png) no-repeat 0 center; padding-left:10px;padding-right: 2px;}
+*:first-child+html #langbar ul li.first {background:none;}
+
+/** Feedback Button **/
+#feedbk {
+	float:right;
+	margin-top:-25px;
+	margin-right:12px;
+	cursor:pointer;
+	z-index:999999999;
+}
+#feedbk img {
+	border:none;
+}
+
+/** Language bar for individual pages **/
+.bodylangbar {margin-top:0em!important; margin-bottom:.5em!important;text-align:right!important;font-size:.80em}
+.bodylangbar ul {margin-left: 0;padding-left: 0;border: none;}
+.bodylangbar ul li {margin-left: 0;	padding-left: 0em;border: none;list-style: none;display: inline;}
+.bodylangbar ul li:before {content: "\0020 \0020 \0020 \25a0 \0020";color:#FF962D;}
+*html .bodylangbar ul li{ background:url(/external/images/orsqbullet.png) no-repeat 0 center; padding-left:10px;padding-right: 2px;}
+*html .bodylangbar ul li.first {background:none;}
+.bodylangbar ul li.first:before {content: " ";}
+/* IE 7 Hack */
+*:first-child+html .bodylangbar ul li {background:url(/external/images/orsqbullet.png) no-repeat 0 center; padding-left:10px;padding-right: 2px;}
+*:first-child+html .bodylangbar ul li.first {background:none;}
+
+/*Add no bullet style as another option to bullets */
+ul.nobullet {margin: 0 10px 0 15px; list-style-type: none;	list-style-image: ;	list-style-position: left;}
+ul.nobullet li }
+
+
+/* Add print-friendly icon */
+/* Add container for print-friendly icon icon layout in titles */
+.piconbox {width:100%;}
+.piconboxh1 {width:100%;}
+.piconboxh2 {width:100%; padding-top:1.5em;}
+.pficon {text-align:right;margin-top:-1.2em!important;padding:0 25px 15px 0}
+.printpdf {background:url(/external/images/icons/light/printer.png) right center no-repeat; width:70px; height:16px;display:-moz-inline-box; /* Gecko proprietary */ vertical-align:top; /* Gecko needs this */overflow:visible;display:inline-block;font-style:normal; font-size:80%;text-align:left;}
+/* Add print-friendly icon */
+.print {background:url(/external/images/icons/light/printer.png) right center no-repeat; width:114px; height:16px;display:-moz-inline-box; /* Gecko proprietary */ vertical-align:top; /* Gecko needs this */overflow:visible;display:inline-block;font-style:normal; font-size:80%;text-align:left;}
+.prints {background:url(/external/images/icons/light/printer.png) right center no-repeat; width:125px; height:16px;display:-moz-inline-box; /* Gecko proprietary */ vertical-align:top; /* Gecko needs this */overflow:visible;display:inline-block;font-style:normal; font-size:80%;text-align:left;}
+.printf {background:url(/external/images/icons/light/printer.png) right center no-repeat; width:129px; height:16px;display:-moz-inline-box; /* Gecko proprietary */ vertical-align:top; /* Gecko needs this */overflow:visible;display:inline-block;font-style:normal; font-size:80%;text-align:left;}
+.printj {background:url(/external/images/icons/light/printer.png) right center no-repeat; width:95px; height:16px;display:-moz-inline-box; /* Gecko proprietary */ vertical-align:top; /* Gecko needs this */overflow:visible;display:inline-block;font-style:normal; font-size:80%;text-align:left;}
+.printc {background:url(/external/images/icons/light/printer.png) right center no-repeat; width:60px; height:16px;display:-moz-inline-box; /* Gecko proprietary */ vertical-align:top; /* Gecko needs this */overflow:visible;display:inline-block;font-style:normal; font-size:80%;text-align:left;}
+.printr {background:url(/external/images/icons/light/printer.png) right center no-repeat; width:125px; height:16px;display:-moz-inline-box; /* Gecko proprietary */ vertical-align:top; /* Gecko needs this */overflow:visible;display:inline-block;font-style:normal; font-size:80%;text-align:left;}
+
+/*add pdf icon in content area */
+.acrobatpdf {padding: 5px 20px 0 0; margin: 0; background:url(/external/images/icons/acrobat.png) right 4px no-repeat;height:20px;  /* Gecko proprietary */ vertical-align:top; /* Gecko needs this */overflow:visible;display:inline-block;font-size:80%;text-align:left;}
+
+/* add pdf icon in the nav area */
+.acroicon {width:16px; height:16px; top:0px; vertical-align:middle!important; padding:0; margin:0;border:0;}
+
+.mvisited {margin-bottom: 19px;border: 1px solid #99AACC}
+.mvisitedheading1 {font-size: 12px;line-height: 13px;padding: 5px;background: #e2eeff url(/external/images/gradient-blue.gif) top left repeat-x;font-family: Verdana, Arial, Helvetica, sans-serif;font-style: normal;font-weight: bold;color: #004490;}
+.mvisitedbody {font-size: 11px; padding: 5px;}
+
+#exr {padding-left:10px;font-size:75%;}
+#exr table {padding:2px 0px 2px 0px; margin:0px;}
+#exr h2 {font-family:verdana,arial,helvetica,sans-serif; color:#004490; text-align:left; margin:40px 0px 0px 0px; padding:0px 0px 0px 0px;font-size:100%;}
+#exr th, #exr td {text-align:left; font-family:verdana,arial,helvetica,sans-serif;}
+#exr tr th {padding-right:40px;}
+
+.webcast table {margin-top:10px; margin-right:0px; margin-bottom:10px; margin-left:0px; background-color:#eeeedd; border:1px solid #dddddd;}
+.webcast td {margin:0px; padding-top:2px; padding-right:12px; padding-bottom:2px; padding-left:5px; font-size:85% !important; font-family:arial,sans-serif; text-align:center !important;}
+
+.az table {margin-top:10px; margin-right:0px; margin-bottom:10px; margin-left:0px; background-color:#ddddbb; border:1px solid #dddddd;}
+.az td {margin:0px; padding-top:2px; padding-right:12px; padding-bottom:2px; padding-left:5px; font-size:90% !important; font-family:arial,sans-serif; text-align:center !important;}
+
+.fancy {font-family:arial, sans-serif; font-weight:normal; margin-top:10px; margin-right:10px; margin-bottom:10px; margin-left:0px;font-size:inherit;}
+.fancy table {border:1px solid #000000; margin-top:10px; margin-right:10px; margin-bottom:10px; margin-left:0px;text-align:left;font-size:85%;}
+
+/* new styles to fix FIN linked pages */
+.fancy.fsml table {font-size:73%!important;}
+.moneyGreen .whatIsThis table {margin-left:50px; width:80%!important;}
+.moneyGreen .content .fancy table {font-size:85%!important;}
+ 
+.content .fancy {margin-left:10px;}
+.content .fancy table {font-size:110%;margin-left:0px !important;}
+.fancy th {font-family:arial, sans-serif; font-size:85% !important; font-weight:bold; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:2px; padding-right:12px; padding-bottom:2px; padding-left:5px; border-top:0px; border-right:0px; border-bottom:1px solid #000000; border-left:0px;}
+.fancy td {font-family:arial, sans-serif; font-size:90% !important; font-weight:normal; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:2px; padding-right:12px; padding-bottom:2px; padding-left:5px; border-top:1px solid #DDDDDD; border-right:1px solid #DDDDDD; border-bottom:1px solid #DDDDDD; border-left:1px solid #DDDDDD;}
+.fancy td p {font-size:100% !important; padding-top:2px; padding-bottom:4px;text-align:left;}
+.fancy li {font-size:100%;}
+.fancy h2 {font-size:125% !important;}
+.fancy h3 {font-size:115% !important;}
+.fancy td.ftn {border-top:1px solid #000000;}
+
+.fancyDiv {font-family:arial, sans-serif; font-weight:normal; margin-top:10px; margin-right:10px; margin-bottom:10px; margin-left:0px;font-size:inherit;}
+.fancyDiv table {border:1px solid #000000;text-align:left;font-size:85%;}
+.content .fancyDiv table {font-size:110%;margin-left:0px !important;}
+.fancyDiv th {font-family:arial, sans-serif; font-size:85% !important; font-weight:bold; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:2px; padding-right:12px; padding-bottom:2px; padding-left:5px; border-top:0px; border-right:0px; border-bottom:1px solid #000000; border-left:0px;}
+.fancyDiv td {font-family:arial, sans-serif; font-size:90% !important; font-weight:normal; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:2px; padding-right:12px; padding-bottom:2px; padding-left:5px; border-top:1px solid #DDDDDD; border-right:1px solid #DDDDDD; border-bottom:1px solid #DDDDDD; border-left:1px solid #DDDDDD;}
+.fancyDiv td p {font-size:100% !important; padding-top:2px; padding-bottom:4px;text-align:left;}
+.fancyDiv li {font-size:100%;}
+.fancyDiv h2 {font-size:125% !important;}
+.fancyDiv h3 {font-size:115% !important;}
+.fancyDiv td.ftn {border-top:1px solid #000000;}
+
+.tighter td {padding:3px !important; margin:0px;}
+.tighter th {padding:3px !important; margin:0px;}
+.tightest td {padding:1px !important; margin:0px; font-size:80% !important;}
+.tightest th {padding:1px !important; margin:0px; font-size:80% !important;}
+
+.plain {font-size:80%; font-family:inherit;margin-left:0px;}
+#content .plain {margin-left:0;}
+.plain table {margin-top:10px; margin-right:0 px; margin-bottom:10px; margin-left:0px;text-align:left;font-size:100%;}
+.plain th, .plain td{margin-top:0px; margin-right:0px; margin-bottom:3px; margin-left:0px; padding-top:3px; padding-right:2px; padding-bottom:2px; padding-left:2px;}
+.plain p {margin:1px; padding:1px;text-align:left;}
+
+.row1 {background-color:#FFFFFF;}
+.row2 {background-color:#F6F7F2;}
+.row3 {background-color:#E7EAEF;}
+.row4 {background-color:#F3F5F7;}
+
+.cellUline {border-top:0px; border-right:0px; border-bottom:1px solid #000000 !important; border-left:0px;}
+hr.dotted {border-bottom:2px dotted #cccccc;border-top:0px;}
+.noBorder{border:0px !important;}
+.grayBorder{border-top:1px solid #DDDDDD; border-right:1px solid #DDDDDD; border-bottom:1px solid #DDDDDD; border-left:1px solid #DDDDDD;}
+.thinBorder {border:1px solid #d2e4fc;background:#ffffff;}
+
+.left {text-align:left !important;}
+.right {text-align:right !important;}
+.center {text-align:center !important;}
+.indent	{display:block;margin-left:auto;text-indent:-1em;padding-left:1em;}
+
+div.callOut {width:118px; font-size:80% !important; font-weight:normal; border:1px solid #000000; margin-top:8px; margin-right:0px; margin-bottom:8px; margin-left:0px; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px;}
+.callOut p {padding-top:2px; padding-bottom:4px; margin:0px;}
+
+div.search {width:120px; font-size:80% !important; font-weight:normal; border:0px; margin-top:0px; margin-right:0px; margin-bottom:8px; margin-left:0px; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:0px;}
+.search p {padding-top:2px; padding-bottom:4px; margin:0px;}
+
+img.UpperLeftImg {margin-top:2px; margin-right:10px; margin-bottom:2px !important; margin-left:0px; padding:0px;}
+
+.grey {color:#777777;}
+.yellow {background-color:#FFFF66;}
+.ltYellow {background-color:#FFFFDD;}
+.orange {background-color:#FFCC00;}
+.ltorange {background-color:#FFCC66;}
+.blue {background-color:#DDDDFF;}
+.medBlue {background-color:rgb(158, 213, 254);}
+.ltBlue {background-color:rgb(222, 241, 255);}
+.gryellow {background-color:#CCCC66;}
+.green {background-color:#99CC66;}
+.bluegreen {background-color:#66CCCC;}
+
+.default .color1 {background-color:#99CCCC;}
+.default .color2 {background-color:#CCDDDD;}
+.default .color3 {background-color:#DDDDBB;}
+.default .color4 {background-color:#EEEEDD;}
+.default .color5 {background-color:#DDDDDD;}
+.default .color6 {background-color:#EEEEEE;}
+.default .color7 {background-color:#F8F8F8;}
+.default .color8 {background-color:#D2E4FC;}
+.default .color9 {background-color:#AEBDCC;}
+
+.moneyGreen .color1 {background-color:#99CC66;}
+.moneyGreen .color2 {background-color:#BBCC99;}
+.moneyGreen .color3 {background-color:#DDE7D6;}
+.moneyGreen .color4 {background-color:#F6F6F0;}
+.moneyGreen .color5 {background-color:#FFFFFF;}
+.moneyGreen .color6 {background-color:#FFFFFF;}
+
+.theBlues .color1 {background-color:#99AACC;}
+.theBlues .color2 {background-color:#CCDDEE;}
+.theBlues .color3 {background-color:#D9DEE6;}
+.theBlues .color4 {background-color:#CCCCBB;}
+.theBlues .color5 {background-color:#EEEEDD;}
+.theBlues .color6 {background-color:#006699;}
+
+.kidStuff .color1 {background-color:#CC0099;}
+.kidStuff .color2 {background-color:#99CC00;}
+.kidStuff .color3 {background-color:#6699FF;}
+.kidStuff .color4 {background-color:#FF9900;}
+.kidStuff .color5 {background-color:#99CC00;}
+.kidStuff .color6 {background-color:#6699FF;}
+
+table.colorBar {margin:0px;padding:0px;border:0px;font-size:105%;width:100%;font-family:arial,sans-serif;}
+.colorBar th, .colorBar td {margin:0;padding:1px 2px 1px 3px;border:0;text-align:left;}
+.colorBar th {font-weight:700;}
+
+table.colorBarMed {margin:0px;padding:0px;border:0px;font-size:95%;width:100%;font-family:verdana,arial,sans-serif;}
+.colorBarMed th, .colorBarMed td {margin:0;padding:2px 4px 2px 10px;border:0;text-align:left;width:100%;}
+.colorBarMed th {font-weight:900;}
+
+table.colorBarLg {margin:0px;padding:0px;border:0px;font-size:115%;width:100%;}
+.colorBarLg th, .colorBarLg td {margin:0;padding:2px 2px 2px 10px;border:0;text-align:left;}
+.colorBarLg th {font-weight: bold;}
+
+.double table {margin-top:5px;margin-right:0;margin-bottom:10px;margin-left:0;}
+.double th, .plain td {margin-top:0;margin-right:0;margin-bottom:3px;margin-left:0;padding-top:3px;padding-right:2px;padding-bottom:2px;padding-left:2px;}
+.double p {margin:4px 0;padding:4px;}
+
+.matrix {font-size:70%;font-family:Verdana, Arial, Helvetica, sans-serif;font-weight:lighter;}
+.matrix th {padding-top:6px;padding-right:2px;padding-bottom:6px;padding-left:2px;font-weight:bold;color:#004490;font-size:120%;}
+.matrix td {padding-top:6px;padding-right:2px;padding-bottom:6px;padding-left:2px;}
+.matrix p {margin:1px;padding:1px;}
+
+.linkdecornone a {text-decoration:none;}
+
+.vSpace {margin:0;padding-top:12px;padding-bottom:12px;}
+.vSpace1 {margin:0;padding-top:8px;padding-bottom:8px;}
+.vSpace2 {margin:0;padding-top:2px;padding-bottom:6px;}
+.vSpace3 {margin:0;padding-top:2px;padding-bottom:8px;}
+.vSpace4 {margin:0;padding-top:2px;padding-bottom:0px;}
+
+.hMargin {margin:0;padding-right:2px;padding-left:4px;}
+
+.hMargin1 {margin:0px 8px 0px 10px;}
+
+.hMargin2 {margin:0px 8px 0px 50px;}
+
+.dotted {border:0;border-bottom:2px dotted #cccccc;width:100%;margin:1px;margin-bottom:8px;}
+
+.hideRow {display:none;visibility:hidden;}
+.PrintIcon {display: none}
+
+/*.news #navlanguage {display: none;}*/
+/*.aboutMain #navlanguage {display: none;}*/
+/*.aboutSub #navlanguage {display: none;}*/
+/*.publication #navlanguage {display: none;}*/
+
+
+/* Add container for feed icon layout in head title */
+.fheadcont {width:100%;}
+.ficon {text-align:right;margin-top:-20px!important;padding:0 25px 15px 0}
+/* Add feed icon */
+.allfeed {background:url(/external/images/icons/feed.png) right center no-repeat; width:16px; height:16px;display:-moz-inline-box; /* Gecko proprietary */ vertical-align:top; /* Gecko needs this */overflow:visible;display:inline-block;font-style:normal; text-align:left; font-family:Arial, Helvetica, sans-serif;}
+
+
+/*Add Feed icon for side links for non-standards compliant IE 6 only */
+*html .sidelinkfeed {background:url(/external/images/icons/feed.png) right center no-repeat!important; width:85px; height:16px;display:inline-block /*quirks mode*/;overflow:visible; font-style:normal; text-align:left;border-bottom:0!important;font-size:80%; font-family:Arial, Helvetica, sans-serif;}
+/*Add Feed icon hack for FF and Safari. Double display:inline-block styling for Safari 3.0 and -moz-inline-box for FF */
+.sidelinkfeed {background:url(/external/images/icons/feed.png) right center no-repeat!important; width:85px; height:16px;display:-moz-inline-box; /* Gecko proprietary */ vertical-align:top; /* Gecko needs this */overflow:visible;display:inline-block;font-size:80%;font-style:normal; text-align:left;border-bottom:0!important;font-family:Arial, Helvetica, sans-serif;}
+/* Add Feed icon hack for Opera 9.x */
+html:first-child .sidelinkfeed {background:url(/external/images/icons/feed.png) right center no-repeat;width:85px; height:16px;display:inline-table;overflow:visible;font-style:normal; text-align:left;border-bottom: 0;font-size:80%;font-family:Arial, Helvetica, sans-serif;}
+/* Add Feed icon hack for IE 7 only */
+*:first-child+html .sidelinkfeed {background:url(/external/images/icons/feed.png) right center no-repeat; width:85px; height:16px;display:inline-block;overflow:visible;font-style:normal; text-align:left;border-bottom:0!important;font-size:80%;font-family:Arial, Helvetica, sans-serif;}
+
+/*generic icon alignment*/
+.iconalignright {vertical-align:middle;padding:0em;margin-left:.3em;margin-bottom:.1em;}
+.iconalignleft {vertical-align:middle;padding:0em;margin-left:0em;margin-right:.3em; margin-bottom:0em;}
+
+
+/* added footnote styles */
+.footnote {clear:both;padding-top:20px;}
+.ftnline {border-top:1px solid #333; width:150px;padding-top:5px;}
+.footnote p {font-size:90%;margin-top:0em;}
+/* IE 6 adjustments */
+*html .ftnline {border-top:1px solid #333; width:150px;padding-top:0px;}
+*html .footnote p {font-size:90%;margin-top:-1.5em;}
+
+/* Begin Factsheet disclaimer warnings */
+.fsdisclaim {
+ font-family:Arial, Helvetica, sans-serif;
+ font-size: .9em;
+ /*height: 20px;*/
+ border-top: #d6d8d6 1px solid;
+ border-bottom: #d6d8d6 1px solid;
+ padding: 10px 0 5px 40px;
+ background: #ffffe1 url(/external/images/icons/fsicon.png) 15px 8px no-repeat;
+ margin-bottom:10px;
+}
+
+.fsdisclaimpart {
+ font-family:Arial, Helvetica, sans-serif;
+ font-size: .9em;
+ height: 20px;
+ border-top: #d6d8d6 1px solid;
+ padding: 10px 0 0px 40px;
+ background: #ffffe1 url(/external/images/icons/fsicon.png) 15px 8px no-repeat;
+}
+.fsinfo  {padding: 0 0 5px 40px;font-family:Arial, Helvetica, sans-serif; font-size: .7em;height: 15px;background: #ffffe1; border-bottom: #d6d8d6 1px solid; margin-bottom: 10px;}
+/* End Factsheet disclaimer warning */
+
+/* Begin Country Notes disclaimer warnings */
+.cndisclaimer {
+ font-family:Arial, Helvetica, sans-serif;
+ font-size: .9em;
+ /*height: 20px;*/
+ border-top: #d6d8d6 1px solid;
+ border-bottom: #d6d8d6 1px solid;
+ padding: 10px 0 5px 40px;
+ background: #DFF1FF url(/external/images/icons/fsicon.png) 15px 8px no-repeat;
+ margin-bottom:10px;
+}
+
+@media print {
+.noPrint {display:none;}
+#globeMenu li {font-size:.60em;}
+#mainMenu li {font-size:.85em;}
+.Table740 .content {width:630px;line-height:90%;}
+h1 {line-height:110%;}
+}
+
+/* press page divider */
+.divider {
+	background:url(/external/images/divider_bg.jpg) left top no-repeat;
+	margin:14px 0;
+	padding-top:25px;
+	padding-bottom:25px;
+}
+
+.pad {
+	padding:20px;
+}

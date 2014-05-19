@@ -1,0 +1,75 @@
+#pug-click-catcher {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000000000000;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+
+.pugmarks-nugget {
+  opacity: 1.0;
+  background-color: #EEE !important;
+  color: #330066 !important;
+  display: inline !important;
+}
+
+#pugmarks-deco {
+  margin: 5px !important;
+  display: block !important;
+  float: none !important; 
+}
+
+.pugmarks-caption {
+  font-size: 14px !important;
+  color: #AAA !important;
+  font-variant: small-caps !important;
+}
+
+.pugmarks-decoration-div {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.pugmarks-share-icon {
+  margin-left: 5px;
+  border: none !important;
+  display: inline !important;
+}
+
+.pugmarks-share-icon:hover {
+  opacity: 0.6;
+}
+
+.pugmarks-decoration-div a {
+  display: inline;
+}
+
+.pugmarks-decoration-div a img {
+  border-radius: 50% !important;
+  border: none !important;
+  height: 38px !important;
+  width: 38px !important;
+  padding: 0 !important;
+  vertical-align: middle !important;
+  display: inline !important;
+  margin-left: 4px !important;
+}
+
+.pugmarks-decoration:before {
+ content: " ";
+ display: inline-block;
+ opacity: 0.4;
+ background-image: url('/Assets/ico/plugin/pugmark-inactive-24.png');
+ width: 24px;
+ height: 17px;
+ position: relative;
+ top: 4px;
+ margin-right: 5px;
+ background-position: top;
+ -webkit-transform: rotate(-90deg);
+ -moz-transform: rotate(-90deg);
+ transform: rotate(-90deg);
+}
