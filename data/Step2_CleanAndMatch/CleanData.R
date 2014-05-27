@@ -28,6 +28,7 @@ GDP_percent<-subset(gdpAndTradeTable,
 names(GDP_percent)[2] <- "GDP_percent"
 resultData<- merge(resultData,GDP_percent,by="ISO")
 
+# remove commas - which mess up CSV export
 resultData[,c("GDP_PPP_Billions")] <- gsub(",", "", resultData[,c("GDP_PPP_Billions")])
 
 #write cleaned file
