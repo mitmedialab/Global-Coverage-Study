@@ -28,19 +28,7 @@ GDP_percent<-subset(gdpAndTradeTable,
 names(GDP_percent)[2] <- "GDP_percent"
 resultData<- merge(resultData,GDP_percent,by="ISO")
 
-#Imports
-imports<-subset(gdpAndTradeTable, 
-                    Subject.Descriptor=="Volume of imports of goods and services", 
-                    select=c(ISO,X2013))
-names(imports)[2] <- "imports_percent_change"
-resultData<- merge(resultData,imports,by="ISO")
-
-#Exports
-exports<-subset(gdpAndTradeTable, 
-                Subject.Descriptor=="Volume of exports of goods and services", 
-                select=c(ISO,X2013))
-names(exports)[2] <- "exports_percent_change"
-resultData<- merge(resultData,exports,by="ISO")
+resultData[,c("GDP_PPP_Billions")] <- gsub(",", "", resultData[,c("GDP_PPP_Billions")])
 
 #write cleaned file
 write.csv(resultData,file="WorldPopAndGDP.csv",quote=FALSE)
