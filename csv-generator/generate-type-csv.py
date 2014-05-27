@@ -34,7 +34,11 @@ with open("output/stories-by-type-and-country.csv", "w") as csvfile:
     countries = sorted( db.allAboutCountries() )
     writer.writerow( ['country'] + types )
     for country in countries:
-        row = [ iso3166.countries.get(country).alpha3 ]
+        try:
+            row = [ iso3166.countries.get(country).alpha3 ]
+        except KeyError:
+            print "Unknown country "+str(country)+" - skipping"
+            continue
         for media_type in types:
             count = 0
             if country in type_country_count[media_type]:

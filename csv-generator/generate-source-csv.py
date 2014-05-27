@@ -43,7 +43,11 @@ with open("output/stories-by-source-and-country.csv", "w") as csvfile:
     media_source_urls = [source['url'] for source in media_sources]
     writer.writerow( ['country'] + media_source_urls )
     for country in countries:
-        row = [ iso3166.countries.get(country.lower()).alpha3 ]
+        try:
+            row = [ iso3166.countries.get(country.lower()).alpha3 ]
+        except KeyError:
+            print "Unknown country "+str(country)+" - skipping"
+            continue
         for source in media_sources:
             media_id = source['media_id']
             if media_id in source_country_count:
