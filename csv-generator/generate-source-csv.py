@@ -1,6 +1,6 @@
 import sys, time, ConfigParser, os, csv
-from iso3166 import countries
 from operator import itemgetter
+import iso3166
 
 from mediameter.db import GeoStoryDatabase
 import mediameter.source
@@ -43,15 +43,19 @@ with open("output/stories-by-source-and-country.csv", "w") as csvfile:
     media_source_urls = [source['url'] for source in media_sources]
     writer.writerow( ['country'] + media_source_urls )
     for country in countries:
-        row = [ country ]
+        row = [ iso3166.countries.get(country.lower()).alpha3 ]
         for source in media_sources:
             media_id = source['media_id']
-            count = 0
-            if country in source_country_count[media_id]:
-                count = source_country_count[media_id][country]
-            else:
+            if media_id in source_country_count:
                 count = 0
-            row.append( count )
+                if country in source_country_count[media_id]:
+                    count = source_country_count[media_id][country]
+                else:
+                    count = 0
+                row.append( count )
+            else:
+                print "Unknown media_id "+str(media_id)+" - skipping"
+                continue
         writer.writerow(row)
 
 print "  done"

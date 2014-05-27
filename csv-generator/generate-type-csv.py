@@ -1,6 +1,7 @@
 import sys, time, ConfigParser, os, csv
+import iso3166
+
 from mediameter.db import GeoStoryDatabase
-from iso3166 import countries
 
 # load shared config file
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -33,7 +34,7 @@ with open("output/stories-by-type-and-country.csv", "w") as csvfile:
     countries = sorted( db.allAboutCountries() )
     writer.writerow( ['country'] + types )
     for country in countries:
-        row = [ country ]
+        row = [ iso3166.countries.get(country).alpha3 ]
         for media_type in types:
             count = 0
             if country in type_country_count[media_type]:
