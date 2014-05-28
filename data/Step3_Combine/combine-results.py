@@ -15,7 +15,7 @@ with open('data/stories-by-type-and-country.csv', 'rb') as csvfile:
         country = row[0]
         if country not in country_info:
             country_info[country] = {}
-        count_of_type = dict(zip(media_types,[int(i)*100 for i in row[1:]]))
+        count_of_type = dict(zip(media_types,row[1:]))
         country_info[country]['count_of_type'] = count_of_type
 print "  Loading story counts by source and country"
 with open('data/stories-by-source-and-country.csv', 'rb') as csvfile:
@@ -25,7 +25,7 @@ with open('data/stories-by-source-and-country.csv', 'rb') as csvfile:
         country = row[0]
         if country not in country_info:
             country_info[country] = {}
-        count_of_source = dict(zip(media_sources,[int(i)*100 for i in row[1:]]))
+        count_of_source = dict(zip(media_sources,row[1:]))
         country_info[country]['count_of_source'] = count_of_source
 print "  Loading country data"
 with open('data/WorldPopAndGDP.csv', 'rb') as csvfile:
@@ -39,8 +39,6 @@ with open('data/WorldPopAndGDP.csv', 'rb') as csvfile:
         country_info[country]['data'] = count_of_source
 print "done"
 
-print country_info.values()[0]['count_of_type']
-
 # Now compute percentages for types and sources
 print "Normalizing..."
 print "  Normalizing type info"
@@ -53,7 +51,7 @@ for info in country_info.values():
     if 'count_of_type' in info:
         info['pct_of_type'] = {}
         for media_type in media_types:
-            info['pct_of_type'][media_type] = float(info['count_of_type'][media_type])/float(total)
+            info['pct_of_type'][media_type] = 100.0*float(info['count_of_type'][media_type])/float(total)
 print "  Normalizing source info"
 for media_source in media_sources:
     total = 0
@@ -64,7 +62,7 @@ for info in country_info.values():
     if 'count_of_source' in info:
         info['pct_of_source'] = {}
         for media_source in media_sources:
-            info['pct_of_source'][media_source] = float(info['count_of_source'][media_source])/float(total)
+            info['pct_of_source'][media_source] = 100.0*float(info['count_of_source'][media_source])/float(total)
 print "done"
 
 # print out combined results
@@ -86,12 +84,12 @@ for country in sorted(country_info.keys()):
             row.append("")
     for media_type in media_types:
         if 'pct_of_type' in country_info[country]:
-            row.append( round(country_info[country]['pct_of_type'][media_type],6) ) 
+            row.append( round(country_info[country]['pct_of_type'][media_type],4) ) 
         else:
             row.append("")
     for media_source in media_sources:
         if 'pct_of_source' in country_info[country]:
-            row.append( round(country_info[country]['pct_of_source'][media_source],6) )
+            row.append( round(country_info[country]['pct_of_source'][media_source],4) )
         else:
             row.append("")
     csvwriter.writerow(row)
