@@ -42,27 +42,35 @@ print "done"
 # Now compute percentages for types and sources
 print "Normalizing..."
 print "  Normalizing type info"
+totals = dict()
 for media_type in media_types:
     total = 0
     for info in country_info.values():
         if 'count_of_type' in info:
             total = total + int(info['count_of_type'][media_type])
+    totals[media_type]=total
+
 for info in country_info.values():
     if 'count_of_type' in info:
         info['pct_of_type'] = {}
         for media_type in media_types:
-            info['pct_of_type'][media_type] = 100.0*float(info['count_of_type'][media_type])/float(total)
+            p = 100.0*float(info['count_of_type'][media_type])/float(totals[media_type])   
+            info['pct_of_type'][media_type] = p
 print "  Normalizing source info"
+totals = dict()
 for media_source in media_sources:
     total = 0
     for info in country_info.values():
         if 'count_of_source' in info:
             total = total + int(info['count_of_source'][media_source])
+    totals[media_source]=total
+
 for info in country_info.values():
     if 'count_of_source' in info:
         info['pct_of_source'] = {}
         for media_source in media_sources:
-            info['pct_of_source'][media_source] = 100.0*float(info['count_of_source'][media_source])/float(total)
+            p = 100.0*float(info['count_of_source'][media_source])/float(totals[media_source])
+            info['pct_of_source'][media_source] = p
 print "done"
 
 # print out combined results
