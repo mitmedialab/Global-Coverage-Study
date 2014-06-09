@@ -28,7 +28,7 @@ with open('data/stories-by-source-and-country.csv', 'rb') as csvfile:
         count_of_source = dict(zip(media_sources,row[1:]))
         country_info[country]['count_of_source'] = count_of_source
 print "  Loading country data"
-with open('data/WorldPopAndGDP.csv', 'rb') as csvfile:
+with open('../Step2_CleanAndMatch/WorldPopAndGDP.csv', 'rb') as csvfile:
     reader = csv.reader(csvfile)
     data_pieces = reader.next()[3:]
     for row in reader:

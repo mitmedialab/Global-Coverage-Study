@@ -11,11 +11,23 @@
 # abc.net.au, 45%
 
 # read in country data
-countries <- read.csv("../Step3_Combine/combined-data.csv",check.names=TRUE)
+countries <- read.csv("../Step3_Combine/combined-data.csv",check.names=TRUE,stringsAsFactors=FALSE)
 
-# flip rows and columns, delete NA columns
-sources <- t(countries)
-names(sources) <- sources[1,]
-sources<-sources[,1:nrow(countries)]
+# flip rows and columns, set countries as headers of columns
+sources = setNames(data.frame(t(countries[,-1]), stringsAsFactors=FALSE, check.names=TRUE), countries[,1])
 
-#for each country - square its percentage of the market and then add to tatal
+# remove GDP data since we are not using that for this calculation
+sources <- sources[2:nrow(sources),]
+
+# convert column values to numerics
+sources[,c(1:ncol(sources))] <- as.numeric(as.character(unlist(sources[,c(1:ncol(sources))])))
+
+# for each country - square its percentage of the market and then add to total
+# round with no decimal places
+squares<- apply(sources, c(1:2), function(x) { x * x})
+
+hhi<-round(rowSums(squares, na.rm=TRUE,dims=1))
+sources = cbind("HHI.Index"=hhi, sources)
+
+# write output file
+write.csv(sources,"countriesWithHHI.csv")

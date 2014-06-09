@@ -4,8 +4,9 @@ gdpAndTradeTable<-read.csv("../Step1_Download/TradeAndGDP.csv",header=,skip=2, c
 # subset Pop table
 resultData <- popTable[,c(2,5)]
 
-# replace brackets []
+# replace brackets [] and percents
 resultData[,1] <- gsub("\\[.*?\\]", "", resultData[,1])
+resultData[,2] <- gsub("%", "", resultData[,2])
 
 # rename columns
 names(resultData)[1] <- "country"
