@@ -22,6 +22,7 @@ sources <- sources[2:nrow(sources),]
 # convert column values to numerics
 sources[,c(1:ncol(sources))] <- as.numeric(as.character(unlist(sources[,c(1:ncol(sources))])))
 
+print(head(sources))
 # for each country - square its percentage of the market and then add to total
 # round with no decimal places
 squares<- apply(sources, c(1:2), function(x) { x * x})

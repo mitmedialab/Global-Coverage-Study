@@ -5,3 +5,14 @@ media-source-dashboard/mc-client.config
 story-fetcher/mc-client.config
 
 *.config
+.Rproj.user
+
+data/Step3_Combine/.RData
+
+data/Step3_Combine/.Rhistory
+
+*.Rproj
+
+data/Step4_AddHHI/.RData
+
+data/Step4_AddHHI/.Rhistory
