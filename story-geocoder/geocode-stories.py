@@ -63,7 +63,7 @@ while storiesToDo>0:
         if 'story_sentences' in story:
             sorted_sentences = [s['sentence'] for s in sorted(story['story_sentences'], key=itemgetter('sentence_number'))]
             story_text = ' '.join(sorted_sentences)
-            to_process.append({ 'id': story['_id'], 'text': story_text })
+            to_process.append({ 'id': story['stories_id'], 'text': story_text })
     log.info("Queued "+str(len(to_process))+" stories")
     engine = Engine(to_process)
     engine.run()
