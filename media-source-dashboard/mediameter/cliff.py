@@ -6,9 +6,9 @@ class Cliff():
     Make requests to a cliff server
     '''
 
-    PATH_TO_CLIFF = "/CLIFF/parse/text"
+    PATH_TO_CLIFF = "/CLIFF-1.1.0/parse/text"
 
-    JSON_PATH_TO_ABOUT_COUNTRIES = 'results.places.about.countries';
+    JSON_PATH_TO_ABOUT_COUNTRIES = 'results.places.mentions.countryCode';
     JSON_PATH_TO_PEOPLE = 'results.people';
 
     STATUS_OK = "ok"
