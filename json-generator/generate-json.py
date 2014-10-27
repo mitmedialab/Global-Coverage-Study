@@ -51,7 +51,8 @@ for media_type, media_story_count in media_counts.iteritems():
     if DO_IF_IDF:
         print "    Computing TF and IDF"
         total_countries = len(all_countries)
-        for country_code in all_countries:
+        for country in all_countries:
+            country_code = country['countryCode']
             count = db.storiesOfType(media_type,country_code).count()
             country_stopwords = []
             try:
@@ -89,7 +90,8 @@ for media_type, media_story_count in media_counts.iteritems():
     print "    Computing info for each country"
     count_by_country = []
     parsed_article_count = 0
-    for country_code in all_countries:
+    for country in all_countries:
+        country_code = country['countryCode']
         country_story_count = db.storiesOfType(media_type,country_code).count()
         print "    "+country_code+": "+str(country_story_count)+" stories"
 
