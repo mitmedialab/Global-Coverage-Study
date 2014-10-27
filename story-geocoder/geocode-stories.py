@@ -65,7 +65,7 @@ while storiesToDo>0:
             story_text = ' '.join(sorted_sentences)
             if len(story_text) == 0:
                 # Empty story text will make CLIFF fail, throw in a failsafe
-                story_text == 'the'
+                story_text = 'the'
             to_process.append({ 'id': story['stories_id'], 'text': story_text })
     log.info("Queued "+str(len(to_process))+" stories")
     engine = Engine(to_process)
