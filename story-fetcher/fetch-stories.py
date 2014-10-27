@@ -24,9 +24,15 @@ db = GeoStoryDatabase(config.get('db','name'))
 log.info('Loaded '+str(collection.count())+' media sources to pull')
 
 # walk through all the sources, grabbing all the stories from each
-for source in collection.mediaSources():
+for source_count, source in enumerate(collection.mediaSources()):
     log.info("---------------------------------------------------------------------------")
-    log.info('  Starting with '+source['url']+' ('+source['media_id']+'): '+source['category'])
+    log.info('  Starting with %s (%s): %s %d of %d' % (
+        source['url']
+        , source['media_id']
+        , source['category']
+        , source_count
+        , len(collection.mediaSources())
+    ))
     
     last_processed_stories_id = db.maxStoryProcessedId(source['media_id'])  # pick up where the db left off last run
 
