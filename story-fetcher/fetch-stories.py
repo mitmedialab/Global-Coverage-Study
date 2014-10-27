@@ -32,7 +32,7 @@ for source in collection.mediaSources():
 
     query_str = '*'
     extra_args = {'category':source['category'], 'media_source_url':source['url']}
-    filter_str = '+publish_date:[2014-04-01T00:00:00Z TO 2014-04-30T23:59:59Z] AND +media_id:'+str(source['media_id'])
+    filter_str = '+publish_date:[2014-10-01T00:00:00Z TO 2014-10-31T23:59:59Z] AND +media_id:'+str(source['media_id'])
 
     # page through the stories, saving them in the DB
     more_stories = True
