@@ -48,7 +48,7 @@ class Engine:
                     story = db.getStory(story_id)
                     story[mediameter.db.CLIFF_RESULTS_ATTR] = cliff_results
                     story[mediameter.db.CLIFF_COUNTRIES_FOCUS_ATTR] = []
-                    if 'counties' in cliff_results['results']['places']['focus']:
+                    if 'countries' in cliff_results['results']['places']['focus']:
                         story[mediameter.db.CLIFF_COUNTRIES_FOCUS_ATTR] = [ c['countryCode'] 
                             for c in cliff_results['results']['places']['focus']['countries']]
                     db.updateStory(story)
