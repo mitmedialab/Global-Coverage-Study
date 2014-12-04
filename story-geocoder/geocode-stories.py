@@ -7,8 +7,8 @@ from mediameter.db import GeoStoryDatabase
 
 # This is meant to be run from a cron job every N minutes
 
-THREADS_TO_RUN = 1
-STORIES_AT_TIME = 10
+THREADS_TO_RUN = 15
+STORIES_AT_TIME = 5000
 
 logging.basicConfig(filename='geocoder.log',level=logging.INFO)
 log = logging.getLogger('geocoder')
