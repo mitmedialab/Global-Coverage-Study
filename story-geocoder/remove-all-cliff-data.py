@@ -1,7 +1,7 @@
 import logging, os, json, ConfigParser, sys
 from operator import itemgetter
 import requests
-from mediameter.db import GeoStoryDatabase
+import mediameter.db
 
 logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger('geocoder')
@@ -13,7 +13,7 @@ config = ConfigParser.ConfigParser()
 config.read(parent_dir+'/mc-client.config')
 log.info("Deleting all geocoding results from the db (%s)" % config.get('db','name'))
 
-db = GeoStoryDatabase(config.get('db','name'))
+db = mediameter.db.GeoStoryDatabase(config.get('db','name'))
 
 story_count = db.allStories().count()
 cliffed_story_count = db.storiesWithCliffInfo().count()
