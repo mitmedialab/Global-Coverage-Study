@@ -6,6 +6,10 @@ from mediameter.db import GeoStoryDatabase
 from iso3166 import countries
 from mediameter import stopwords    # Ali's combo module
 
+'''
+TODO: We could speed this up by pulling a random sample of stories, instead of doing them all
+'''
+
 DO_IF_IDF = True
 DO_PEOPLE = True
 
