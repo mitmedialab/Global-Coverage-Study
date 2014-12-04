@@ -3,12 +3,21 @@ from mediacloud.storage import MongoStoryDatabase
 from bson.code import Code
 from mediameter.cliff import Cliff
 
+CLIFF_RESULTS_ATTR = "cliffResults"
+CLIFF_COUNTRIES_FOCUS_ATTR = "cliffCountriesOfFocus"
+
 class GeoStoryDatabase(MongoStoryDatabase):
     '''
     '''
 
     def storiesWithoutCliffInfo(self, limit=None):
-        cursor = self._db.stories.find({ 'entities': {'$exists':False} })
+        cursor = self._db.stories.find({ CLIFF_RESULTS_ATTR: {'$exists':False} })
+        if limit is not None:
+            cursor.limit(limit)
+        return cursor
+
+    def storiesWithCliffInfo(self, limit=None):
+        cursor = self._db.stories.find({ CLIFF_RESULTS_ATTR: {'$exists':True} })
         if limit is not None:
             cursor.limit(limit)
         return cursor
@@ -49,27 +58,27 @@ class GeoStoryDatabase(MongoStoryDatabase):
         cursor = self._db.stories
         if media_type is not None:
             cursor = cursor.find({'type': media_type})
-        return cursor.distinct('entities.'+Cliff.JSON_PATH_TO_ABOUT_COUNTRIES)
+        return cursor.distinct(CLIFF_COUNTRIES_FOCUS_ATTR)
 
     def storiesOfType(self,media_type,country_alpha2=None):
         criteria = {'type': media_type }
         if country_alpha2 is not None:
-            criteria['entities.'+Cliff.JSON_PATH_TO_ABOUT_COUNTRIES] = country_alpha2
+            criteria[CLIFF_COUNTRIES_FOCUS_ATTR] = country_alpha2
         return self._db.stories.find(criteria)
 
     def storiesFromSource(self,media_id,country_alpha2=None):
         criteria = {'media_id': int(media_id) }
         if country_alpha2 is not None:
-            criteria['entities.'+Cliff.JSON_PATH_TO_ABOUT_COUNTRIES] = country_alpha2
+            criteria[CLIFF_COUNTRIES_FOCUS_ATTR] = country_alpha2
         return self._db.stories.find(criteria)
 
     def peopleMentioned(self, media_type, country_alpha2=None):
         name_to_count = {}
         criteria = { 'type': media_type }
         if country_alpha2 is not None:
-            criteria['entities.'+Cliff.JSON_PATH_TO_ABOUT_COUNTRIES] = country_alpha2
+            criteria[CLIFF_COUNTRIES_FOCUS_ATTR] = country_alpha2
         for doc in self._db.stories.find(criteria):
-            for info in doc['entities']['results']['people']:
+            for info in doc[CLIFF_RESULTS_ATTR]['results']['people']:
                 if info['name'] not in name_to_count.keys():
                     name_to_count[info['name']] = info['count']
                 else:
