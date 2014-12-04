@@ -19,8 +19,9 @@ Process
 9. We added a MediaCloud source_id to the "Top N" lists, and adding in any missing sites to MediaCloud via their admin UI.
 10. We used a tiny web app (in `media-source-dashboard/`) to make sure stories were being collected by MediaCloud correctly
 11. We ran `story-fetcher/fetch-stories.py` to download all the sentences for the sources for the month we care about into a MongoDB.
-12. We ran `story-geocoder/geocode-stories.py` to add in a `entities` attribute to all the stories in the DB, containing extracted and geo-located places mentioned in each article (via our CLIFF tool).
+12. We ran `story-geocoder/geocode-stories.py` to add in `cliffResults` and `cliffCountriesOfFocus` attributes to all the stories in the DB, containing extracted and geo-located places mentioned in each article (via our CLIFF tool).
 13. We ran `json-generator/generate-json.py` to aggregate the information into a JSON describing country coverage by type of media source.
+14. We ran `csv-generator/generate-source-csv.py` and `csv-generator/generate-type-csv.py` to spit out the aggregate country coverage counts into a CSV we can use for analysis.
 
 DB
 --
@@ -28,5 +29,5 @@ DB
 Make sure you set up these indices in the database:
 ```
 db.people.ensureIndex( { "type": 1 } );
-db.people.ensureIndex( { "entities.where.primaryCountries": 1 } );
+db.people.ensureIndex( { "cliffCountriesOfFocus": 1 } );
 ```
