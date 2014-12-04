@@ -5,8 +5,10 @@ import requests
 import mediameter.cliff
 from mediameter.db import GeoStoryDatabase
 
-THREADS_TO_RUN = 15
-STORIES_AT_TIME = 5000
+# This is meant to be run from a cron job every N minutes
+
+THREADS_TO_RUN = 1
+STORIES_AT_TIME = 10
 
 logging.basicConfig(filename='geocoder.log',level=logging.INFO)
 log = logging.getLogger('geocoder')
@@ -40,10 +42,15 @@ class Engine:
         while True:
             story_id, text = self.queue.get()
             try:
-                entities = cliff.query(text)
-                if entities['status'] == cliff.STATUS_OK:
+                cliff_results = cliff.parseText(text)
+                if cliff_results['status'] == cliff.STATUS_OK:
+                    log.debug("  loading story "+story_id)
                     story = db.getStory(story_id)
-                    story['entities'] = entities
+                    story[mediameter.db.CLIFF_RESULTS_ATTR] = cliff_results
+                    story[mediameter.db.CLIFF_COUNTRIES_FOCUS_ATTR] = []
+                    if 'counties' in cliff_results['results']['places']['focus']:
+                        story[mediameter.db.CLIFF_COUNTRIES_FOCUS_ATTR] = [ c['countryCode'] 
+                            for c in cliff_results['results']['places']['focus']['countries']]
                     db.updateStory(story)
                     log.info("  updated "+str(story_id))
             except requests.exceptions.RequestException as e:
@@ -52,6 +59,7 @@ class Engine:
 
 # Find records that don't have geodata and geocode them
 storiesToDo = db.storiesWithoutCliffInfo().count()
+log.info("Found %d stories to process." % storiesToDo)
 while storiesToDo>0:
     start_time = time.time()
 
@@ -60,6 +68,8 @@ while storiesToDo>0:
 
     to_process = []
     for story in db.storiesWithoutCliffInfo(STORIES_AT_TIME):
+        # we don't get the story text in one block, so we have to stitch it back
+        # together from the sentences (in the correct order)
         if 'story_sentences' in story:
             sorted_sentences = [s['sentence'] for s in sorted(story['story_sentences'], key=itemgetter('sentence_number'))]
             story_text = ' '.join(sorted_sentences)
