@@ -4,6 +4,8 @@ alexa-scraper/cache
 media-source-dashboard/mc-client.config
 story-fetcher/mc-client.config
 
+.DS_Store
+
 *.config
 .Rproj.user
 
