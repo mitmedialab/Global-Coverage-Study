@@ -68,11 +68,8 @@ while storiesToDo>0:
 
     to_process = []
     for story in db.storiesWithoutCliffInfo(STORIES_AT_TIME):
-        # we don't get the story text in one block, so we have to stitch it back
-        # together from the sentences (in the correct order)
-        if 'story_sentences' in story:
-            sorted_sentences = [s['sentence'] for s in sorted(story['story_sentences'], key=itemgetter('sentence_number'))]
-            story_text = ' '.join(sorted_sentences)
+        if 'story_text' in story:
+            story_text = story['story_text']
             if len(story_text) == 0:
                 # Empty story text will make CLIFF fail, throw in a failsafe
                 story_text = 'the'
