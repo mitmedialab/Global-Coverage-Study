@@ -56,7 +56,7 @@ for media_type, media_story_count in media_counts.iteritems():
         print "    Computing TF and IDF"
         total_countries = len(all_countries)
         for country in all_countries:
-            country_code = country['countryCode']
+            country_code = country
             count = db.storiesOfType(media_type,country_code).count()
             country_stopwords = []
             try:
@@ -68,7 +68,7 @@ for media_type, media_story_count in media_counts.iteritems():
             print "      fetch "+country_code
             print "        ("+str(db.storiesOfType(media_type, country_code).count())+" stories) "
             print "        create text"
-            country_stories_text = ' '.join( [ ' '.join( [s['sentence'] for s in story['story_sentences']] )  for story in db.storiesOfType(media_type, country_code)] ) # this feels dumb
+            country_stories_text = ' '.join( [story['story_text'] for story in db.storiesOfType(media_type, country_code)] )
             # nltk-ize it
             print "        nltk "
             doc = nltk.Text([ \
