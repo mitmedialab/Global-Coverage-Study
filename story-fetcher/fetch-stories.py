@@ -38,14 +38,14 @@ for source_count, source in enumerate(collection.mediaSources()):
 
     query_str = '*'
     extra_args = {'category':source['category'], 'media_source_url':source['url']}
-    filter_str = '+publish_date:[2014-10-01T00:00:00Z TO 2014-10-31T23:59:59Z] AND +media_id:'+str(source['media_id'])
+    filter_str = config.get('query','dates')+' AND +media_id:'+str(source['media_id'])
 
     # page through the stories, saving them in the DB
     more_stories = True
     while more_stories:
         log.info('    loading stories from '+str(last_processed_stories_id))
         try:
-            stories = mc.storyList(query_str, filter_str, last_processed_stories_id, STORIES_PER_PAGE)
+            stories = mc.storyList(query_str, filter_str, last_processed_stories_id, STORIES_PER_PAGE,text=True)
             if len(stories)>0:
                 for story in stories:
                     saved = db.addStory(story, {'type':source['category']})
