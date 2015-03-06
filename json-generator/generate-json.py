@@ -95,7 +95,7 @@ for media_type, media_story_count in media_counts.iteritems():
     count_by_country = []
     parsed_article_count = 0
     for country in all_countries:
-        country_code = country['countryCode']
+        country_code = country
         country_story_count = db.storiesOfType(media_type,country_code).count()
         print "    "+country_code+": "+str(country_story_count)+" stories"
 
