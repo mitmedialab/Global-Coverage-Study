@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 
 sources_file = 'external/source-metadata.csv'
-count_file = '../csv-generator/output/stories-by-source-and-country.csv'
+count_file = '../story-fetcher/output/stories-by-source-and-country.csv'
 
 dhl_file = 'external/dhl_gci_2011.csv'
 gdp_file = 'external/gdp-2010.csv'
