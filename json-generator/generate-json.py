@@ -5,6 +5,7 @@ import mediacloud.api
 from mediameter.db import GeoStoryDatabase
 from iso3166 import countries
 from mediameter import stopwords    # Ali's combo module
+import pandas as pd
 
 '''
 TODO: We could speed this up by pulling a random sample of stories, instead of doing them all
@@ -26,6 +27,11 @@ config.read(parent_dir+'/mc-client.config')
 # connect to database
 db = GeoStoryDatabase(config.get('db','name'),
     config.get('db','host'))
+
+# load estimate data, change index to country alpha3
+estimate_file = os.path.join(parent_dir, 'analysis/output/estimate.csv')
+estimate_df = pd.DataFrame.from_csv(estimate_file)
+estimate_df.set_index("X")
 
 output = [] # the thing to jsonify at the end
 
@@ -94,12 +100,17 @@ for media_type, media_story_count in media_counts.iteritems():
     print "    Computing info for each country"
     count_by_country = []
     parsed_article_count = 0
+    total_stories = db.allStories().count()
     for country in all_countries:
+<<<<<<< Updated upstream
         country_code = country
         country_story_count = db.storiesOfType(media_type,country_code).count()
         print "    "+country_code+": "+str(country_story_count)+" stories"
 
+=======
+>>>>>>> Stashed changes
         # setup country-specific info
+        country_code = country['countryCode']
         country_alpha3 = None
         try:
             country_iso3166 = countries.get(country_code)
@@ -109,6 +120,13 @@ for media_type, media_story_count in media_counts.iteritems():
             print '      Unknown country code '+country_code
             country_alpha3 = None           
 
+        country_story_count = db.storiesOfType(media_type,country_code).count()
+        try:
+            country_estimate = estimate_df[country_alpha3,"estimate"]
+        except KeyError:
+            pass
+        print "    "+country_code+": "+str(country_story_count)+" stories"
+        
         tfidf_results = []
         if DO_IF_IDF:
             # compute document term frequency for stories about this country from this media source
@@ -128,9 +146,16 @@ for media_type, media_story_count in media_counts.iteritems():
                 people_counts = [ { 'name': name, 'count':freq } \
                     for name, freq in sorted(all_people_counts.iteritems(), key=operator.itemgetter(1), reverse=True)]\
                     [:30]
-            count_by_country.append({
-                'alpha3': country_alpha3, 'count': country_story_count, 'people': people_counts, 'tfidf': tfidf_results
-            })
+            result
+            country_result = {
+                'alpha3': country_alpha3
+                , 'count': country_story_count
+                , 'people': people_counts
+                , 'tfidf': tfidf_results
+            }
+            if country_estimate is not None:
+                country_result['estimate'] = total_stories * country_estimate
+            count_by_country.append(country_result)
             parsed_article_count += country_story_count
 
     info['countries'] = count_by_country

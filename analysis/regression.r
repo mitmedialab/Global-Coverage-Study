@@ -1,9 +1,11 @@
 all_file = "/Users/elplatt/Global-Coverage-Study/analysis/output/foreign_attention.csv"
-all_data = read.csv(foreign_file, header=TRUE)
 foreign_file = "/Users/elplatt/Global-Coverage-Study/analysis/output/foreign_attention.csv"
+all_data = read.csv(foreign_file, header=TRUE)
 foreign_data = read.csv(foreign_file, header=TRUE)
 demo_file = "/Users/elplatt/Global-Coverage-Study/analysis/output/demographics.csv"
 demo = read.csv(demo_file, header=TRUE)
+estimate_file = "/Users/elplatt/Global-Coverage-Study/analysis/output/estimate.csv"
+regression_file = "/Users/elplatt/Global-Coverage-Study/analysis/output/regression.csv"
 
 broadcast = all_data[all_data$type=="broadcast",]
 online = all_data[all_data$type=="online",]
@@ -15,23 +17,21 @@ f_online = foreign_data[foreign_data$type=="online",]
 f_magazine = foreign_data[foreign_data$type=="magazine",]
 f_newspaper = foreign_data[foreign_data$type=="newspaper",]
 
-m_all = lm(log(attention)
-               ~ log(population)
-               + log(total_gdp)
-               + dhl
-               + inet_pen
-               + log(-log(migrant_per)),
-           data=foreign_data)
-require(stats)
-demo$estimate = predict(m_all, demo)
+m_all = lm(scale(log(foreign_data$attention))
+           ~ scale(log(foreign_data$population))
+          + scale(log(foreign_data$total_gdp))
+          + scale(log(foreign_data$troop))
+          + scale(log(foreign_data$trade))
+          + scale(log(foreign_data$dist_capital))
+          + scale(foreign_data$inet_pen)
+          + scale(log(-log(foreign_data$migrant_per)))
+          + foreign_data$country
+          + foreign_data$source
+          )
 
-d = f_newspaper
-m = lm(scale(log(d$attention))
-               ~ scale(log(d$population))
-               + scale(log(d$total_gdp))
-               + scale(d$dhl)
-               + scale(d$inet_pen)
-               + scale(log(-log(d$migrant_per))))
-summary(m)
+summary_all = summary(m_all)
 
+res = summary_all$coefficients
+ar2 = summary_all$adj.r.squared
 
+write.csv(res, regression_file)
