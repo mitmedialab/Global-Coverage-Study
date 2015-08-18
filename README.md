@@ -28,6 +28,8 @@ Process
 
 ### Analysis
 1. We ran `story-fetcher/fetch-story-counts.py` to create a csv of story counts for each source in the configured time period.
+2. We added external data files to `analysis/external` as listed in that directory's readme.
+3. We added a `common.csv` data file to `data`.
 
 DB
 --
