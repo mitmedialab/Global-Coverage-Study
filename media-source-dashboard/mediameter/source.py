@@ -13,7 +13,7 @@ class MediaSourceCollection():
         self.cache_time = None
         self.cache_content = None
         # connect to Media Cloud
-        self.mediacloud = mediacloud.api.MediaCloud(mc_api_key)
+        self.mediacloud = mediacloud.api.AdminMediaCloud(mc_api_key)
 
     def listWithSentenceCounts(self):
         now = int(time.time())
