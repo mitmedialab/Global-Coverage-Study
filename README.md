@@ -27,9 +27,10 @@ Process
 2. We ran `json-generator/generate-json.py` to aggregate the information into a JSON describing country coverage by type of media source.
 
 ### Analysis
-1. We ran `story-fetcher/fetch-story-counts.py` to create a csv of story counts for each source in the configured time period.
-2. We added external data files to `analysis/external` as listed in that directory's readme.
-3. We added a `common.csv` data file to `data`.
+1. We added external data files to `analysis/external` as listed in that directory's readme.
+2. We added a `common.csv` data file to `data`.
+3. We ran `story-fetcher/fetch-story-counts.py` to create a csv of story counts for each source in the configured time period.
+4. We ran `analysis/find-entropy.py` to produce `analysis/output/foreign_attention.csv`. Each row gives the fraction of a particula source's foreign articles that are dedicated to a specific country.
 
 DB
 --

@@ -70,7 +70,7 @@ def main():
     source_df = pd.DataFrame.from_csv(sources_file)
     count_df = columns_lower(
         pd.DataFrame.from_csv(count_file)
-        .transpose().reset_index()
+        .reset_index()
     )
     # Set is_copy to False so pandas doesn't warn about modifying
     count_df.is_copy = False
