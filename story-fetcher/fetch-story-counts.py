@@ -88,7 +88,7 @@ for source_count, source in enumerate(collection.mediaSources()):
             time.sleep(1)
     log.info('  Done with '+source['url']+' ('+source['media_id']+'): '+source['category'])
 
-with open('output/source_country_counts.csv', 'wb') as f:
+with open('output/stories-by-source-and-country.csv', 'wb') as f:
     countries = sorted(list(countries))
     urls = sorted(list(sources))
     log.info('Found urls:')
@@ -100,6 +100,7 @@ with open('output/source_country_counts.csv', 'wb') as f:
         f.write(",%s" % (c,))
     f.write("\n")
     for url in urls:
+        url = url.split(',')[0].strip()
         f.write(url)
         for c in countries:
             pair = (url, c)
