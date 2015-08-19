@@ -1,6 +1,6 @@
 
-import csv
-import math
+import ConfigParser, csv, math, os
+
 import numpy as np
 import pandas as pd
 
@@ -14,6 +14,12 @@ inet_file = 'external/internet_users.csv'
 migrant_file = 'external/migrant-2010.csv'
 pop_file = 'external/population-2010.csv'
 common_file = '../data/common.csv'
+
+# load shared config file
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+config = ConfigParser.ConfigParser()
+config.read(parent_dir+'/mc-client.config')
 
 def entropy(count_df):
     n = (count_df.sum(1))
@@ -109,7 +115,7 @@ def main():
     entropy_df = entropy_df[entropy_df.country=='us']
     foreign_df = remove_domestic(count_df)
     # Remove sources with very few international stories
-    foreign_df = foreign_df[foreign_df.sum(1) >= 200]
+    foreign_df = foreign_df[foreign_df.sum(1) >= config.getint('analysis', 'min_articles')]
     foreign_df.to_csv('output/us_top_counts.csv')
     
     foreign_entropy_df = entropy(foreign_df)

@@ -9,6 +9,9 @@ collection: stories
 [query]
 dates: +publish_date:[2014-10-01T00:00:00Z TO 2014-10-01T23:59:59Z]
 
+[analysis]
+min_articles: 200
+
 [cliff]
 host: http://localhost
 port: 8080
