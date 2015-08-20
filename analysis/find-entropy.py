@@ -58,12 +58,10 @@ def entropy(count_df):
 
 def remove_domestic(count_df):
     '''Remove domestic counts for each source.'''
-    # Get the column labels of the max for each source
-    df = pd.DataFrame(count_df).dropna()
-    max_df = df.transpose().idxmax()
-    for url, label in max_df.iteritems():
-        df.loc[url, label] = 0
-    return df
+    # Load source metadata
+    sources_df = pd.DataFrame.from_csv(sources_file, index_col=None)
+    sources_df.set_index('url', inplace=True)
+    return count_df[sources_df['country'] == 'USA']
 
 def index_lower(df):
     df.index = map(str.lower, df.index)
