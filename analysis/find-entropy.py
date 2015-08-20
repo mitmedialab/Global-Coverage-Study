@@ -13,6 +13,8 @@ gdp_file = 'external/gdp-2010.csv'
 inet_file = 'external/internet_users.csv'
 migrant_file = 'external/migrant-2010.csv'
 pop_file = 'external/population-2010.csv'
+emigration_file = 'external/usa-emigration-2010.csv'
+immigration_file = 'external/usa-immigration-2010.csv'
 common_file = '../data/common.csv'
 
 # load shared config file
@@ -94,6 +96,8 @@ def main():
     migrant_df = index_lower(pd.DataFrame.from_csv(migrant_file))
     pop_df = index_lower(pd.DataFrame.from_csv(pop_file))
     demo_df = pd.DataFrame(index=count_df.columns)
+    immigration_df = pd.DataFrame.from_csv(immigration_file)
+    emigration_df = pd.DataFrame.from_csv(emigration_file)
     common_df = pd.DataFrame.from_csv(common_file)
     demo_df['dhl'] = dhl_df['Overall'].astype('float64')
     demo_df['total_gdp'] = gdp_df['GDP 2010'].astype('float64')
@@ -102,6 +106,8 @@ def main():
     demo_df['migrant_stock'] = migrant_df['Total Stock'].astype('float64')
     demo_df['inet_pen'] = np.divide(demo_df['inet_users'],demo_df['population'])
     demo_df['migrant_per'] = np.divide(demo_df['migrant_stock'],demo_df['population'])
+    demo_df['immigration'] = immigration_df['immigration']
+    demo_df['emigration'] = emigration_df['emigration']
     demo_df['troop'] = common_df['troop'].astype('float64')
     demo_df['import'] = common_df['import'].astype('float64')
     demo_df['export'] = common_df['export'].astype('float64')
@@ -129,10 +135,10 @@ def main():
     foreign_fraction_df = np.divide(foreign_df, (foreign_df.sum(1))[:,None])
     fraction_df = np.divide(count_df, (count_df.sum(1))[:,None])
     results = {
-        'country':[], 'source':[], 'type':[], 'population':[], 'total_gdp':[], 'dhl':[], 'migrant_per':[], 'inet_pen':[], 'troop':[], 'import':[], 'export':[], 'trade':[], 'dist_capital':[], 'attention':[]
+        'country':[], 'source':[], 'type':[], 'population':[], 'total_gdp':[], 'dhl':[], 'migrant_per':[], 'immigration':[], 'emigration':[], 'inet_pen':[], 'troop':[], 'import':[], 'export':[], 'trade':[], 'dist_capital':[], 'attention':[]
     }
     foreign_results = {
-        'country':[], 'source':[], 'type':[], 'population':[], 'total_gdp':[], 'dhl':[], 'migrant_per':[], 'inet_pen':[], 'troop':[], 'import':[], 'export':[], 'trade':[], 'dist_capital':[], 'attention':[]
+        'country':[], 'source':[], 'type':[], 'population':[], 'total_gdp':[], 'dhl':[], 'migrant_per':[], 'immigration':[], 'emigration':[],  'inet_pen':[], 'troop':[], 'import':[], 'export':[], 'trade':[], 'dist_capital':[], 'attention':[]
     }
     home_df = count_df.transpose().idxmax()
     for country, col in fraction_df.iteritems():
@@ -145,6 +151,8 @@ def main():
                 results['total_gdp'].append(demo_df.loc[country.lower(), 'total_gdp'])
                 results['dhl'].append(demo_df.loc[country.lower(), 'dhl'])
                 results['migrant_per'].append(demo_df.loc[country.lower(), 'migrant_per'])
+                results['immigration'].append(demo_df.loc[country.lower(), 'immigration'])
+                results['emigration'].append(demo_df.loc[country.lower(), 'emigration'])
                 results['inet_pen'].append(demo_df.loc[country.lower(), 'inet_pen'])
                 results['troop'].append(demo_df.loc[country.lower(), 'troop'])
                 results['import'].append(demo_df.loc[country.lower(), 'import'])
@@ -167,6 +175,8 @@ def main():
                 foreign_results['total_gdp'].append(demo_df.loc[country.lower(), 'total_gdp'])
                 foreign_results['dhl'].append(demo_df.loc[country.lower(), 'dhl'])
                 foreign_results['migrant_per'].append(demo_df.loc[country.lower(), 'migrant_per'])
+                foreign_results['immigration'].append(demo_df.loc[country.lower(), 'immigration'])
+                foreign_results['emigration'].append(demo_df.loc[country.lower(), 'emigration'])
                 foreign_results['inet_pen'].append(demo_df.loc[country.lower(), 'inet_pen'])
                 foreign_results['attention'].append(attention)
     result_df = pd.DataFrame(results).dropna()

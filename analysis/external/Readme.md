@@ -29,3 +29,14 @@ population-2010.csv
 
     Country Code,Population
     ABW,101597
+
+usa-emigration-2010.csv
+
+    Id,Label,2010
+    afg,Afghanistan,0
+    
+usa-immigration-2010.csv
+
+    Id,Label,2010
+    afg,Afghanistan,0
+    
