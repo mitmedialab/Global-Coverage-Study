@@ -29,6 +29,7 @@ Process
 ### Analysis
 1. We added external data files to `analysis/external` as listed in that directory's readme.
 2. We added a `common.csv` data file to `data`.
+3. We set the `min_articles` threshold in `mc-client.config` to 200.
 3. We ran `story-fetcher/fetch-story-counts.py` to create a csv of story counts for each source in the configured time period.
 4. We ran `analysis/find-entropy.py` to produce `analysis/output/foreign_attention.csv`. Each row gives the fraction of a particula source's foreign articles that are dedicated to a specific country.
 
