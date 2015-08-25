@@ -93,6 +93,7 @@ def main():
     inet_df = index_lower(pd.DataFrame.from_csv(inet_file))
     migrant_df = index_lower(pd.DataFrame.from_csv(migrant_file))
     pop_df = index_lower(pd.DataFrame.from_csv(pop_file))
+    pop_usa = pop_df['Population']['usa']
     demo_df = pd.DataFrame(index=count_df.columns)
     immigration_df = pd.DataFrame.from_csv(immigration_file)
     emigration_df = pd.DataFrame.from_csv(emigration_file)
@@ -104,14 +105,17 @@ def main():
     demo_df['migrant_stock'] = migrant_df['Total Stock'].astype('float64')
     demo_df['inet_pen'] = np.divide(demo_df['inet_users'],demo_df['population'])
     demo_df['migrant_per'] = np.divide(demo_df['migrant_stock'],demo_df['population'])
-    demo_df['immigration'] = immigration_df['immigration']
-    demo_df['emigration'] = emigration_df['emigration']
+    demo_df['bilateral_immigration'] = immigration_df['immigration'].astype('float64')
+    demo_df['bilateral_immigration_per'] = immigration_df['immigration'].astype('float64') / pop_usa
+    demo_df['bilateral_emigration'] = emigration_df['emigration'].astype('float64')
+    demo_df['bilateral_emigration_per'] = emigration_df['emigration'].astype('float64') / demo_df['population'].astype('float64')
     demo_df['troop'] = common_df['troop'].astype('float64')
     demo_df['import'] = common_df['import'].astype('float64')
     demo_df['export'] = common_df['export'].astype('float64')
     demo_df['trade'] = demo_df['import'] + demo_df['export']
     demo_df['dist_capital'] = common_df['dist_capital']
     demo_df.to_csv('output/demographics.csv')
+    print demo_df['bilateral_emigration'].head()
 
     # Calculate entropy of each source
     entropy_df = entropy(count_df)
@@ -133,10 +137,10 @@ def main():
     foreign_fraction_df = np.divide(foreign_df, (foreign_df.sum(1))[:,None])
     fraction_df = np.divide(count_df, (count_df.sum(1))[:,None])
     results = {
-        'country':[], 'source':[], 'type':[], 'population':[], 'total_gdp':[], 'dhl':[], 'migrant_per':[], 'immigration':[], 'emigration':[], 'inet_pen':[], 'troop':[], 'import':[], 'export':[], 'trade':[], 'dist_capital':[], 'attention':[]
+        'country':[], 'source':[], 'type':[], 'population':[], 'total_gdp':[], 'dhl':[], 'migrant_per':[], 'bilateral_immigration':[], 'bilateral_emigration':[], 'bilateral_immigration_per':[], 'bilateral_emigration_per':[], 'inet_pen':[], 'troop':[], 'import':[], 'export':[], 'trade':[], 'dist_capital':[], 'attention':[]
     }
     foreign_results = {
-        'country':[], 'source':[], 'type':[], 'population':[], 'total_gdp':[], 'dhl':[], 'migrant_per':[], 'immigration':[], 'emigration':[],  'inet_pen':[], 'troop':[], 'import':[], 'export':[], 'trade':[], 'dist_capital':[], 'attention':[]
+        'country':[], 'source':[], 'type':[], 'population':[], 'total_gdp':[], 'dhl':[], 'migrant_per':[], 'bilateral_immigration':[], 'bilateral_emigration':[], 'bilateral_immigration_per':[], 'bilateral_emigration_per':[],  'inet_pen':[], 'troop':[], 'import':[], 'export':[], 'trade':[], 'dist_capital':[], 'attention':[]
     }
     home_df = count_df.transpose().idxmax()
     for country, col in fraction_df.iteritems():
@@ -149,8 +153,10 @@ def main():
                 results['total_gdp'].append(demo_df.loc[country.lower(), 'total_gdp'])
                 results['dhl'].append(demo_df.loc[country.lower(), 'dhl'])
                 results['migrant_per'].append(demo_df.loc[country.lower(), 'migrant_per'])
-                results['immigration'].append(demo_df.loc[country.lower(), 'immigration'])
-                results['emigration'].append(demo_df.loc[country.lower(), 'emigration'])
+                results['bilateral_immigration'].append(demo_df.loc[country.lower(), 'bilateral_immigration'])
+                results['bilateral_emigration'].append(demo_df.loc[country.lower(), 'bilateral_emigration'])
+                results['bilateral_immigration_per'].append(demo_df.loc[country.lower(), 'bilateral_immigration_per'])
+                results['bilateral_emigration_per'].append(demo_df.loc[country.lower(), 'bilateral_emigration_per'])
                 results['inet_pen'].append(demo_df.loc[country.lower(), 'inet_pen'])
                 results['troop'].append(demo_df.loc[country.lower(), 'troop'])
                 results['import'].append(demo_df.loc[country.lower(), 'import'])
@@ -173,8 +179,10 @@ def main():
                 foreign_results['total_gdp'].append(demo_df.loc[country.lower(), 'total_gdp'])
                 foreign_results['dhl'].append(demo_df.loc[country.lower(), 'dhl'])
                 foreign_results['migrant_per'].append(demo_df.loc[country.lower(), 'migrant_per'])
-                foreign_results['immigration'].append(demo_df.loc[country.lower(), 'immigration'])
-                foreign_results['emigration'].append(demo_df.loc[country.lower(), 'emigration'])
+                foreign_results['bilateral_immigration'].append(demo_df.loc[country.lower(), 'bilateral_immigration'])
+                foreign_results['bilateral_emigration'].append(demo_df.loc[country.lower(), 'bilateral_emigration'])
+                foreign_results['bilateral_immigration_per'].append(demo_df.loc[country.lower(), 'bilateral_immigration_per'])
+                foreign_results['bilateral_emigration_per'].append(demo_df.loc[country.lower(), 'bilateral_emigration_per'])
                 foreign_results['inet_pen'].append(demo_df.loc[country.lower(), 'inet_pen'])
                 foreign_results['attention'].append(attention)
     result_df = pd.DataFrame(results).dropna()
