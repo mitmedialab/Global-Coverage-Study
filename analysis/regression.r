@@ -1,11 +1,11 @@
-all_file = "/Users/elplatt/Global-Coverage-Study/analysis/output/foreign_attention.csv"
-foreign_file = "/Users/elplatt/Global-Coverage-Study/analysis/output/foreign_attention.csv"
+all_file = "/Users/elplatt/GCS/analysis/output/foreign_attention.csv"
+foreign_file = "/Users/elplatt/GCS/analysis/output/foreign_attention.csv"
 all_data = read.csv(foreign_file, header=TRUE)
 foreign_data = read.csv(foreign_file, header=TRUE)
-demo_file = "/Users/elplatt/Global-Coverage-Study/analysis/output/demographics.csv"
+demo_file = "/Users/elplatt/GCS/analysis/output/demographics.csv"
 demo = read.csv(demo_file, header=TRUE)
-estimate_file = "/Users/elplatt/Global-Coverage-Study/analysis/output/estimate.csv"
-regression_file = "/Users/elplatt/Global-Coverage-Study/analysis/output/regression.csv"
+estimate_file = "/Users/elplatt/GCS/analysis/output/estimate.csv"
+regression_file = "/Users/elplatt/GCS/analysis/output/regression.csv"
 
 broadcast = all_data[all_data$type=="broadcast",]
 online = all_data[all_data$type=="online",]
