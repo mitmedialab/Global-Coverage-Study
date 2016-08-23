@@ -26,7 +26,7 @@ log.info('Loaded '+str(collection.count())+' media sources to pull')
 
 # walk through all the sources, grabbing all the stories from each
 skipped_story_counts = []
-for source_count, source in enumerate(collection.mediaSources()[:1]):
+for source_count, source in enumerate(collection.mediaSources()):
     log.info("---------------------------------------------------------------------------")
     log.info('  Starting with %s (%s): %s %d of %d' % (
         source['url']
