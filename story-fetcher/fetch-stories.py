@@ -1,4 +1,5 @@
 import logging, ConfigParser, sys, json, time, os
+import csv
 import mediacloud
 import mediameter.source
 from mediameter.db import GeoStoryDatabase
@@ -24,7 +25,8 @@ db = GeoStoryDatabase(config.get('db','name'))
 log.info('Loaded '+str(collection.count())+' media sources to pull')
 
 # walk through all the sources, grabbing all the stories from each
-for source_count, source in enumerate(collection.mediaSources()):
+skipped_story_counts = []
+for source_count, source in enumerate(collection.mediaSources()[:1]):
     log.info("---------------------------------------------------------------------------")
     log.info('  Starting with %s (%s): %s %d of %d' % (
         source['url']
@@ -38,21 +40,26 @@ for source_count, source in enumerate(collection.mediaSources()):
 
     query_str = '*'
     extra_args = {'category':source['category'], 'media_source_url':source['url']}
-    filter_str = config.get('query','dates')+' AND +media_id:'+str(source['media_id'])
+    filter_str = config.get('query', 'dates')+' AND +media_id:'+str(source['media_id'])
 
     # page through the stories, saving them in the DB
+    skipped_ap_stories = 0
     more_stories = True
     while more_stories:
         log.info('    loading stories from '+str(last_processed_stories_id))
         try:
-            stories = mc.storyList(query_str, filter_str, last_processed_stories_id, STORIES_PER_PAGE,text=True)
-            if len(stories)>0:
+            stories = mc.storyList(query_str, filter_str, last_processed_stories_id, STORIES_PER_PAGE, text=True)
+            if len(stories) > 0:
                 for story in stories:
-                    saved = db.addStory(story, {'type':source['category']})
-                    if saved:
-                        log.info('  saved '+str(story['processed_stories_id']))
+                    if story['ap_syndicated'] == 0:
+                        saved = db.addStory(story, {'type':source['category']})
+                        if saved:
+                            log.debug('  saved '+str(story['processed_stories_id']))
+                        else:
+                            log.debug('  skipped '+str(story['processed_stories_id']))
                     else:
-                        log.info('  skipped '+str(story['processed_stories_id']))
+                        skipped_ap_stories = skipped_ap_stories + 1
+                        log.debug('  skipped AP story '+str(story['processed_stories_id']))
                 last_processed_stories_id = stories[len(stories)-1]['processed_stories_id']
                 more_stories = True
             else:
@@ -62,3 +69,16 @@ for source_count, source in enumerate(collection.mediaSources()):
             log.info('  '+str(e))
             time.sleep(1)
     log.info('  Done with '+source['url']+' ('+source['media_id']+'): '+source['category'])
+    skipped_story_counts.append({ 
+        'media_id': source['media_id'],
+        'url': source['url'],
+        'category': source['category'],
+        'skipped_ap': skipped_ap_stories
+    })
+
+with open('output/skipped_ap_story_counts.csv', 'wb') as csv_file:
+    field_names = ['media_id', 'url', 'category', 'skipped_ap']
+    writer = csv.DictWriter(csv_file, fieldnames=field_names)
+    writer.writeheader()
+    for row in skipped_story_counts:
+       writer.writerow(row)
