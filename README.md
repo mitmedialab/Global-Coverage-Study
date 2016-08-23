@@ -5,6 +5,13 @@ A study of global online media coverage.  The goal is to identify top American o
 (via Alexa ranking), use the MediaCloud dataset and tools to geoparse and locate stories, and then compare
 global coverage between them.
 
+Installing
+----------
+
+Set up mongodb.
+
+Install the python requirements: `pip install -r requirements.pip`
+
 Process
 -------
 

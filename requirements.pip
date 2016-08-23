@@ -1,0 +1,7 @@
+hashlib
+requests[security]
+mediacloud
+mediameter-cliff
+numpy
+pandas
+nltk
