@@ -54,7 +54,9 @@ for source_count, source in enumerate(collection.mediaSources()):
     while more_stories:
         log.info('    loading stories from '+str(last_processed_stories_id))
         try:
-            stories = mc.storyList(query_str, filter_str, last_processed_stories_id, STORIES_PER_PAGE, ap_stories_id=1)
+            stories = mc.storyList(solr_query=filter_str, 
+                last_processed_stories_id=last_processed_stories_id, rows=STORIES_PER_PAGE, 
+                ap_stories_id=1)
             if len(stories)>0:
                 for idx, story in enumerate(stories):
                     try:
