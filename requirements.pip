@@ -5,3 +5,7 @@ mediameter-cliff
 numpy
 pandas
 nltk
+HermesCache
+pylibmc
+python-memcached
+redis
