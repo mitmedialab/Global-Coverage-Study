@@ -1,11 +1,11 @@
 import logging
 import ConfigParser
 import time
+import csv
 import os
 import hermes.backend.redis
 #import hermes.backend.memcached
 import mediameter.source
-from mediameter.db import GeoStoryDatabase
 
 STORIES_PER_PAGE = 1000
 
@@ -31,12 +31,13 @@ config.read(parent_dir+'/mc-client.config')
 collection = mediameter.source.MediaSourceCollection(config.get('api', 'key'))
 collection.loadAllMediaIds()
 mc = collection.mediacloud
-db = GeoStoryDatabase(config.get('db', 'name'))
 
 log.info('Loaded '+str(collection.count())+' media sources to pull')
 
-cache = hermes.Hermes(hermes.backend.redis.Backend, ttl = 600, host = 'localhost', db = 1)
+cache = hermes.Hermes(hermes.backend.redis.Backend, ttl = 3*86400, host = 'localhost', db = 1)
 #cache = hermes.Hermes(hermes.backend.memcached.Backend, ttl=3*86400)  # three days
+
+skipped_story_counts = []
 
 @cache
 def get_stories(query, process_stories_id):
@@ -57,13 +58,15 @@ for source_count, source in enumerate(collection.mediaSources()):
     source_url = source['url']
     sources.add(source_url)
 
-    last_processed_stories_id = db.maxStoryProcessedId(source['media_id'])  # pick up where the db left off last run
+    last_processed_stories_id = 0
 
     query_str = '*'
     extra_args = {'category':source['category'], 'media_source_url':source['url']}
     filter_str = config.get('query', 'dates')+' AND +media_id:'+str(source['media_id'])
 
-    # page through the stories, saving them in the DB
+    # page through the stories
+    skipped_ap_stories = 0
+    total_stories = 0
     more_stories = True
     while more_stories:
         log.info('    loading stories from '+str(last_processed_stories_id))
@@ -71,11 +74,14 @@ for source_count, source in enumerate(collection.mediaSources()):
             stories = get_stories(filter_str, last_processed_stories_id)
             if len(stories) > 0:
                 for idx, story in enumerate(stories):
+                    total_stories = total_stories + 1
                     try:
                         ap_stories_id = int(story.get('ap_stories_id', 0))
                     except (TypeError, KeyError):
                         ap_stories_id = 0
                     if ap_stories_id != 0:
+                        skipped_ap_stories = skipped_ap_stories + 1
+                        log.debug('  skipped AP story '+str(story['stories_id']))
                         continue
                     try:
                         tag_count = 0
@@ -104,6 +110,20 @@ for source_count, source in enumerate(collection.mediaSources()):
             log.info('  '+str(e))
             time.sleep(1)
     log.info('  Done with '+source['url']+' ('+source['media_id']+'): '+source['category'])
+    skipped_story_counts.append({
+        'media_id': source['media_id'],
+        'url': source['url'],
+        'category': source['category'],
+        'skipped_ap': skipped_ap_stories,
+        'total_stories': total_stories
+    })
+
+with open('output/skipped_ap_story_counts.csv', 'wb') as csv_file:
+    field_names = ['media_id', 'url', 'category', 'skipped_ap', 'total_stories']
+    writer = csv.DictWriter(csv_file, fieldnames=field_names)
+    writer.writeheader()
+    for row in skipped_story_counts:
+        writer.writerow(row)
 
 with open('output/stories-by-source-and-country.csv', 'wb') as f:
     countries = sorted(list(countries))
