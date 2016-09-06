@@ -75,32 +75,29 @@ for source_count, source in enumerate(collection.mediaSources()):
             if len(stories) > 0:
                 for idx, story in enumerate(stories):
                     total_stories = total_stories + 1
-                    try:
-                        ap_stories_id = int(story.get('ap_stories_id', 0))
-                    except (TypeError, KeyError):
-                        ap_stories_id = 0
-                    if ap_stories_id != 0:
+                    if story['ap_syndicated'] == 1:
                         skipped_ap_stories = skipped_ap_stories + 1
                         log.debug('  skipped AP story '+str(story['stories_id']))
                         continue
-                    try:
-                        tag_count = 0
-                        story_tags = []
-                        for tag in story["story_tags"]:
-                            try:
-                                geo_tag = tag["tag"]
-                                if geo_tag in allowed_tags:
-                                    country = tag_to_iso[geo_tag]
-                                    countries.add(country)
-                                    story_tags.append(country)
-                                    tag_count += 1
-                            except KeyError:
-                                pass
-                        for country in story_tags:
-                            pair = (source_url, country)
-                            counts_by_pair[pair] = counts_by_pair.get(pair, 0) + 1.0/len(story_tags)
-                    except KeyError:
-                        pass
+                    else:
+                        try:
+                            tag_count = 0
+                            story_tags = []
+                            for tag in story["story_tags"]:
+                                try:
+                                    geo_tag = tag["tag"]
+                                    if geo_tag in allowed_tags:
+                                        country = tag_to_iso[geo_tag]
+                                        countries.add(country)
+                                        story_tags.append(country)
+                                        tag_count += 1
+                                except KeyError:
+                                    pass
+                            for country in story_tags:
+                                pair = (source_url, country)
+                                counts_by_pair[pair] = counts_by_pair.get(pair, 0) + 1.0/len(story_tags)
+                        except KeyError:
+                            pass
                 last_processed_stories_id = stories[len(stories)-1]['processed_stories_id']
                 more_stories = True
             else:
