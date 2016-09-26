@@ -4,7 +4,7 @@ import ConfigParser, csv, math, os
 import numpy as np
 import pandas as pd
 
-usa_only = False
+usa_only = True
 
 sources_file = 'external/source-metadata.csv'
 count_file = '../story-fetcher/output/Sept14-global-coverage-data-June-Sept/stories-by-source-and-country.csv'
