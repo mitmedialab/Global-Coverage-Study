@@ -4,10 +4,10 @@ import ConfigParser, csv, math, os
 import numpy as np
 import pandas as pd
 
-usa_only = True
+usa_only = False
 
 sources_file = 'external/source-metadata.csv'
-count_file = '../story-fetcher/output/stories-by-source-and-country-2016.csv'
+count_file = '../story-fetcher/output/Sept14-global-coverage-data-June-Sept/stories-by-source-and-country.csv'
 alexa_file = '../alexa-scraper/data/alexa-top-all.csv'
 
 dhl_file = 'external/dhl_gci_2011.csv'
