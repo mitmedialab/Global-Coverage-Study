@@ -15,8 +15,8 @@ gdp_file = 'external/gdp-2010.csv'
 inet_file = 'external/internet_users.csv'
 migrant_file = 'external/migrant-2010.csv'
 pop_file = 'external/population-2010.csv'
-emigration_file = 'external/usa-emigration-2010.csv'
-immigration_file = 'external/usa-immigration-2010.csv'
+emigration_file = 'external/usa-emigration_from_usa-2010.csv'
+immigration_file = 'external/usa-immigration_to_usa-2010.csv'
 common_file = '../data/common.csv'
 
 # load shared config file
