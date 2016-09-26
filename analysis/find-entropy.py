@@ -4,6 +4,8 @@ import ConfigParser, csv, math, os
 import numpy as np
 import pandas as pd
 
+usa_only = True
+
 sources_file = 'external/source-metadata.csv'
 count_file = '../story-fetcher/output/stories-by-source-and-country-2016.csv'
 alexa_file = '../alexa-scraper/data/alexa-top-all.csv'
@@ -65,6 +67,17 @@ def remove_domestic(count_df):
         count_df.set_value(source, country.lower(), 0)
     return count_df
 
+def remove_non_us(count_df):
+    '''Remove domestic counts for each source.'''
+    # Load source metadata
+    sources_df = pd.DataFrame.from_csv(sources_file, index_col=None)
+    sources = dict([(x["url"], x["country"]) for x in sources_df.to_dict(orient="records")])
+    print count_df.head()
+    for source, country in sources.iteritems():
+        if country.lower() != 'usa':
+            count_df = count_df[count_df["index"] != source]
+    return count_df
+
 def index_lower(df):
     df.index = map(str.lower, df.index)
     return df
@@ -85,6 +98,8 @@ def main():
     # Only consider the first url listed for each row
     for i, url in count_df['index'].iteritems():
         count_df.at[i,'index'] = url.split(',')[0]
+    if usa_only:
+        count_df = remove_non_us(count_df)
     # Use url as index
     count_df.set_index('index', inplace=True)
     count_df.index.rename('url', inplace=True)
@@ -111,14 +126,15 @@ def main():
     demo_df['inet_pen'] = np.divide(demo_df['inet_users'],demo_df['population'])
     demo_df['migrant_per'] = np.divide(demo_df['migrant_stock'],demo_df['population'])
     demo_df['troop'] = common_df['troop'].astype('float64')
-    #demo_df['bilateral_immigration'] = immigration_df['2010'].astype('float64')
-    #demo_df['bilateral_immigration_per'] = immigration_df['2010'].astype('float64') / pop_usa
-    #demo_df['bilateral_emigration'] = emigration_df['2010'].astype('float64')
-    #demo_df['bilateral_emigration_per'] = emigration_df['2010'].astype('float64') / demo_df['population'].astype('float64')
-    #demo_df['import'] = common_df['import'].astype('float64')
-    #demo_df['export'] = common_df['export'].astype('float64')
-    #demo_df['trade'] = demo_df['import'] + demo_df['export']
-    #demo_df['dist_capital'] = common_df['dist_capital']
+    if usa_only:
+        demo_df['bilateral_immigration'] = immigration_df['2010'].astype('float64')
+        demo_df['bilateral_immigration_per'] = immigration_df['2010'].astype('float64') / pop_usa
+        demo_df['bilateral_emigration'] = emigration_df['2010'].astype('float64')
+        demo_df['bilateral_emigration_per'] = emigration_df['2010'].astype('float64') / demo_df['population'].astype('float64')
+        demo_df['import'] = common_df['import'].astype('float64')
+        demo_df['export'] = common_df['export'].astype('float64')
+        demo_df['trade'] = demo_df['import'] + demo_df['export']
+        demo_df['dist_capital'] = common_df['dist_capital']
     demo_df.to_csv('output/demographics.csv')
 
     # Calculate entropy of each source
@@ -127,7 +143,6 @@ def main():
     sum_df = count_df.sum(1)
     fraction_df = count_df.divide(sum_df, axis="index")
     
-    #entropy_df = entropy_df[entropy_df.country=='us']
     print "Removing domestic counts from foreign entropy"
     foreign_df = remove_domestic(count_df)
     # Remove sources with very few international stories
@@ -145,17 +160,19 @@ def main():
 
     # Construct observations for linear regression model
     results = {
-        'country':[], 'source':[], 'type':[], 'population':[], 'total_gdp':[], 'dhl':[], 'migrant_per':[], 'inet_pen':[], 
-        'troop':[],
-#        'bilateral_immigration':[], 'bilateral_emigration':[], 'bilateral_immigration_per':[], 'bilateral_emigration_per':[], 'import':[], 'export':[], 'trade':[], 'dist_capital':[],
-        'attention':[]
+        'country':[], 'source':[], 'type':[], 'population':[], 'total_gdp':[], 'dhl':[], 'migrant_per':[], 'inet_pen':[], 'troop':[], 'attention':[]
     }
+    if usa_only:
+        results.update({
+            'bilateral_immigration':[], 'bilateral_emigration':[], 'bilateral_immigration_per':[], 'bilateral_emigration_per':[], 'import':[], 'export':[], 'trade':[], 'dist_capital':[]
+        })
     foreign_results = {
-        'country':[], 'source':[], 'type':[], 'population':[], 'total_gdp':[], 'dhl':[], 'migrant_per':[], 'inet_pen':[],
-        'troop':[],
-#        'bilateral_immigration':[], 'bilateral_emigration':[], 'bilateral_immigration_per':[], 'bilateral_emigration_per':[], 'import':[], 'export':[], 'trade':[], 'dist_capital':[],
-        'attention':[]
+        'country':[], 'source':[], 'type':[], 'population':[], 'total_gdp':[], 'dhl':[], 'migrant_per':[], 'inet_pen':[], 'troop':[], 'attention':[]
     }
+    if usa_only:
+        foreign_results.update({
+            'bilateral_immigration':[], 'bilateral_emigration':[], 'bilateral_immigration_per':[], 'bilateral_emigration_per':[], 'import':[], 'export':[], 'trade':[], 'dist_capital':[]
+        })
     home_df = count_df.transpose().idxmax()
     for country, col in fraction_df.iteritems():
         for url, attention in col.iteritems():
@@ -168,14 +185,15 @@ def main():
             results['migrant_per'].append(demo_df.loc[country.lower(), 'migrant_per'])
             results['inet_pen'].append(demo_df.loc[country.lower(), 'inet_pen'])
             results['troop'].append(demo_df.loc[country.lower(), 'troop'])
-#            results['bilateral_immigration'].append(demo_df.loc[country.lower(), 'bilateral_immigration'])
-#            results['bilateral_emigration'].append(demo_df.loc[country.lower(), 'bilateral_emigration'])
-#            results['bilateral_immigration_per'].append(demo_df.loc[country.lower(), 'bilateral_immigration_per'])
-#            results['bilateral_emigration_per'].append(demo_df.loc[country.lower(), 'bilateral_emigration_per'])
-#            results['import'].append(demo_df.loc[country.lower(), 'import'])
-#            results['export'].append(demo_df.loc[country.lower(), 'export'])
-#            results['trade'].append(demo_df.loc[country.lower(), 'trade'])
-#            results['dist_capital'].append(demo_df.loc[country.lower(), 'dist_capital'])
+            if usa_only:
+                results['bilateral_immigration'].append(demo_df.loc[country.lower(), 'bilateral_immigration'])
+                results['bilateral_emigration'].append(demo_df.loc[country.lower(), 'bilateral_emigration'])
+                results['bilateral_immigration_per'].append(demo_df.loc[country.lower(), 'bilateral_immigration_per'])
+                results['bilateral_emigration_per'].append(demo_df.loc[country.lower(), 'bilateral_emigration_per'])
+                results['import'].append(demo_df.loc[country.lower(), 'import'])
+                results['export'].append(demo_df.loc[country.lower(), 'export'])
+                results['trade'].append(demo_df.loc[country.lower(), 'trade'])
+                results['dist_capital'].append(demo_df.loc[country.lower(), 'dist_capital'])
             results['attention'].append(attention)
     # Load source info so we can exclude source countries from foreign coverage data
     sources_df = pd.DataFrame.from_csv(sources_file, index_col=None)
@@ -192,15 +210,16 @@ def main():
             foreign_results['dhl'].append(demo_df.loc[country.lower(), 'dhl'])
             foreign_results['migrant_per'].append(demo_df.loc[country.lower(), 'migrant_per'])
             foreign_results['inet_pen'].append(demo_df.loc[country.lower(), 'inet_pen'])
-#            foreign_results['bilateral_immigration'].append(demo_df.loc[country.lower(), 'bilateral_immigration'])
-#            foreign_results['bilateral_emigration'].append(demo_df.loc[country.lower(), 'bilateral_emigration'])
-#            foreign_results['bilateral_immigration_per'].append(demo_df.loc[country.lower(), 'bilateral_immigration_per'])
-#            foreign_results['bilateral_emigration_per'].append(demo_df.loc[country.lower(), 'bilateral_emigration_per'])
             foreign_results['troop'].append(demo_df.loc[country.lower(), 'troop'])
-#            foreign_results['import'].append(demo_df.loc[country.lower(), 'import'])
-#            foreign_results['export'].append(demo_df.loc[country.lower(), 'export'])
-#            foreign_results['trade'].append(demo_df.loc[country.lower(), 'trade'])
-#            foreign_results['dist_capital'].append(demo_df.loc[country.lower(), 'dist_capital'])
+            if usa_only:
+                foreign_results['bilateral_immigration'].append(demo_df.loc[country.lower(), 'bilateral_immigration'])
+                foreign_results['bilateral_emigration'].append(demo_df.loc[country.lower(), 'bilateral_emigration'])
+                foreign_results['bilateral_immigration_per'].append(demo_df.loc[country.lower(), 'bilateral_immigration_per'])
+                foreign_results['bilateral_emigration_per'].append(demo_df.loc[country.lower(), 'bilateral_emigration_per'])
+                foreign_results['import'].append(demo_df.loc[country.lower(), 'import'])
+                foreign_results['export'].append(demo_df.loc[country.lower(), 'export'])
+                foreign_results['trade'].append(demo_df.loc[country.lower(), 'trade'])
+                foreign_results['dist_capital'].append(demo_df.loc[country.lower(), 'dist_capital'])
             foreign_results['attention'].append(attention)
     result_df = pd.DataFrame(results).dropna()
     result_df.to_csv('output/attention.csv')
