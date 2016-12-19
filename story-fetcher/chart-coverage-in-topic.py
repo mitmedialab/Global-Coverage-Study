@@ -53,15 +53,18 @@ cache = hermes.Hermes(hermes.backend.redis.Backend, ttl = 3*86400, host = 'local
 skipped_story_counts = []   # one item per media source
 
 @cache
-def get_stories_from_topic_3(filter_str, link_id):
+def get_stories_from_topic_4(filter_str, link_id):
     return mc.topicStoryList(TOPIC_ID, q=filter_str, limit=STORIES_PER_PAGE, link_id=link_id)
 
 @cache
-def get_stories_3(story_ids):
+def get_stories_4(story_ids):
     if len(story_ids) == 0:
         return []
     str_story_ids = [str(sid) for sid in story_ids]
     return mc.storyList("stories_id:("+" ".join(str_story_ids)+")", rows=STORIES_PER_PAGE)
+
+def get_story_count(q):
+    return mc.topicStoryCount(TOPIC_ID, q=q)
 
 def query_for_media(media_id):
     return config.get('query', 'dates')+' AND +media_id:'+str(media_id)
@@ -79,24 +82,29 @@ def process_media_source(idx, source):
     sources.add(source_url)
     last_processed_stories_id = 0
     filter_str = query_for_media(source['media_id'])
+    # Story count fails for now (https://github.com/berkmancenter/mediacloud/issues/88)
+    #story_count = get_story_count(filter_str)
+    #log.info('    total '+str(story_count)+' stories')
     # page through the stories within this source
     ap_stories = 0
     total_stories = 0
     more_stories = True
     link_id = None
     while more_stories:
-        log.info('    loading stories from '+str(last_processed_stories_id))
+        log.info('    loading stories from '+str(link_id))
         try:
             # query topic to get facebook sharedata
-            topic_stories = get_stories_from_topic_3(filter_str, link_id)
+            topic_stories = get_stories_from_topic_4(filter_str, link_id)
             if 'next' in topic_stories['link_ids']:
                 link_id = topic_stories['link_ids']['next']
-                more_stories = int(link_id) > 0
+                log.info("      "+str(len(topic_stories['stories']))+" stories, next page is "+str(link_id))
+                more_stories = True
             else:
+                log.info("      "+str(len(topic_stories['stories']))+" stories, no more pages")
                 more_stories = False
             story_ids = [s['stories_id'] for s in topic_stories['stories']]
             # query media to get bitly and geo country tags
-            matching_stories = get_stories_3(story_ids)
+            matching_stories = get_stories_4(story_ids)
             if len(matching_stories) != len(topic_stories['stories']):
                 log.error("Only got "+str(len(matching_stories))+" back from storyList, expecting "+str(len(topic_stories['stories'])))
                 sys.exit()
@@ -155,6 +163,7 @@ def process_media_source(idx, source):
 
 # walk through each source, grabbing all the stories and tracking country mentinos
 for idx, source in enumerate(collection.mediaSources()):
+    log.info("")
     log.info("---------------------------------------------------------------------------")
     process_media_source(idx, source)
 #p = Process(target=mapwriter.create_word_map_files, args=(topics_id, timespans_id, file_path))
@@ -169,15 +178,16 @@ with open('output/skipped_ap_story_counts.csv', 'wb') as csv_file:
 
 def write_pairwise_results(filename, results):
     global countries, sources
+    log.info("  writing "+filename)
     with open(filename, 'wb') as f:
         countries = sorted(list(countries))
         urls = sorted(list(sources))
-        log.info('Found urls:')
-        for url in urls:
-            log.info("    %s", url)
-        log.info('Found countries:')
+        #log.info('Found urls:')
+        #for url in urls:
+        #    log.info("    %s", url)
+        #log.info('Found countries:')
         for c in countries:
-            log.info("    %s", c)
+        #    log.info("    %s", c)
             f.write(",%s" % (c,))
         f.write("\n")
         for url in urls:
@@ -189,6 +199,8 @@ def write_pairwise_results(filename, results):
                 f.write(",%f" % count)
             f.write("\n")
 
+log.info("")
+log.info("=================================================================================")
 log.info("writing outputs")
 write_pairwise_results('output/stories-by-source-and-country-no-ap.csv', counts_by_pair)
 write_pairwise_results('output/stories-by-source-and-country-ap.csv', counts_by_pair_ap)
