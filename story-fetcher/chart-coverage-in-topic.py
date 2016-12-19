@@ -12,7 +12,7 @@ import hermes.backend.redis
 
 import mediameter.source
 
-STORIES_PER_PAGE = 10
+STORIES_PER_PAGE = 1000
 
 TOPIC_ID = 1512
 
@@ -53,11 +53,11 @@ cache = hermes.Hermes(hermes.backend.redis.Backend, ttl = 3*86400, host = 'local
 skipped_story_counts = []   # one item per media source
 
 @cache
-def get_stories_from_topic_1(filter_str, link_id):
+def get_stories_from_topic_3(filter_str, link_id):
     return mc.topicStoryList(TOPIC_ID, q=filter_str, limit=STORIES_PER_PAGE, link_id=link_id)
 
 @cache
-def get_stories_1(story_ids):
+def get_stories_3(story_ids):
     if len(story_ids) == 0:
         return []
     str_story_ids = [str(sid) for sid in story_ids]
@@ -88,7 +88,7 @@ def process_media_source(idx, source):
         log.info('    loading stories from '+str(last_processed_stories_id))
         try:
             # query topic to get facebook sharedata
-            topic_stories = get_stories_from_topic_1(filter_str, link_id)
+            topic_stories = get_stories_from_topic_3(filter_str, link_id)
             if 'next' in topic_stories['link_ids']:
                 link_id = topic_stories['link_ids']['next']
                 more_stories = int(link_id) > 0
@@ -96,7 +96,7 @@ def process_media_source(idx, source):
                 more_stories = False
             story_ids = [s['stories_id'] for s in topic_stories['stories']]
             # query media to get bitly and geo country tags
-            matching_stories = get_stories_1(story_ids)
+            matching_stories = get_stories_3(story_ids)
             if len(matching_stories) != len(topic_stories['stories']):
                 log.error("Only got "+str(len(matching_stories))+" back from storyList, expecting "+str(len(topic_stories['stories'])))
                 sys.exit()
@@ -140,7 +140,6 @@ def process_media_source(idx, source):
                 # keep count of the number of AP stories within this source
                 if story['ap_syndicated'] == 1:
                     ap_stories = ap_stories + 1
-            more_stories = False
         except Exception as e:
             # probably a 404, so sleep and then just try again
             log.exception(e)
