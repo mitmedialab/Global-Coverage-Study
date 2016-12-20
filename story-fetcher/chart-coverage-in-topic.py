@@ -63,10 +63,14 @@ def get_stories_4(story_ids):
     str_story_ids = [str(sid) for sid in story_ids]
     return mc.storyList("stories_id:("+" ".join(str_story_ids)+")", rows=STORIES_PER_PAGE)
 
+@cache
 def get_story_count(q):
     return mc.topicStoryCount(TOPIC_ID, q=q)
 
 def query_for_media(media_id):
+    '''
+    I know it is redundance to include the dates again, but why not be double-safe?
+    '''
     return config.get('query', 'dates')+' AND +media_id:'+str(media_id)
 
 def process_media_source(idx, source):
@@ -82,16 +86,18 @@ def process_media_source(idx, source):
     sources.add(source_url)
     last_processed_stories_id = 0
     filter_str = query_for_media(source['media_id'])
-    # Story count fails for now (https://github.com/berkmancenter/mediacloud/issues/88)
-    #story_count = get_story_count(filter_str)
-    #log.info('    total '+str(story_count)+' stories')
+    # Print out stroy count, for good measure
+    media_story_count = get_story_count(filter_str)['count']
+    page_estimate = int(media_story_count/STORIES_PER_PAGE)
+    log.info('    total '+str(media_story_count)+' stories, which would be '+str(page_estimate)+' pages')
     # page through the stories within this source
     ap_stories = 0
     total_stories = 0
     more_stories = True
     link_id = None
+    page = 0
     while more_stories:
-        log.info('    loading stories from '+str(link_id))
+        log.info('    loading stories from '+str(link_id)+" ("+str(page)+"/"+str(page_estimate)+")")
         try:
             # query topic to get facebook sharedata
             topic_stories = get_stories_from_topic_4(filter_str, link_id)
@@ -152,7 +158,9 @@ def process_media_source(idx, source):
             # probably a 404, so sleep and then just try again
             log.exception(e)
             time.sleep(1)
+        page = page + 1
     log.info('  Done with '+source['url']+' ('+source['media_id']+'): '+source['category'])
+    log.info('    did '+str(page)+'/'+str(page_estimate)+' pages')
     skipped_story_counts.append({
         'media_id': source['media_id'],
         'url': source['url'],
